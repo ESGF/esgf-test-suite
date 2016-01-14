@@ -14,6 +14,7 @@ _services = {'idp_node'		: ['esgf-idp'],
 def setup_module():
 	global _conf
 	_conf = config.read_config()
+	requests.packages.urllib3.disable_warnings()
 
 def teardown_module():
 	pass
