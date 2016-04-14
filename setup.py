@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(name='esgf-test-suite',
-      version='0.2.1',
+      version='0.2.2',
       description='Nose scripts for ESGF integration test and validation',
       url='http://github.com/ESGF/esgf-test-suite',
       author='Nicolas Carenton',
