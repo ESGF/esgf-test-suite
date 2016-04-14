@@ -181,7 +181,7 @@ class ThreddsUtils(object):
 
 	def get_projects(self):
 		projects = []
-		main_url = "http://{0}/thredds/catalog.xml".format(self.data_node);
+		main_url = "http://{0}/thredds/catalog/catalog.xml".format(self.data_node);
 
 		try:
 			content = urllib2.urlopen(main_url)
@@ -203,7 +203,7 @@ class ThreddsUtils(object):
 		# Determining number of processes and chunks
 		nb_chunks = multiprocessing.cpu_count() * 16
 
-		# Getting projects href links from main catalog (http://data_node/thredds/catalog.xml)
+		# Getting projects href links from main catalog (http://data_node/thredds/catalog/catalog.xml)
 		projects = self.get_projects()
 
 		# Getting and chunking catalogrefs href links from project catalogs (ex: http://data_node/thredds/geomip/catalog.xml)

@@ -88,8 +88,11 @@ class TestDownload(object):
 		path = self.get_endpoint_path('GridFTP')
 		url = "gsiftp://{0}:2811//{1}".format(self.data_node, path)
 		os.environ['X509_USER_PROXY'] = os.path.expanduser("~/.esg/credentials.pem")
-                os.environ['X509_CERT_DIR'] = os.path.expanduser("~/.esg/certificates")
-		a = subprocess.check_call(["globus-url-copy", "-b", url, "/tmp/dest_file.nc" ])
+		os.environ['X509_CERT_DIR'] = os.path.expanduser("~/.esg/certificates")
+		command = ['globus-url-copy', '-b', url, '/tmp/dest_file.nc']
+		process = subprocess.Popen(command)
+		process.wait()
+		assert process.returncode == 0
 
 	@classmethod
 	def teardown_class(self):
