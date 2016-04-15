@@ -65,7 +65,7 @@ class TestDownload(object):
 			browser.quit()
 			return
 
-		browser.find_by_id('openid_identifier').fill(OpenID)
+		browser.find_by_css('input.custom-combobox-input').fill(OpenID)
  		browser.find_by_value('GO').click()
 
 		browser.find_by_id('password').fill(self.password)
