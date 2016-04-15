@@ -8,7 +8,7 @@ _services = {'idp_node'		: ['esgf-idp'],
 	     'index_node'	: [''],
 	     'compute_node'	: ['las'],
 	     'data_node'	: ['esg-orp',
-                         	   'esgf-desktop',
+                         	   #'esgf-desktop',
                          	   'thredds']}
 
 def setup_module():
