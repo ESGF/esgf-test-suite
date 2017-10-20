@@ -1,7 +1,12 @@
 esgf-test-suite
 ===============
 
-Python nosetests scripts for ESGF integration test and validation
+Python (and bash) nosetests scripts for ESGF integration test and validation
+
+## UPDATE 10/20/2017
+
+ * Adding LLNL scripts to deploy a full node test on a remote VM (controled using vmware vmrun on the local server host OS).  
+
 
 ## Purpose and limits of this tool:
 
