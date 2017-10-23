@@ -11,4 +11,5 @@ esg-node restart
 source /usr/local/conda/bin/activate esgf-pub
 export UVCDAT_ANONYMOUS_LOG=no
 esgtest_publish 2>&1 | tee publish-test.log
-echo add additional python tests
+python /tmp/node_tests.py 2>&1 | tee http-tests.log
+ 

@@ -17,13 +17,26 @@ sleep 60
 scp esg-autoinstall-full.conf $target:/tmp
 scp auto-test.sh $target:/tmp
 scp auto-keypair.exp $target:/tmp
-scp pcmdi8.key cert.cer.txt cachain.pem $target:/tmp
-
+scp pcmdi8.key cert.cer.txt cachain.pe $target:/tmp
+scp node_tests.py $target:/tmp
 
 ssh $target "bash /tmp/auto-test.sh"
 
-scp $target:/usr/local/bin/install-log-2.5.17-full .
 
+datestr=`date | sed s/\ /_/g`
+
+logdir="log-$datestr"
+
+mkdir $logdir
+
+pushd $logdir
+
+scp $target:/usr/local/bin/install-log-2.5.17-full .
+scp $target:/usr/local/bin/keypair-inst.log .
+scp $target:/usr/local/bin/publish-test.log .
+scp $target:/usr/local/bin/http-test.log .
+
+popd
 
 
 
