@@ -17,7 +17,7 @@ sleep 60
 scp esg-autoinstall-full.conf $target:/tmp
 scp auto-test.sh $target:/tmp
 scp auto-keypair.exp $target:/tmp
-scp pcmdi8.key cert.cer.txt cachain.pe $target:/tmp
+scp pcmdi8.key cert.cer.txt cachain.pem $target:/tmp
 scp node_tests.py $target:/tmp
 
 ssh $target "bash /tmp/auto-test.sh"
