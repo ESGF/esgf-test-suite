@@ -34,7 +34,8 @@ pushd $logdir
 scp $target:/usr/local/bin/install-log-2.5.17-full .
 scp $target:/usr/local/bin/keypair-inst.log .
 scp $target:/usr/local/bin/publish-test.log .
-scp $target:/usr/local/bin/http-test.log .
+scp $target:/usr/local/bin/http-tests.log .
+scp $target:/usr/local/bin/node-status.log .
 
 popd
 
