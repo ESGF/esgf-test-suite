@@ -41,3 +41,5 @@ Modify the nodes section. If several nodes are specified, they all should be in 
 ## Usage:
 
      [installation_dir]/esgf-test-suite/runtests.sh
+     
+DISCLAIMER - the scripts in this repo are provided as is - use at your own risk - they have been tested only on a single system and may require modification to work correctly on other systems.
