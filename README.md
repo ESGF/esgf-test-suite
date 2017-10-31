@@ -21,16 +21,27 @@ Current developments will also let admins to test and validate the stack by runn
  - Shell environment  
  - Python 2.6 or higher
  - Firefox
- - globus-url-copy
+ - Globus-url-copy
+ - Nose
+ - Splinter
+ - Pyopenssl
+ - MyProxyClient
+ - Geckodriver
 
-Command for Red Hat / CentOS / Scientifix Linux:
+  * OS packages installation. Command for Red Hat / CentOS / Scientifix Linux:
 
      yum install python-devel openssl-devel libxml2-devel libxslt-devel globus-gass-copy-progs firefox
 
+  * Python packages installation. Command for pip:
 
-## Installation:
+     pip install nose splinter pyopenssl MyProxyClient
 
-     pip install esgf-test-suite
+  * Geckodriver installation:
+
+Just download the last version of the binary [here] (https://github.com/mozilla/geckodriver/releases)
+and add the path of the binary into the PATH environment variable.
+
+    export PATH=/path/to/geckodriver:$PATH
 
 ## Configuration:
 
