@@ -28,13 +28,17 @@ Current developments will also let admins to test and validate the stack by runn
  - MyProxyClient
  - Geckodriver
 
-  * OS packages installation. Command for Red Hat / CentOS / Scientifix Linux:
+  * OS packages installation.
 
+Command for Red Hat / CentOS / Scientifix Linux:
      yum install python-devel openssl-devel libxml2-devel libxslt-devel globus-gass-copy-progs firefox
+
+Command for ubuntu like Linuxes:
+     apt-get install python2.7-dev libssl-dev libxml2-dev libxslt-dev globus-gass-copy-progs firefox
 
   * Python packages installation. Command for pip:
 
-     pip install nose splinter pyopenssl MyProxyClient
+     pip install nose splinter pyopenssl MyProxyClient requests
 
   * Geckodriver installation:
 
