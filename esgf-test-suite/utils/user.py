@@ -13,7 +13,7 @@ class UserUtils(object):
 		r = requests.get("https://{0}/user/add".format(self.idp_server), verify=False, timeout=1)
                 assert r.status_code == 200
 
-		self.browser = Browser('firefox')
+		self.browser = Browser('firefox', headless=True)
 
 		# Mapping user data to fit to web-fe user creation form 
                 self.elements = {'first_name' : self.account['firstname'],
