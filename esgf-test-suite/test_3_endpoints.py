@@ -10,7 +10,7 @@ import utils.configuration as config
 import utils.catalog as cat
 import utils.user as usr
 
-
+import requests
 
 def setup_module():
 	global _mu
@@ -40,33 +40,38 @@ class TestDownload(object):
 		self.password = self.config['account']['password']
 
 	def get_endpoint_path(self, service):
-                if not endpoints:
-                        raise SkipTest("No available endpoints at {1}".format(service, self.data_node))
-                else:
-                        service_endpoints = [i for i in endpoints if service in i[2]] #Sort by service
-                        if not service_endpoints:
-                                raise SkipTest("No available {0} endpoints at {1}".format(service, self.data_node))
-                        else:
-                                path = min(service_endpoints,key=itemgetter(1))[0] #Pick smallest dataset 
-                                return path
+								if not endpoints:
+												raise SkipTest("No available endpoints at {1}".format(service, self.data_node))
+								else:
+												service_endpoints = [i for i in endpoints if service in i[2]] #Sort by service
+												if not service_endpoints:
+																raise SkipTest("No available {0} endpoints at {1}".format(service, self.data_node))
+												else:
+																path = min(service_endpoints,key=itemgetter(1))[0] #Pick smallest dataset 
+																return path
 
 	def test_0_http_browser_download(self):
 		path = self.get_endpoint_path('HTTPServer')
 		url = "http://{0}/thredds/fileServer/{1}".format(self.data_node, path)
-	
+		
+		r = requests.get(url, verify=False, timeout=10, stream=True)
+		
+		# TODO check file hash ==> create a test data set
+
+		if r.status_code == 200:
+			return # as file has been downloaded and credential wasn't needed.
+		
+		# else open a browser and give the credential so as to download the file.
+		
 		OpenID = "https://{0}/esgf-idp/openid/{1}".format(self.idp_node, self.username)
+		
+		pf={'browser.helperApps.neverAsk.saveToDisk':'application/x-netcdf, application/netcdf', 'browser.download.manager.closeWhenDone':True, 'browser.download.manager.showWhenStarting':False}
 
-	        pf={'browser.helperApps.neverAsk.saveToDisk':'application/x-netcdf, application/netcdf'}
-
-		browser = Browser('firefox', profile_preferences=pf)
+		browser = Browser('firefox', profile_preferences=pf, headless=True)
 		browser.visit(url)
 
-		if browser.status_code.is_success() is True:
-			browser.quit()
-			return
-
 		browser.find_by_css('input.custom-combobox-input').fill(OpenID)
- 		browser.find_by_value('GO').click()
+		browser.find_by_value('GO').click()
 
 		browser.find_by_id('password').fill(self.password)
 		browser.find_by_value('SUBMIT').click()
@@ -96,6 +101,6 @@ class TestDownload(object):
 
 	@classmethod
 	def teardown_class(self):
-                # Delete downloaded file
-                if os.path.exists("/tmp/dest_file.nc"):
-                        os.remove("/tmp/dest_file.nc")	
+								# Delete downloaded file
+								if os.path.exists("/tmp/dest_file.nc"):
+												os.remove("/tmp/dest_file.nc")  
