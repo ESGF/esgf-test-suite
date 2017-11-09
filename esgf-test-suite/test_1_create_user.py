@@ -3,7 +3,7 @@ from nose.plugins.skip import Skip, SkipTest
 
 import utils.user as usr
 
-
+from nose.plugins.attrib import attr
 
 def setup_module():
 	global	_usr
@@ -14,7 +14,9 @@ def setup_module():
 def teardown_module():
 	_usr.exit_browser()
 
+@attr ('disable')
 class TestCreateUser(object):
+	
 	def test_create_user(self):
 		if(_usr.user_exists):
                 	raise SkipTest("User already exists")
