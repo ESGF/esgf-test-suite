@@ -8,7 +8,7 @@ import utils.naming as naming
 @attr ('basic')
 class TestWebFrontEnds(AbstractWebFrontEndTestClass):
   
-  _front_ends = ['esgf-slcs/admin']
+  _front_ends = ['esgf-slcs/admin', 'esgf-idp']
   
   def __init__(self):
     AbstractWebFrontEndTestClass.__init__(self, TestWebFrontEnds._front_ends,
