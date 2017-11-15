@@ -1,28 +1,15 @@
-from utils.abstract_basic_test_class import AbstractBasicTestClass
+from utils.abstract_web_frontend_test_class import AbstractWebFrontEndTestClass
 from nose.plugins.attrib import attr
 
-from utils.configuration_exception import ConfigurationException
-
 import utils.naming as naming
-
-from testconfig import config
 
 @attr ('node_components')
 @attr ('index')
 @attr ('basic')
-class TestWebFrontEnds(AbstractBasicTestClass):
+class TestWebFrontEnds(AbstractWebFrontEndTestClass):
   
   _front_ends = ['esgf-slcs/admin']
   
   def __init__(self):
-    err_msg = 'the value of the key ' + naming.IDP_NODE_KEY_NAME + ' in section ' + naming.NODES_SECTION_NAME + ', is not found'
-    
-    try:
-      node_name = config[naming.NODES_SECTION_NAME][naming.IDP_NODE_KEY_NAME]
-    except KeyError:
-      raise ConfigurationException(err_msg)
-      
-    if node_name.isspace():
-      raise ConfigurationException(err_msg)
-    else:
-      AbstractBasicTestClass.__init__(self, TestWebFrontEnds._front_ends, node_name)
+    AbstractWebFrontEndTestClass.__init__(self, TestWebFrontEnds._front_ends,
+                                    naming.IDP_NODE_KEY_NAME)
