@@ -5,16 +5,18 @@ from utils.configuration_exception import ConfigurationException
 
 import utils.naming as naming
 
+from testconfig import config
+
 @attr ('node_components')
 @attr ('index')
 @attr ('basic')
 class TestWebFrontEnds(AbstractBasicTestClass):
   
-  _front_ends = ['solr/#'] #['projects/testproject', 'solr/#', 'esg-search/search', 'esg-orp', 'esgf-auth/home', 'esgf-slcs/admin']
+  _front_ends = ['projects/testproject', 'solr/#', 'esg-search/search', 'esg-orp', 'esgf-auth/home', 'esgf-slcs/admin']
   
   def __init__(self):
     
-    node_name = self._config[naming.INDEX_NODE_KEY]
+    node_name = config[naming.NODES_SECTION_NAME][naming.INDEX_NODE_KEY_NAME]
     if (not node_name) or node_name.isspace():
       raise ConfigurationException('value for the key index_node is not found')
     else:

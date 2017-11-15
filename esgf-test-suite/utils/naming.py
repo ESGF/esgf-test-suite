@@ -2,4 +2,8 @@
 
 ############################ CONFIGURATION KEYS ################################
 
-INDEX_NODE_KEY = 'index_node'
+### SECTION 'NODES'
+
+NODES_SECTION_NAME  = 'nodes'
+
+INDEX_NODE_KEY_NAME = 'index_node'
