@@ -4,7 +4,7 @@ from nose.plugins.attrib import attr
 import utils.naming as naming
 
 @attr ('node_components')
-@attr ('index')
+@attr ('idp')
 @attr ('basic')
 class TestWebFrontEnds(AbstractWebFrontEndTestClass):
   
@@ -12,4 +12,4 @@ class TestWebFrontEnds(AbstractWebFrontEndTestClass):
   
   def __init__(self):
     AbstractWebFrontEndTestClass.__init__(self, TestWebFrontEnds._front_ends,
-                                    naming.IDP_NODE_KEY_NAME)
+                                          naming.IDP_NODE_KEY_NAME)

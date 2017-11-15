@@ -1,11 +1,7 @@
 from utils.abstract_web_frontend_test_class import AbstractWebFrontEndTestClass
 from nose.plugins.attrib import attr
 
-from utils.configuration_exception import ConfigurationException
-
 import utils.naming as naming
-
-from testconfig import config
 
 @attr ('node_components')
 @attr ('index')
@@ -16,4 +12,4 @@ class TestWebFrontEnds(AbstractWebFrontEndTestClass):
   
   def __init__(self):
     AbstractWebFrontEndTestClass.__init__(self, TestWebFrontEnds._front_ends,
-                                    naming.INDEX_NODE_KEY_NAME)
+                                          naming.INDEX_NODE_KEY_NAME)
