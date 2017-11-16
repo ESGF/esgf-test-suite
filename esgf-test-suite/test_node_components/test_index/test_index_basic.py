@@ -12,4 +12,4 @@ class TestWebFrontEnds(AbstractWebFrontEndTestClass):
   
   def __init__(self):
     AbstractWebFrontEndTestClass.__init__(self, TestWebFrontEnds._front_ends,
-                                          naming.INDEX_NODE_KEY_NAME)
+                                          naming.INDEX_NODE_KEY)

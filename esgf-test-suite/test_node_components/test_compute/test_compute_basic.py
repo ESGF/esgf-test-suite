@@ -12,4 +12,4 @@ class TestWebFrontEnds(AbstractWebFrontEndTestClass):
   
   def __init__(self):
     AbstractWebFrontEndTestClass.__init__(self, TestWebFrontEnds._front_ends,
-                                          naming.COMPUTE_NODE_KEY_NAME)
+                                          naming.COMPUTE_NODE_KEY)

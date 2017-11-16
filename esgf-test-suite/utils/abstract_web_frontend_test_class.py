@@ -7,10 +7,10 @@ import utils.naming as naming
 class AbstractWebFrontEndTestClass(object):
   
   def __init__(self, front_ends, node_key_name):
-    err_msg = 'the value of the key ' + node_key_name + ' in section ' + naming.NODES_SECTION_NAME + ', is not found'
+    err_msg = 'the value of the key ' + node_key_name + ' in section ' + naming.NODES_SECTION + ', is not found'
     
     try:
-      node_name = config[naming.NODES_SECTION_NAME][node_key_name]
+      node_name = config[naming.NODES_SECTION][node_key_name]
     except KeyError:
       raise ConfigurationException(err_msg)
 

@@ -54,7 +54,7 @@ Just download the latest version of the binary [here](https://github.com/mozilla
 * Python packages installation. Command for pip:
 
 ```
-pip install nose splinter pyopenssl MyProxyClient requests
+pip install nose splinter pyopenssl MyProxyClient requests nose-testconfig
 ```
 
 ### MacOSX
@@ -76,7 +76,7 @@ Globus-url-copy is part of the Globus Toolkit. You can install Globus Toolkit vi
 * Python packages installation. Command for pip:
 
 ```
-pip install nose splinter pyopenssl MyProxyClient requests
+pip install nose splinter pyopenssl MyProxyClient requests nose-testconfig
 ```
 
 ## Configuration:
