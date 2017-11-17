@@ -145,5 +145,6 @@ More informations about the command line options concerning the configuration [h
 
 * This test suite needs to run and display an instance of Firefox. So if you run this test suite remotely, don't forget to enable X-Forwarding (ssh -Y or -X).
 * This test suite can run with another browser than Firefox, provided a browser driver that will replace Geckodriver and modify your configuration file.
+* Git ignores the geckodriver.log and my\_config.ini files.
 
 DISCLAIMER - the scripts in this repo are provided as is - use at your own risk - they have been tested only on a single system and may require modification to work correctly on other systems.
