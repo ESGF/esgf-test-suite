@@ -46,7 +46,7 @@ Command for Debian like Systems:
 * Geckodriver installation (driver for Firefox):
 
 Just download the latest version of the binary [here](https://github.com/mozilla/geckodriver/releases)
- (according to your OS) and add the path of the binary into the PATH environment variable.
+ (according to your OS) and add the path of the binary into the `PATH` environment variable.
 
     export PATH=/path/to/geckodriver:$PATH
 
@@ -62,7 +62,7 @@ Tested with MacOSX Sierra and Miniconda for Python 2.7
 
 * Geckodriver installation (driver for Firefox):
 
-Just download the latest version of the binary [here](https://github.com/mozilla/geckodriver/releases) (according to your OS) and add the path of the binary into the PATH environment variable.
+Just download the latest version of the binary [here](https://github.com/mozilla/geckodriver/releases) (according to your OS) and add the path of the binary into the `PATH` environment variable.
 
     export PATH=/path/to/geckodriver:$PATH
 
@@ -87,13 +87,13 @@ Modify the nodes section and **save as with a different name** (like my\_config.
 ## Usage:
 
 The following examples except that you run the command in the `[installation_dir]/esgf-test-suite/esgf-test-suite/` directory
-and the configuration file is named `my_config.ini`.
+(yes twice, it is not a mistake) and the configuration file is named `my_config.ini`.
 
 * Run all the tests:
 ```
 nosetests -v --nocapture --nologcapture --tc-file my_config.ini 
 ```
-* Run a set of tests according to given nose attribute (for more information visit this [page](http://nose.readthedocs.io/en/latest/plugins/attrib.html))
+* Run a set of tests according to the given nose attribute (for more information visit this [page](http://nose.readthedocs.io/en/latest/plugins/attrib.html))
 
 This command line execute only the basic tests:
 ```
@@ -101,17 +101,25 @@ nosetests -v --nocapture --nologcapture --tc-file my_config.ini -a 'basic'
 ```
 **Note: attributes and tests relations are described in plan\_test.pdf .**
 
-* Run a subset of tests according to given nose attributes
+* Run a subset of tests according to the given nose attributes
 
-This command line execute only the basic tests for index node (basic *AND* index attributes):
+This command line execute only the basic tests for the index node configured in `my_config.ini` (basic *AND* index attributes):
 ```
 nosetests -v --nocapture --nologcapture --tc-file my_config.ini -a 'basic,index'
 ```
-Note: You may provide as many attributes as you want.
+Note: You may provide as many attributes as you want (logical operator will be *and*).
+
+* Run sets of tests according to the given attributes
+
+This example runs the union of the set of tests for the idp node and the set of tests for the index node (idp *OR* index):
+```
+nosetests -v --nocapture --nologcapture --tc-file my_config.ini -a 'idp' -a 'index'
+```
+Note: You may provide as many '-a' expressions as you want (logical operator will be *or*).
 
 * Run the tests located in a particular directory.
 
-This example runs the tests located in test/test\_node\_components/test\_index .
+This example runs the tests located in test/test\_node\_components/test\_index (the tests for index node).
 ```
 nosetests -v --nocapture --nologcapture --tc-file my_config.ini utils ./test/test_node_components/test_index
 ```
@@ -119,7 +127,7 @@ Note: the `utils` directory is mandatory (esgf-test-suite python libraries).
 
 * Run tests, overring configuration
 
-This example run the basic tests for index node, overring the index node value from the default configuration (it tests the index node of LLNL):
+This example run the basic tests for index node, overring the index node value from the default configuration: it tests the index node of LLNL:
 ```
 nosetests -v --nocapture --nologcapture --tc-file default.ini -a 'basic,index' --tc='nodes.index_node:esgf-node.llnl.gov'
 ```
@@ -127,7 +135,7 @@ Note: the `nodes.index_node` corresponds to the section `nodes` and the key `ind
 
 * Run tests without providing any configuration file:
 
-This example runs the basic tests for he index node of LLNL:
+This example runs the basic tests for the index node of LLNL:
 ```
 nosetests -v --nocapture --nologcapture -a 'basic,index' --tc='nodes.index_node:esgf-node.llnl.gov'
 ```
