@@ -93,6 +93,13 @@ The following examples except that you run the command in the `[installation_dir
 ```
 nosetests -v --nocapture --nologcapture --tc-file my_config.ini 
 ```
+Note: you can set the configuration file to be automatically loaded with the environment variable `NOSE_TESTCONFIG_AUTOLOAD_INI`:
+
+```
+export NOSE_TESTCONFIG_AUTOLOAD_INI=/path/to/my_config.ini
+nosetests -v --nocapture --nologcapture
+```
+
 * Run a set of tests according to the given nose attribute (for more information visit this [page](http://nose.readthedocs.io/en/latest/plugins/attrib.html))
 
 This command line execute only the basic tests:
