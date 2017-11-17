@@ -9,7 +9,7 @@ ESGF Test Suite is a full python application.
 
 It is designed to perform integration tests on ESGF nodes.
 The tests are organized as a acyclic graph and they can be refered to with a set of attributes.
-In the given test\_plan.pdf, the leaf are the tests and the non terminal nodes are the attributes.
+In the ./esgf-test-suite/doc/test\_plan.pdf, the leaf are the tests and the non terminal nodes are the attributes.
 The underlined tests are implemented.
 
 ESGF Test Suite offers to run high level tests from a desktop so the tested node can be validated from the end user perspective.
@@ -106,7 +106,7 @@ This command line execute only the basic tests:
 ```
 nosetests -v --nocapture --nologcapture --tc-file my_config.ini -a 'basic'
 ```
-**Note: attributes and tests relations are described in plan\_test.pdf .**
+**Note: attributes and tests relations are described in ./esgf-test-suite/doc/plan\_test.pdf .**
 
 * Run a subset of tests according to the given nose attributes
 
