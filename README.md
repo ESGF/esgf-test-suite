@@ -80,7 +80,7 @@ pip install nose splinter pyopenssl MyProxyClient requests nose-testconfig
 
 ## Configuration:
 
-     vi [installation_dir]/esgf-test-suite/default.ini   
+     vi [installation_dir]/esgf-test-suite/esgf-test-suite/default.ini   
 
 Modify the nodes section and **save as with a different name** (like my\_config.ini). If several nodes are specified, they all should be in the same federation. Account section do not need to be modified.
 
