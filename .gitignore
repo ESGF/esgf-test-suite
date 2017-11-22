@@ -1,4 +1,4 @@
 *.pyc
 *~
 geckodriver.log
-my_config.ini
+my_config*.ini
