@@ -12,8 +12,9 @@ class UserUtils(object):
     self.idp_server = config[naming.NODES_SECTION][naming.IDP_NODE_KEY]
     
     # Abort test if esgf-web-fe is not reachable
-    r = requests.get("https://{0}/user/add".format(self.idp_server), verify=False, timeout=1)
-    assert r.status_code == 200
+    url = "https://{0}/user/add".format(self.idp_server)
+    r = requests.get(url, verify=False, timeout=1)
+    assert r.status_code == 200, "Fail to connect to '" + url + "'"
 
     # Mapping user data to fit to web-fe user creation form 
     self.elements = {'first_name'       : self.account[naming.USER_FIRST_NAME_KEY],
@@ -26,6 +27,17 @@ class UserUtils(object):
                      'city'             : self.account[naming.USER_CITY_KEY],
                      'country'          : self.account[naming.USER_COUNTRY_KEY]}
 
+  def check_user_login(self, browser):
+    self.check_user_exists(browser)
+    err_msg = "User '{0}' doesn't exit for '{1}'".format(self.account[naming.USER_NAME_KEY], self.idp_server)
+    assert(self.user_exists), err_msg
+    
+    browser.find_by_id('username').fill(self.account[naming.USER_NAME_KEY])
+    browser.find_by_id('password').fill(self.account[naming.USER_PASSWORD_KEY])
+    browser.find_by_value('SUBMIT').click()
+    err_msg = "Fail to login with user '{0}' for '{1}'".format(self.account[naming.USER_NAME_KEY], self.idp_server)
+    assert(not browser.is_text_present('Invalid OpenID and/or Password combination')), err_msg
+  
   def check_user_exists(self, browser):
     URL = "https://{0}/login".format(self.idp_server)
     OpenID = "https://{0}/esgf-idp/openid/{1}".format(self.idp_server, self.account['username'])

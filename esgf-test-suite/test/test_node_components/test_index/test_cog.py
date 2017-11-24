@@ -13,22 +13,26 @@ import utils.naming as naming
 @attr ('node_components')
 @attr ('index')
 @attr ('cog')
-class TestCreateUser(AbstractBrowserBasedTest):
+class TestCog(AbstractBrowserBasedTest):
   
   def __init__(self):
       
     AbstractBrowserBasedTest.__init__(self)
+    self.usr = user.UserUtils()
+
+  def test_user_login(self):
+
+    self.usr.check_user_login(globals.browser)    
 
 #  def test_create_user(self):
 
-#    usr = user.UserUtils()
-#    usr.check_user_exists(globals.browser)
+#    self.usr.check_user_exists(globals.browser)
     
-#    if(usr.user_exists):
+#    if(self.usr.user_exists):
 #      raise SkipTest("User already exists")
     
     # Create user
-#    usr.create_user(globals.browser)
+#    self.usr.create_user(globals.browser)
     # Test output from create_user and eventually print error message
-#    assert(isinstance(usr.response, list)), "Didn't get any CoG response"
-#    assert(usr.response[0] == naming.SUCCESS), "fail to create user '" + usr.account[naming.USER_NAME_KEY] + "'"
+#    assert(isinstance(self.usr.response, list)), "Didn't get any CoG response"
+#    assert(self.usr.response[0] == naming.SUCCESS), "fail to create user '" + self.usr.account[naming.USER_NAME_KEY] + "'"

@@ -5,7 +5,7 @@ FALSE = 'false'
 SUCCESS = 'SUCCESS'
 FAILURE = 'FAILURE'
 
-IS_DEBUG = False
+IS_DEBUG = True
 
 ############################ CONFIGURATION KEYS ################################
 
