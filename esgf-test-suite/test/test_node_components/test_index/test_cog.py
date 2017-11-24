@@ -15,9 +15,9 @@ import utils.naming as naming
 @attr ('cog')
 class TestCreateUser(AbstractBrowserBasedTest):
   
-    def __init__(self):
+  def __init__(self):
       
-      AbstractBrowserBasedTest.__init__(self)
+    AbstractBrowserBasedTest.__init__(self)
 
 #  def test_create_user(self):
 
@@ -30,5 +30,5 @@ class TestCreateUser(AbstractBrowserBasedTest):
     # Create user
 #    usr.create_user(globals.browser)
     # Test output from create_user and eventually print error message
-#    assert(isinstance(usr.response, list))
-#    assert(usr.response[0] == naming.SUCCESS), usr.response
+#    assert(isinstance(usr.response, list)), "Didn't get any CoG response"
+#    assert(usr.response[0] == naming.SUCCESS), "fail to create user '" + usr.account[naming.USER_NAME_KEY] + "'"

@@ -23,7 +23,7 @@ class AbstractWebFrontEndTestClass(object):
   
   def check_url(self, url):
     r = requests.get(url, verify=False, timeout=5)
-    assert r.status_code == 200
+    assert r.status_code == 200, "fail to connect to '" + url + "'"
 
   def test_frontends_availability(self):
     for front_end in self._front_ends:
