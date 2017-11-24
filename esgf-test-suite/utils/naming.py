@@ -1,12 +1,3 @@
-
-TRUE = 'true'
-FALSE = 'false'
-
-SUCCESS = 'SUCCESS'
-FAILURE = 'FAILURE'
-
-IS_DEBUG = True
-
 ############################ CONFIGURATION KEYS ################################
 
 ### SECTION 'NODES'
@@ -37,3 +28,24 @@ BROWSER_SECTION         = 'browser'
 
 BROWSER_KEY             = 'soft'
 BROWSER_IS_HEADLESS_KEY = 'is_headless'
+
+### SECTION 'COG'
+
+COG_SECTION        = 'cog'
+
+ADMIN_USERNAME_KEY = 'admin_username'
+ADMIN_PASSWORD_KEY = 'admin_password'
+
+### SECTION 'SYSTEM'
+
+SYSTEM_SECTION = 'sys'
+
+IS_DEBUG_KEY   = 'is_debug'
+
+############################### CONSTANTES #####################################
+
+TRUE = 'true'
+FALSE = 'false'
+
+SUCCESS = 'SUCCESS'
+FAILURE = 'FAILURE'

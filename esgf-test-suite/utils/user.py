@@ -4,6 +4,8 @@ from splinter import Browser
 from testconfig import config
 import utils.naming as naming
 
+import time
+
 class UserUtils(object):
 
   def __init__(self):
@@ -27,7 +29,7 @@ class UserUtils(object):
                      'city'             : self.account[naming.USER_CITY_KEY],
                      'country'          : self.account[naming.USER_COUNTRY_KEY]}
 
-  def check_user_login(self, browser):
+  def login_user(self, browser):
     self.check_user_exists(browser)
     err_msg = "User '{0}' doesn't exit for '{1}'".format(self.account[naming.USER_NAME_KEY], self.idp_server)
     assert(self.user_exists), err_msg
@@ -46,7 +48,7 @@ class UserUtils(object):
     browser.visit(URL)
     browser.find_by_id('openid_identifier').fill(OpenID)
     browser.find_by_value('Login').click()
-
+    
     # User does not exist if unable to resolve OpenID
     if(browser.is_text_present("OpenID Discovery Error: unrecognized by the Identity Provider.")):
       self.user_exists = False

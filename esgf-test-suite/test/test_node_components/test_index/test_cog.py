@@ -10,6 +10,8 @@ from utils.abstract_browser_based_test import AbstractBrowserBasedTest
 import utils.globals as globals
 import utils.naming as naming
 
+from testconfig import config
+
 @attr ('node_components')
 @attr ('index')
 @attr ('cog')
@@ -22,7 +24,18 @@ class TestCog(AbstractBrowserBasedTest):
 
   def test_user_login(self):
 
-    self.usr.check_user_login(globals.browser)    
+    self.usr.login_user(globals.browser)    
+
+  def test_root_login(self):
+    
+    url = "https://{0}/login2".format(config[naming.NODES_SECTION][naming.IDP_NODE_KEY])
+    globals.browser.visit(url)
+    globals.browser.find_by_id('id_username').fill(config[naming.COG_SECTION][naming.ADMIN_USERNAME_KEY])
+    globals.browser.find_by_id('id_password').fill(config[naming.COG_SECTION][naming.ADMIN_PASSWORD_KEY])
+    globals.browser.find_by_value('Login').click()
+    
+    err_msg = "Fail to connect to admin page of '{0}'".format(config[naming.NODES_SECTION][naming.IDP_NODE_KEY])
+    assert(not globals.browser.is_text_present("Your username and password didn't match. Please try again")), err_msg
 
 #  def test_create_user(self):
 
