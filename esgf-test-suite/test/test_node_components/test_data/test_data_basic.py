@@ -13,3 +13,15 @@ class TestWebFrontEnds(AbstractWebFrontEndTestClass):
   def __init__(self):
     AbstractWebFrontEndTestClass.__init__(self, TestWebFrontEnds._front_ends,
                                           naming.DATA_NODE_KEY)
+
+@attr ('node_components')
+@attr ('data')
+@attr ('basic')
+@attr ('docker')
+class TestWebFrontEnds(AbstractWebFrontEndTestClass):
+  
+  _front_ends = ['thredds', 'esg-orp', 'esgf-auth/home']
+  
+  def __init__(self):
+    AbstractWebFrontEndTestClass.__init__(self, TestWebFrontEnds._front_ends,
+                                          naming.DATA_NODE_KEY)

@@ -9,7 +9,7 @@ import utils.naming as naming
 @attr ('docker')
 class TestDockerWebFrontEnds(AbstractWebFrontEndTestClass):
   
-  _front_ends = ['projects/testproject', 'solr/#', 'esg-search/search', 'esg-orp', 'esgf-auth/home', 'esgf-slcs/admin']
+  _front_ends = ['projects/testproject', 'solr/#', 'esg-search/search', 'esg-orp']
   
   def __init__(self):
     AbstractWebFrontEndTestClass.__init__(self, TestWebFrontEnds._front_ends,
