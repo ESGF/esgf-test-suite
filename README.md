@@ -82,8 +82,29 @@ pip install nose splinter pyopenssl MyProxyClient requests nose-testconfig nose-
 
      vi [installation_dir]/esgf-test-suite/esgf-test-suite/default.ini   
 
-Modify the nodes section and **save as with a different name** (like my\_config.ini). If several nodes are specified, they all should be in the same federation. Account section do not need to be modified.
+* Modify the section `[nodes]` and **save as with a different name** (like my\_config.ini).
+  If several nodes are specified, they all should be in the same federation. Account section do not need to be modified.
 
+```
+[nodes]
+idp_node = my-node.esgf.org
+data_node = my-node.esgf.org
+compute_node = my-node.esgf.org
+index_node = my-node.esgf.org
+```
+* Select the superset of tests that corresponds to your type of ESGF stack installation with the configuration entry `type` in section `[test]`:
+
+Choose the value `classic` to run the set of tests that aim a 'classical' installation of ESGF stack:
+```
+[test]
+type = classic
+```
+
+Choose the value `docker` to run the set of tests that aim a 'docker' installation of ESGF stack:
+```
+[test]
+type = docker
+```
 ## Usage:
 
 The following examples except that you run the command in the `[installation_dir]/esgf-test-suite/esgf-test-suite/` directory
