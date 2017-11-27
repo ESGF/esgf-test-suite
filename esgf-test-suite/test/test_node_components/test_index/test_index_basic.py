@@ -1,8 +1,7 @@
 from utils.abstract_web_frontend_test_class import AbstractWebFrontEndTestClass
 from nose.plugins.attrib import attr
 
-import utils.naming as naming
-from testconfig import config
+import utils.configuration as config
 
 @attr ('node_components')
 @attr ('index')
@@ -14,9 +13,9 @@ class TestWebFrontEnds(AbstractWebFrontEndTestClass):
   
   def __init__(self):
     
-    if config[naming.TEST_SECTION][naming.TYPE_KEY].lower() == naming.DOCKER_TEST_SET_NAME:
+    if config.get(config.TEST_SECTION, config.TYPE_KEY).lower() == config.DOCKER_TEST_SET_NAME:
       front_ends=TestWebFrontEnds._front_ends_docker
     else:
       front_ends=TestWebFrontEnds._front_ends_installer
         
-    AbstractWebFrontEndTestClass.__init__(self, front_ends, naming.INDEX_NODE_KEY)
+    AbstractWebFrontEndTestClass.__init__(self, front_ends, config.INDEX_NODE_KEY)

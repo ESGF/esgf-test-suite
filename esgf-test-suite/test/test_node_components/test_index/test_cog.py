@@ -10,9 +10,7 @@ from utils.abstract_browser_based_test import AbstractBrowserBasedTest
 import utils.globals as globals
 import utils.naming as naming
 
-from testconfig import config
-
-import utils.browser_utils as browser_utils
+import utils.configuration as config
 
 @attr ('node_components')
 @attr ('index')
@@ -30,17 +28,18 @@ class TestCog(AbstractBrowserBasedTest):
 
   def test_root_login(self):
     
-    url = "https://{0}/login2".format(config[naming.NODES_SECTION][naming.IDP_NODE_KEY])
+    idp_node=config.get(config.NODES_SECTION, config.IDP_NODE_KEY)
+    url = "https://{0}/login2".format(idp_node)
     globals.browser.visit(url)
-    globals.browser.find_by_id('id_username').fill(config[naming.COG_SECTION][naming.ADMIN_USERNAME_KEY])
-    globals.browser.find_by_id('id_password').fill(config[naming.COG_SECTION][naming.ADMIN_PASSWORD_KEY])
+    globals.browser.find_by_id('id_username').fill(config.get(config.COG_SECTION, config.ADMIN_USERNAME_KEY))
+    globals.browser.find_by_id('id_password').fill(config.get(config.COG_SECTION, config.ADMIN_PASSWORD_KEY))
     globals.browser.find_by_value('Login').click()
     
     def func():
       return globals.browser.is_text_not_present("Your username and password didn't match. Please try again")
    
     is_passed = self.find_or_wait_until(func, "root login")
-    err_msg = "Fail to connect to admin page of '{0}'".format(config[naming.NODES_SECTION][naming.IDP_NODE_KEY])
+    err_msg = "Fail to connect to admin page of '{0}'".format(config.get(config.NODES_SECTION, config.IDP_NODE_KEY))
     assert(is_passed), err_msg
 
   def test_create_user(self):
@@ -54,4 +53,4 @@ class TestCog(AbstractBrowserBasedTest):
     self.usr.create_user(globals.browser)
     # Test output from create_user and eventually print error message
     assert(isinstance(self.usr.response, list)), "Didn't get any CoG response"
-    assert(self.usr.response[0] == naming.SUCCESS), "fail to create user '" + self.usr.account[naming.USER_NAME_KEY] + "'"
+    assert(self.usr.response[0] == naming.SUCCESS), "fail to create user '" + self.usr.account[config.USER_NAME_KEY] + "'"

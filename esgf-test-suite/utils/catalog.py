@@ -8,8 +8,6 @@ from StringIO import StringIO
 
 import configuration as config
 
-
-
 class ThreddsUtils(object):
         def __init__(self):
 		# init

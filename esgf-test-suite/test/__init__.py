@@ -1,5 +1,4 @@
 import utils.globals as globals
-import utils.naming as naming
 
 def teardown_package():
   

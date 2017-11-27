@@ -1,7 +1,7 @@
 from utils.abstract_web_frontend_test_class import AbstractWebFrontEndTestClass
 from nose.plugins.attrib import attr
 
-import utils.naming as naming
+import utils.configuration as config
 
 @attr ('node_components')
 @attr ('compute')
@@ -12,4 +12,4 @@ class TestWebFrontEnds(AbstractWebFrontEndTestClass):
   
   def __init__(self):
     AbstractWebFrontEndTestClass.__init__(self, TestWebFrontEnds._front_ends,
-                                          naming.COMPUTE_NODE_KEY)
+                                          config.COMPUTE_NODE_KEY)

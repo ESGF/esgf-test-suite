@@ -1,9 +1,8 @@
 
-from testconfig import config
-
 import utils.naming as naming
+import utils.configuration as config
 
-is_debug = config[naming.SYSTEM_SECTION][naming.IS_DEBUG_KEY].lower() == naming.TRUE
+is_debug = config.get(config.SYSTEM_SECTION, config.IS_DEBUG_KEY).lower() == naming.TRUE
 
 browser = None
 

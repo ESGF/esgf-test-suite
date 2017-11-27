@@ -6,8 +6,7 @@ from utils.abstract_myproxy_based_test import AbstractMyproxyBasedTest
 import utils.globals as globals
 from nose.plugins.attrib import attr
 
-from testconfig import config
-import utils.naming as naming
+import utils.configuration as config
 
 @attr ('node_components')
 @attr ('idp')
@@ -27,7 +26,7 @@ class TestMyProxy(AbstractMyproxyBasedTest):
         cert = crypto.load_certificate(crypto.FILETYPE_PEM, fileContents)
         assert(isinstance(cert, crypto.X509)), "Unsupported certificate format '{0}'".format(cert)
         subj = cert.get_subject()
-        err_msg = "Fail to get the trusted root certificates for '{0}'".format(config[naming.NODES_SECTION][naming.IDP_NODE_KEY])
+        err_msg = "Fail to get the trusted root certificates for '{0}'".format(config.get(config.NODES_SECTION, config.IDP_NODE_KEY))
         assert(subj), err_msg
 
   def test_get_credentials(self):
