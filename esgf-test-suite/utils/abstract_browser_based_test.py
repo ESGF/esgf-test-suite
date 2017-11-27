@@ -17,7 +17,8 @@ class AbstractBrowserBasedTest(object):
     if globals.browser == None:
       
       soft = config.get(config.BROWSER_SECTION, config.BROWSER_KEY)
-      is_headless = config.get(config.BROWSER_SECTION, config.BROWSER_IS_HEADLESS_KEY).lower() == naming.TRUE
+      is_headless = config.get(config.BROWSER_SECTION,
+                               config.BROWSER_IS_HEADLESS_KEY).lower() == naming.TRUE
       globals.browser = Browser(soft, headless=is_headless)
       urllib3.disable_warnings()
       
