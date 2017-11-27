@@ -106,7 +106,7 @@ Choose the value `docker` to run the set of tests that aim a 'docker' installati
 type = docker
 ```
 
-Note: esgf-test-suite raise a ConfigurationException if the configuration file is wrong or incomplete.
+Note: esgf-test-suite raises a ConfigurationException if the configuration file is wrong or incomplete.
 
 ## Usage:
 
