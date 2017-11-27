@@ -36,6 +36,12 @@ COG_SECTION        = 'cog'
 ADMIN_USERNAME_KEY = 'admin_username'
 ADMIN_PASSWORD_KEY = 'admin_password'
 
+### SECTION 'TEST'
+
+TEST_SECTION = 'test'
+
+TYPE_KEY     = 'type'
+
 ### SECTION 'SYSTEM'
 
 SYSTEM_SECTION = 'sys'
@@ -49,3 +55,6 @@ FALSE = 'false'
 
 SUCCESS = 'SUCCESS'
 FAILURE = 'FAILURE'
+
+DOCKER_TEST_SET_NAME = 'docker'
+CLASSIC_TEST_SET_NAME = 'classic'
