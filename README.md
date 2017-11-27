@@ -53,7 +53,7 @@ Just download the latest version of the binary [here](https://github.com/mozilla
 * Python packages installation. Command for pip:
 
 ```
-pip install nose splinter pyopenssl MyProxyClient requests nose-testconfig
+pip install nose splinter pyopenssl MyProxyClient requests nose-testconfig nose-htmloutput
 ```
 
 ### MacOSX
@@ -75,7 +75,7 @@ Globus-url-copy is part of the Globus Toolkit. You can install Globus Toolkit vi
 * Python packages installation. Command for pip:
 
 ```
-pip install nose splinter pyopenssl MyProxyClient requests nose-testconfig
+pip install nose splinter pyopenssl MyProxyClient requests nose-testconfig nose-htmloutput
 ```
 
 ## Configuration:
@@ -99,6 +99,8 @@ Note: you can set the configuration file to be automatically loaded with the env
 export NOSE_TESTCONFIG_AUTOLOAD_INI=/path/to/my_config.ini
 nosetests -v --nocapture --nologcapture
 ```
+
+Note: you can generate a nice htlm report with the option `--with-html` (default report file name is 'nosetests.html')
 
 * Run a set of tests according to the given nose attribute (for more information visit this [page](http://nose.readthedocs.io/en/latest/plugins/attrib.html))
 
