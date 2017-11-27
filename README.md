@@ -105,6 +105,9 @@ Choose the value `docker` to run the set of tests that aim a 'docker' installati
 [test]
 type = docker
 ```
+
+Note: esgf-test-suite raise a ConfigurationException if the configuration file is wrong or incomplete.
+
 ## Usage:
 
 The following examples except that you run the command in the `[installation_dir]/esgf-test-suite/esgf-test-suite/` directory
