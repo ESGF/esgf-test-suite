@@ -12,6 +12,8 @@ import utils.naming as naming
 
 from testconfig import config
 
+import utils.browser_utils as browser_utils
+
 @attr ('node_components')
 @attr ('index')
 @attr ('cog')
@@ -34,18 +36,22 @@ class TestCog(AbstractBrowserBasedTest):
     globals.browser.find_by_id('id_password').fill(config[naming.COG_SECTION][naming.ADMIN_PASSWORD_KEY])
     globals.browser.find_by_value('Login').click()
     
+    def func():
+      return globals.browser.is_text_not_present("Your username and password didn't match. Please try again")
+   
+    is_passed = self.find_or_wait_until(func, "root login")
     err_msg = "Fail to connect to admin page of '{0}'".format(config[naming.NODES_SECTION][naming.IDP_NODE_KEY])
-    assert(not globals.browser.is_text_present("Your username and password didn't match. Please try again")), err_msg
+    assert(is_passed), err_msg
 
-#  def test_create_user(self):
+  def test_create_user(self):
 
-#    self.usr.check_user_exists(globals.browser)
+    does_user_exist=self.usr.check_user_exists(globals.browser)
     
-#    if(self.usr.user_exists):
-#      raise SkipTest("User already exists")
+    if(does_user_exist):
+      raise SkipTest("User already exists")
     
     # Create user
-#    self.usr.create_user(globals.browser)
+    self.usr.create_user(globals.browser)
     # Test output from create_user and eventually print error message
-#    assert(isinstance(self.usr.response, list)), "Didn't get any CoG response"
-#    assert(self.usr.response[0] == naming.SUCCESS), "fail to create user '" + self.usr.account[naming.USER_NAME_KEY] + "'"
+    assert(isinstance(self.usr.response, list)), "Didn't get any CoG response"
+    assert(self.usr.response[0] == naming.SUCCESS), "fail to create user '" + self.usr.account[naming.USER_NAME_KEY] + "'"
