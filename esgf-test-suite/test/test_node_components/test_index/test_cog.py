@@ -53,4 +53,4 @@ class TestCog(AbstractBrowserBasedTest):
     self.usr.create_user(globals.browser)
     # Test output from create_user and eventually print error message
     assert(isinstance(self.usr.response, list)), "Didn't get any CoG response"
-    assert(self.usr.response[0] == naming.SUCCESS), "fail to create user '" + self.usr.account[config.USER_NAME_KEY] + "'"
+    assert(self.usr.response[0] == naming.SUCCESS), "Fail to create user '" + config.get(config.ACCOUNT_SECTION, config.USER_NAME_KEY) + "'"
