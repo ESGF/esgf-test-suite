@@ -88,6 +88,7 @@ class UserUtils(object):
     return does_user_exist
     
   def create_user(self, browser):
+    
     URL = "https://{0}/user/add".format(self.idp_server)
     browser.visit(URL)
   

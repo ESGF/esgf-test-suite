@@ -47,7 +47,7 @@ class TestDataDownload(AbstractBrowserBasedTest, AbstractMyproxyBasedTest):
         return path
   
   @attr ('dl_http')
-  def test_http_browser_download(self):
+  def test_0_http_browser_download(self):
     path = self.get_endpoint_path('HTTPServer')
     url = "http://{0}/thredds/fileServer/{1}".format(self.data_node, path)
     
@@ -84,7 +84,7 @@ class TestDataDownload(AbstractBrowserBasedTest, AbstractMyproxyBasedTest):
       globals.browser.find_by_id('goButton').click()
   
   @attr ('dl_globus')
-  def test_globus_url_copy(self):
+  def test_1_globus_url_copy(self):
     path = self.get_endpoint_path('GridFTP')
     url = "gsiftp://{0}:2811//{1}".format(self.data_node, path)
     os.environ['X509_USER_PROXY'] = globals.myproxy_utils.credsfile

@@ -23,29 +23,32 @@ class TestCog(AbstractBrowserBasedTest):
     self.usr = user.UserUtils()
   
   @attr ('cog_user_login')
-  def test_user_login(self):
+  def test_1_user_login(self):
 
     self.usr.login_user(globals.browser)    
     
   @attr ('cog_root_login')
-  def test_root_login(self):
+  def test_2_root_login(self):
     
     idp_node=config.get(config.NODES_SECTION, config.IDP_NODE_KEY)
     url = "https://{0}/login2".format(idp_node)
     globals.browser.visit(url)
-    globals.browser.find_by_id('id_username').fill(config.get(config.COG_SECTION, config.ADMIN_USERNAME_KEY))
-    globals.browser.find_by_id('id_password').fill(config.get(config.COG_SECTION, config.ADMIN_PASSWORD_KEY))
+    globals.browser.find_by_id('id_username').fill(
+      config.get(config.COG_SECTION, config.ADMIN_USERNAME_KEY))
+    globals.browser.find_by_id('id_password').fill(
+      config.get(config.COG_SECTION, config.ADMIN_PASSWORD_KEY))
     globals.browser.find_by_value('Login').click()
     
     def func():
       return globals.browser.is_text_not_present("Your username and password didn't match. Please try again")
    
     is_passed = self.find_or_wait_until(func, "root login")
-    err_msg = "Fail to connect to admin page of '{0}'".format(config.get(config.NODES_SECTION, config.IDP_NODE_KEY))
+    err_msg = "Fail to connect to admin page of '{0}'".\
+      format(config.get(config.NODES_SECTION, config.IDP_NODE_KEY))
     assert(is_passed), err_msg
     
   @attr ('cog_create_user')
-  def test_create_user(self):
+  def test_0_create_user(self):
 
     does_user_exist=self.usr.check_user_exists(globals.browser)
     
@@ -56,4 +59,12 @@ class TestCog(AbstractBrowserBasedTest):
     self.usr.create_user(globals.browser)
     # Test output from create_user and eventually print error message
     assert(isinstance(self.usr.response, list)), "Didn't get any CoG response"
-    assert(self.usr.response[0] == naming.SUCCESS), "Fail to create user '" + config.get(config.ACCOUNT_SECTION, config.USER_NAME_KEY) + "'"
+    
+    err_msg = "Fail to create user '{0}' in {1}. May be the captcha is on. "\
+              "Check if USE_CAPTCHA in "\
+              "/usr/local/cog/cog_config/cog_settings.cfg is set to False and "\
+              "restart esg-node.".format(config.get(config.ACCOUNT_SECTION,
+                                                    config.USER_NAME_KEY),
+                                         config.get(config.NODES_SECTION,
+                                                    config.IDP_NODE_KEY))
+    assert(self.usr.response[0] == naming.SUCCESS), err_msg
