@@ -6,7 +6,7 @@ import utils.configuration as config
 @attr ('node_components')
 @attr ('data')
 @attr ('basic')
-@attr ('stats')
+@attr ('statistics')
 class TestStatsFrontEnds(AbstractWebFrontEndTestClass):
   
   _stats_api = ['esgf-stats-api/cmip5/stats-by-space/xml',
