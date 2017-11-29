@@ -82,8 +82,6 @@ class TestDataDownload(AbstractBrowserBasedTest, AbstractMyproxyBasedTest):
 
       # Clicking on 'Download data button'
       globals.browser.find_by_id('goButton').click()
-
-    globals.browser.quit()
   
   @attr ('dl_globus')
   def test_globus_url_copy(self):
@@ -94,7 +92,7 @@ class TestDataDownload(AbstractBrowserBasedTest, AbstractMyproxyBasedTest):
     command = ['globus-url-copy', '-b', url, TestDataDownload._DOWNLOADED_FILE_PATH]
     process = subprocess.Popen(command)
     process.wait()
-    assert process.returncode == 0
+    assert(process.returncode == 0), "Fail to download by GridFTP"
 
   @classmethod
   def teardown_class(self):

@@ -7,22 +7,30 @@ from OpenSSL import crypto
 import utils.configuration as config
 import utils.naming as naming
 
+import errno
+from socket import error as socket_error
+
 class MyProxyUtils(object):
   
   def __init__(self):
     
     self.cacertdir = os.path.expanduser(naming.CA_CERT_DIR_PATH)
     self.credsfile = os.path.expanduser(naming.CREDENTIALS_FILE_PATH)
-    idp_addr= config.get(config.NODES_SECTION, config.IDP_NODE_KEY).encode('ascii', 'replace')
-    self.myproxy = MyProxyClient(hostname=idp_addr)
+    self.idp_addr= config.get(config.NODES_SECTION, config.IDP_NODE_KEY).encode('ascii', 'replace')
+    self.myproxy = MyProxyClient(hostname=self.idp_addr)
     self.myproxy._setCACertDir(self.cacertdir)
 
 
   def get_trustroots(self):
     # Get trust roots
-    self.trustRoots = self.myproxy.getTrustRoots(config.get(config.ACCOUNT_SECTION, config.USER_NAME_KEY),
-                        config.get(config.ACCOUNT_SECTION, config.USER_PASSWORD_KEY),
-                        writeToCACertDir=True, bootstrap=True)
+    try:
+      self.trustRoots = self.myproxy.getTrustRoots(config.get(config.ACCOUNT_SECTION, config.USER_NAME_KEY),
+                          config.get(config.ACCOUNT_SECTION, config.USER_PASSWORD_KEY),
+                          writeToCACertDir=True, bootstrap=True)
+    except socket_error as serr:
+      if serr.errno == errno.ECONNREFUSED:
+        err = socket_error("unable to connect to myproxy server in {0}".format(self.idp_addr))
+        raise err
 
   def get_credentials(self):
     # Get credentials (and trustroots)
