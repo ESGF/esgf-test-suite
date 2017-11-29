@@ -21,11 +21,13 @@ class TestCog(AbstractBrowserBasedTest):
       
     AbstractBrowserBasedTest.__init__(self)
     self.usr = user.UserUtils()
-
+  
+  @attr ('cog_user_login')
   def test_user_login(self):
 
     self.usr.login_user(globals.browser)    
-
+    
+  @attr ('cog_root_login')
   def test_root_login(self):
     
     idp_node=config.get(config.NODES_SECTION, config.IDP_NODE_KEY)
@@ -41,7 +43,8 @@ class TestCog(AbstractBrowserBasedTest):
     is_passed = self.find_or_wait_until(func, "root login")
     err_msg = "Fail to connect to admin page of '{0}'".format(config.get(config.NODES_SECTION, config.IDP_NODE_KEY))
     assert(is_passed), err_msg
-
+    
+  @attr ('cog_create_user')
   def test_create_user(self):
 
     does_user_exist=self.usr.check_user_exists(globals.browser)
