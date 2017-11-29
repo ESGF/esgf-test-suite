@@ -69,16 +69,23 @@ def _get_section(section_name):
     err_msg = "[CONF] unknown configuration section '{0}'".format(section_name)
     raise ConfigurationException(err_msg)
 
-  _buffer[section_name] = dict()
   return section
 
 def get(section_name, key_name):
   
-  if _buffer.has_key(section_name) and _buffer[section_name].has_key(key_name):
-    return _buffer[section_name][key_name]
+  if _buffer.has_key(section_name):
+    if _buffer[section_name].has_key(key_name):
+      return _buffer[section_name][key_name]
+    else:
+      section = _get_section(section_name) # fetch the value of the key.
+      # Don't create a section in the buffer, it already exists.
+  else:
+    section = _get_section(section_name)
+    _buffer[section_name] = dict()
   
-  section = _get_section(section_name)
   result = _assert_config_key(section, section_name, key_name)
+  _buffer[section_name][key_name] = result
+  
   return result
 
 def _assert_config_key(section, section_name, key_name):
@@ -94,5 +101,4 @@ def _assert_config_key(section, section_name, key_name):
   if not value or value.isspace():
     raise ConfigurationException(err_msg)
  
-  _buffer[section_name][key_name] = value
   return value
