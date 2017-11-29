@@ -19,7 +19,10 @@ class AbstractBrowserBasedTest(object):
       soft = config.get(config.BROWSER_SECTION, config.BROWSER_KEY)
       is_headless = config.get(config.BROWSER_SECTION,
                                config.BROWSER_IS_HEADLESS_KEY).lower() == naming.TRUE
-      globals.browser = Browser(soft, headless=is_headless)
+      pf={'browser.helperApps.neverAsk.saveToDisk':'application/x-netcdf, application/netcdf',
+          'browser.download.manager.closeWhenDone':True,
+          'browser.download.manager.showWhenStarting':False}
+      globals.browser = Browser(soft, headless=is_headless, profile_preferences=pf)
       urllib3.disable_warnings()
       
   @staticmethod

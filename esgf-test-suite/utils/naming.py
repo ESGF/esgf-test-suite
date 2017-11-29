@@ -3,3 +3,6 @@ FALSE = 'false'
 
 SUCCESS = 'SUCCESS'
 FAILURE = 'FAILURE'
+
+CA_CERT_DIR_PATH = "~/.esg/certificates"
+CREDENTIALS_FILE_PATH = "~/.esg/credentials.pem"

@@ -5,13 +5,14 @@ from myproxy.client import MyProxyClient
 from OpenSSL import crypto
 
 import utils.configuration as config
+import utils.naming as naming
 
 class MyProxyUtils(object):
   
   def __init__(self):
     
-    self.cacertdir = os.path.expanduser("~/.esg/certificates")
-    self.credsfile = os.path.expanduser("~/.esg/credentials.pem")
+    self.cacertdir = os.path.expanduser(naming.CA_CERT_DIR_PATH)
+    self.credsfile = os.path.expanduser(naming.CREDENTIALS_FILE_PATH)
     idp_addr= config.get(config.NODES_SECTION, config.IDP_NODE_KEY).encode('ascii', 'replace')
     self.myproxy = MyProxyClient(hostname=idp_addr)
     self.myproxy._setCACertDir(self.cacertdir)
