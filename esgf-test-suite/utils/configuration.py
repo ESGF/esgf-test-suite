@@ -39,6 +39,13 @@ COG_SECTION        = 'cog'
 ADMIN_USERNAME_KEY = 'admin_username'
 ADMIN_PASSWORD_KEY = 'admin_password'
 
+### SECTION 'SLCS'
+
+SLCS_SECTION        = 'slcs'
+
+ADMIN_USERNAME_KEY = 'admin_username'
+ADMIN_PASSWORD_KEY = 'admin_password'
+
 ### SECTION 'TEST'
 
 TEST_SECTION = 'test'
