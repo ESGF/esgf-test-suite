@@ -92,6 +92,9 @@ data_node = my-node.esgf.org
 compute_node = my-node.esgf.org
 index_node = my-node.esgf.org
 ```
+
+Note: git ignores files with the following pattern my\_config\*.ini
+
 * Select the superset of tests that corresponds to your type of ESGF stack installation with the configuration entry `type` in section `[test]`:
 
 Choose the value `classic` to run the set of tests that aim a 'classical' installation of ESGF stack:
@@ -106,7 +109,10 @@ Choose the value `docker` to run the set of tests that aim a 'docker' installati
 type = docker
 ```
 
-Note: esgf-test-suite raises a ConfigurationException if the configuration file is wrong or incomplete.
+Note:
+
+esgf-test-suite raises a ConfigurationException if the configuration file is wrong or incomplete for the executed tests.
+However, you don't have to fullfill the entire configuration file: you just have to give the information needed for the tests that you want to execute.
 
 ## Usage:
 
@@ -117,13 +123,12 @@ The following examples except that you run the command in the `[installation_dir
 ```
 nosetests -v --nocapture --nologcapture --tc-file my_config.ini 
 ```
-Note: you can set the configuration file to be automatically loaded with the environment variable `NOSE_TESTCONFIG_AUTOLOAD_INI`:
+Note: you can set the configuration file path to be automatically loaded with the environment variable `NOSE_TESTCONFIG_AUTOLOAD_INI`:
 
 ```
 export NOSE_TESTCONFIG_AUTOLOAD_INI=/path/to/my_config.ini
 nosetests -v --nocapture --nologcapture
 ```
-
 Note: you can generate a nice htlm report with the option `--with-html` (default report file name is 'nosetests.html')
 
 * Run a set of tests according to the given nose attribute (for more information visit this [page](http://nose.readthedocs.io/en/latest/plugins/attrib.html))
@@ -132,7 +137,7 @@ This command line execute only the basic tests:
 ```
 nosetests -v --nocapture --nologcapture --tc-file my_config.ini -a 'basic'
 ```
-**Note: attributes and tests relations are described in ./esgf-test-suite/doc/plan\_test.pdf .**
+Note: see the section test selection for more information about nose attributes.
 
 * Run a subset of tests according to the given nose attributes
 
