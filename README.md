@@ -209,7 +209,7 @@ have any attribute.
 ### Recommanded tests for a classical ESGF installation
 
 ```
-nosetests -v --nocapture --nologcapture --tc-file my_config.ini -a '!compute,!cog_create_user' --with-html
+nosetests -v --nocapture --nologcapture --tc-file my_config.ini -a '!compute,!cog_create_user,!slcs' --with-html
 ```
 Don't forget to configure the superset to the value _classic_ in the configuration file, the account
 and the cog sections (see section Configuration).
@@ -217,7 +217,7 @@ and the cog sections (see section Configuration).
 ### Recommanded tests for a ESGF docker deployement
 
 ```
-nosetests -v --nocapture --nologcapture --tc-file my_config.ini -a 'basic,!compute' --with-html
+nosetests -v --nocapture --nologcapture --tc-file my_config.ini -a 'basic,!compute' -a 'slcs' --with-html
 ```
 Don't forget to configure the superset to the value _docker_ in the configuration file (see section Configuration).
 
