@@ -141,12 +141,12 @@ Note: see the section _test selection_ for more information about nose attribute
 
 * Run an intersection of sets (or a subset) of tests according to nose attributes
 
-This command line executes only the basic tests for the index node configured in `my_config.ini` (basic _intersect_ index 
-attributes):
+This command line executes only the basic tests for the index node configured in `my_config.ini` (basic set _intersect_ index 
+set):
 ```
 nosetests -v --nocapture --nologcapture --tc-file my_config.ini -a 'basic,index'
 ```
-Note: You may provide as many attributes as you want (logical operator is still _intersect_).
+Note: You may provide as many attributes as you want (the operator is still _intersect_).
 
 * Run a subset of tests without specified tests
 
@@ -156,11 +156,12 @@ nosetests -v --nocapture --nologcapture --tc-file my_config.ini -a 'basic,!compu
 ```
 * Run an union of sets of tests according to nose attributes
 
-This example runs the union of the set of tests for the idp node and the set of tests for the index node (idp _plus_ index):
+This example runs the union of the set of tests for the idp node and the set of tests for the index node (idp set _plus_ index 
+set):
 ```
 nosetests -v --nocapture --nologcapture --tc-file my_config.ini -a 'idp' -a 'index'
 ```
-Note: You may provide as many '-a' expressions as you want (logical operator is still _plus_).
+Note: You may provide as many '-a' expressions as you want (the operator is still _plus_).
 
 Note: `-a '!compute' -a '!cog_create_user'` is helpless to avoid the tests for the compute node *and* the test case 'create 
 user'.
