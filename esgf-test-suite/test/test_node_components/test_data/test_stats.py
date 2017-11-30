@@ -5,7 +5,6 @@ import utils.configuration as config
 
 @attr ('node_components')
 @attr ('data')
-@attr ('basic')
 @attr ('statistics')
 class TestStatsFrontEnds(AbstractWebFrontEndTestClass):
   
