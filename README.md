@@ -202,6 +202,21 @@ For example the attribute for the http download test case (see data node) is 'dl
 This rule doesn't apply for the set of basic test cases (the parent node is labeled 'basic'): the basic test cases don't
 have any attribute.
 
+### Recommanded tests for a classical ESGF installation
+
+```
+nosetests -v --nocapture --nologcapture --tc-file my_config.ini -a '!compute,!cog_create_user' --with-html
+```
+Don't forget to configure the superset to the value _classic_ in the configuration file, the account
+and the cog sections (see section Configuration).
+
+### Recommanded tests for a ESGF docker deployement
+
+```
+nosetests -v --nocapture --nologcapture --tc-file my_config.ini -a 'basic,!compute' --with-html
+```
+Don't forget to configure the superset to the value _docker_ in the configuration file (see section Configuration).
+
 ## Remarks:
 
 * This test suite needs to run and display an instance of Firefox. So if you run this test suite remotely, don't forget to enable X-Forwarding (ssh -Y or -X).
