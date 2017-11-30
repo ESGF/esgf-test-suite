@@ -161,7 +161,8 @@ nosetests -v --nocapture --nologcapture --tc-file my_config.ini -a 'idp' -a 'ind
 ```
 Note: You may provide as many '-a' expressions as you want (logical operator is still *or*).
 
-Note: `-a '!compute' -a '!cog_create_user'` is not helpfull to avoid compute tests and the test case 'create user'.
+Note: `-a '!compute' -a '!cog_create_user'` is not helpfull to avoid the tests for the compute node and the test case 'create 
+user'.
 
 * Run the tests located in a specified directory.
 
