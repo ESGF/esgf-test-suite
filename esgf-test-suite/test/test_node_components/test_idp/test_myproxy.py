@@ -16,6 +16,7 @@ class TestMyProxy(AbstractMyproxyBasedTest):
   def __init__(self):
     AbstractMyproxyBasedTest.__init__(self)
   
+  @attr ('get_trustroots')
   def test_0_get_trustroots(self):
   # Test output from get_trustroots
     err_msg = "Unsupported trusted root certificate format '{0}'".format(globals.myproxy_utils.trustRoots)
@@ -29,6 +30,7 @@ class TestMyProxy(AbstractMyproxyBasedTest):
         err_msg = "Fail to get the trusted root certificates for '{0}'".format(config.get(config.NODES_SECTION, config.IDP_NODE_KEY))
         assert(subj), err_msg
 
+  @attr ('get_credentials')
   def test_1_get_credentials(self):
     # Test output from get_trustroots
     err_msg = "Unsupported credentials format '{0}'".format(globals.myproxy_utils.credentials)

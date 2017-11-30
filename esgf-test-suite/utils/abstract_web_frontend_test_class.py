@@ -3,6 +3,7 @@ import requests
 from configuration_exception import ConfigurationException
 
 import utils.configuration as config
+from nose.plugins.attrib import attr
 
 class AbstractWebFrontEndTestClass(object):
   
@@ -16,7 +17,8 @@ class AbstractWebFrontEndTestClass(object):
   def check_url(self, url):
     r = requests.get(url, verify=False, timeout=5)
     assert r.status_code == 200, "Fail to connect to '" + url + "'"
-
+    
+  @attr ('basic_ping')
   def test_frontends_availability(self):
     for front_end in self._front_ends:
       url = "https://" + self._node_name + "/" + front_end

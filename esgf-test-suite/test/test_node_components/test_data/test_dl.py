@@ -35,7 +35,7 @@ class TestDataDownload(AbstractBrowserBasedTest, AbstractMyproxyBasedTest):
     self.username = config.get(config.ACCOUNT_SECTION, config.USER_NAME_KEY)
     self.password = config.get(config.ACCOUNT_SECTION, config.USER_PASSWORD_KEY)
 
-  def get_endpoint_path(self, service):
+  def _get_endpoint_path(self, service):
     if not self._endpoints:
       raise SkipTest("No available endpoints at {1}".format(service, self.data_node))
     else:
@@ -48,7 +48,7 @@ class TestDataDownload(AbstractBrowserBasedTest, AbstractMyproxyBasedTest):
   
   @attr ('dl_http')
   def test_0_http_browser_download(self):
-    path = self.get_endpoint_path('HTTPServer')
+    path = self._get_endpoint_path('HTTPServer')
     url = "http://{0}/thredds/fileServer/{1}".format(self.data_node, path)
     
     r = requests.get(url, verify=False, timeout=10, stream=True)
@@ -83,9 +83,9 @@ class TestDataDownload(AbstractBrowserBasedTest, AbstractMyproxyBasedTest):
       # Clicking on 'Download data button'
       globals.browser.find_by_id('goButton').click()
   
-  @attr ('dl_globus')
+  @attr ('dl_gridftp')
   def test_1_globus_url_copy(self):
-    path = self.get_endpoint_path('GridFTP')
+    path = self._get_endpoint_path('GridFTP')
     url = "gsiftp://{0}:2811//{1}".format(self.data_node, path)
     os.environ['X509_USER_PROXY'] = globals.myproxy_utils.credsfile
     os.environ['X509_CERT_DIR'] = globals.myproxy_utils.cacertdir
