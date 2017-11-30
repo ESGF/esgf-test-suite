@@ -133,19 +133,26 @@ Note: you can generate a nice htlm report with the option `--with-html` (default
 
 * Run a set of tests according to the given nose attribute (for more information visit this [page](http://nose.readthedocs.io/en/latest/plugins/attrib.html))
 
-This command line execute only the basic tests:
+This command line executes only the basic tests:
 ```
 nosetests -v --nocapture --nologcapture --tc-file my_config.ini -a 'basic'
 ```
-Note: see the section test selection for more information about nose attributes.
+Note: see the section _test selection_ for more information about nose attributes.
 
 * Run a subset of tests according to the given nose attributes
 
-This command line execute only the basic tests for the index node configured in `my_config.ini` (basic *AND* index attributes):
+This command line executes only the basic tests for the index node configured in `my_config.ini` (basic *AND* index attributes):
 ```
 nosetests -v --nocapture --nologcapture --tc-file my_config.ini -a 'basic,index'
 ```
 Note: You may provide as many attributes as you want (logical operator will be *and*).
+
+* Run a subset of tests without particular tests
+
+This command line executes the basic tests for all types of node except the basic tests of the compute node:
+```
+nosetests -v --nocapture --nologcapture --tc-file my_config.ini -a 'basic,!compute'
+```
 
 * Run sets of tests according to the given attributes
 
@@ -179,10 +186,27 @@ nosetests -v --nocapture --nologcapture -a 'basic,index' --tc='nodes.index_node:
 ```
 More informations about the command line options concerning the configuration [here](https://pypi.python.org/pypi/nose-testconfig).
 
+## Test selection
+
+Attributes and set of test cases are described in ./esgf-test-suite/doc/plan\_test.pdf .
+
+This pdf describes the sets of test cases by means of a mind map (or a tree). Each non-terminal node is a set of test cases.
+For example the node labeled 'node\_components' is a set of test cases that is the union of the sets of test cases
+corresponding to the nodes labeled 'compute', 'data', 'index' and 'idp' (fully recursive except for the terminal nodes).
+The label of these nodes is the attribute to be referred to when you want to execute the corresponding set of test cases.
+
+The terminal nodes are the test cases. they also have a label and they can be selectively executed but the label doesn't
+correspond to their attribute. The attribute is composed of the label of the terminal node prefixed with the label of the
+parent node, the name separator is the underscore.
+For example the attribute for the http download test case (see data node) is 'dl\_http'.
+This rule doesn't apply for the set of basic test cases (the parent node is labeled 'basic'): the basic test cases don't
+have any attribute.
+
 ## Remarks:
 
 * This test suite needs to run and display an instance of Firefox. So if you run this test suite remotely, don't forget to enable X-Forwarding (ssh -Y or -X).
 * This test suite can run with another browser than Firefox, provided a browser driver that will replace Geckodriver and modify your configuration file.
-* Git ignores the geckodriver.log and my\_config.ini files.
+* Git ignores the geckodriver.log, my\_config\*.ini files and nosetests\*.html files.
+* Do not use double quotes when specifying the nose attributes. Always use simple quotes.
 
 DISCLAIMER - the scripts in this repo are provided as is - use at your own risk - they have been tested only on a single system and may require modification to work correctly on other systems.
