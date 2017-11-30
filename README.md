@@ -131,7 +131,7 @@ nosetests -v --nocapture --nologcapture
 ```
 Note: you can generate a nice htlm report with the option `--with-html` (default report file name is 'nosetests.html')
 
-* Run a set of tests according to the given nose attribute (for more information visit this [page](http://nose.readthedocs.io/en/latest/plugins/attrib.html))
+* Run a set of tests according to a nose attribute (for more information visit this [page](http://nose.readthedocs.io/en/latest/plugins/attrib.html))
 
 This command line executes only the basic tests:
 ```
@@ -139,30 +139,31 @@ nosetests -v --nocapture --nologcapture --tc-file my_config.ini -a 'basic'
 ```
 Note: see the section _test selection_ for more information about nose attributes.
 
-* Run a subset of tests according to the given nose attributes
+* Run an intersection of sets (or a subset) of tests according to nose attributes
 
 This command line executes only the basic tests for the index node configured in `my_config.ini` (basic *AND* index attributes):
 ```
 nosetests -v --nocapture --nologcapture --tc-file my_config.ini -a 'basic,index'
 ```
-Note: You may provide as many attributes as you want (logical operator will be *and*).
+Note: You may provide as many attributes as you want (logical operator is still *and*).
 
-* Run a subset of tests without particular tests
+* Run a subset of tests without specified tests
 
 This command line executes the basic tests for all types of node except the basic tests of the compute node:
 ```
 nosetests -v --nocapture --nologcapture --tc-file my_config.ini -a 'basic,!compute'
 ```
-
-* Run sets of tests according to the given attributes
+* Run an union of sets of tests according to nose attributes
 
 This example runs the union of the set of tests for the idp node and the set of tests for the index node (idp *OR* index):
 ```
 nosetests -v --nocapture --nologcapture --tc-file my_config.ini -a 'idp' -a 'index'
 ```
-Note: You may provide as many '-a' expressions as you want (logical operator will be *or*).
+Note: You may provide as many '-a' expressions as you want (logical operator is still *or*).
 
-* Run the tests located in a particular directory.
+Note: `-a '!compute' -a '!cog_create_user'` is not helpfull to avoid compute tests and the test case 'create user'.
+
+* Run the tests located in a specified directory.
 
 This example runs the tests located in test/test\_node\_components/test\_index (the tests for index node).
 ```
