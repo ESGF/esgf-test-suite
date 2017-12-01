@@ -1,0 +1,5 @@
+*.pyc
+*~
+geckodriver.log
+my_config*.ini
+nosetests*.html

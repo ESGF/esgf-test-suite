@@ -1,0 +1,34 @@
+#!/usr/bin/expect -f
+
+spawn /usr/local/bin/esg-node --install-keypair /tmp/cert.cer.txt /tmp/pcmdi8.key 
+expect {
+
+    "This action did not complete successfully" { exit 1 }
+
+    "Please select the ESGF distribution mirror for this installation" {
+        send \n ; exp_continue
+    }
+
+    "Please set the password for this keystore" {
+	send esgrocks\n ; exp_continue
+    }
+
+    "Please re-enter the password for this keystore" {
+	send esgrocks\n ; exp_continue
+
+    }
+
+    "Please enter your Certificate Athority" {
+	send /tmp/cachain.pem\n\n ; exp_continue
+    }
+
+    "Is the above information correct" {
+        send \n ; exp_continue
+
+    }
+
+    "Please restart this node for keys to take effect" {
+	exit 0
+    }
+
+}

@@ -6,9 +6,7 @@ from multiprocessing import Queue
 from operator import itemgetter
 from StringIO import StringIO
 
-import configuration as config
-
-
+import utils.configuration as config
 
 class ThreddsUtils(object):
         def __init__(self):
@@ -21,8 +19,7 @@ class ThreddsUtils(object):
 		global catalog_ns
 		catalog_ns = '{http://www.unidata.ucar.edu/namespaces/thredds/InvCatalog/v1.0}'
 
-		self.config = config.read_config()
-		self.data_node = self.config['nodes']['data_node']
+		self.data_node = config.get(config.NODES_SECTION, config.DATA_NODE_KEY)
 
 	def chunk_it(self, seq, num):
         	avg = len(seq) / float(num)
