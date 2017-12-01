@@ -117,7 +117,7 @@ However, you don't have to fullfill the entire configuration file: you just have
 ## Usage:
 
 The following examples except that you run the command in the `[installation_dir]/esgf-test-suite/esgf-test-suite/` directory
-(yes twice, it is not a mistake) and the configuration file is named `my_config.ini`.
+(yes twice, it is not a mistake) and the configuration file is named `my_config.ini`. ESGF-test-suite is based on the nose attributes, for more information about them, visit this [page](http://nose.readthedocs.io/en/latest/plugins/attrib.html)
 
 * Run all the tests:
 ```
@@ -131,7 +131,7 @@ nosetests -v --nocapture --nologcapture
 ```
 Note: you can generate a nice htlm report with the option `--with-html` (default report file name is 'nosetests.html')
 
-* Run a set of tests according to a nose attribute (for more information visit this [page](http://nose.readthedocs.io/en/latest/plugins/attrib.html))
+* Run a set of tests according to a nose attribute
 
 This command line executes only the basic tests:
 ```
