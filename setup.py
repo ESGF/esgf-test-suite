@@ -17,7 +17,8 @@ setup(name='esgf-test-suite',
 	        'requests',
 	        'lxml',
 	        'splinter',
-          'nose-testconfig'
+          'nose-testconfig',
+          'nose-htmloutput'
       ],
       zip_safe=False,
       include_package_data=True)
