@@ -11,7 +11,7 @@ import time
 
 class AbstractBrowserBasedTest(object):
   
-  DEFAULT_TIMEOUT = 3 # seconds
+  DEFAULT_TIMEOUT = 10 # seconds
   
   def __init__(self):
     if globals.browser == None:
