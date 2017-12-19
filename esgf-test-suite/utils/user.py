@@ -39,6 +39,9 @@ class UserUtils(object):
 
   def login_user(self, browser):
 
+    # Clear the browser from any previsous login.
+    browser.cookies.delete()
+    
     does_user_exist = self.check_user_exists(browser)
     err_msg = "User '{0}' doesn't exist for '{1}'".format(
                                 config.get(config.ACCOUNT_SECTION,
