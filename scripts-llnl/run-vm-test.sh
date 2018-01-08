@@ -1,3 +1,8 @@
+major=$1
+minor=$2
+
+devel=$3
+
 vminst=/export_backup/ames4/vmware/esgf-dev1_on_grim/esgf-dev1_on_grim.vmx
 
 snap=preinstall
@@ -22,7 +27,7 @@ scp auto-keypair.exp $target:/tmp
 scp pcmdi8.key cert.cer.txt cachain.pem $target:/tmp
 scp node_tests.py $target:/tmp
 
-ssh $target "bash /tmp/auto-deploy.sh $major $minor"
+ssh $target "bash /tmp/auto-deploy.sh $major $minor $devel"
 
 ssh $target "expect /tmp/auto-keypair.sh"
 ssh $target "esg-node restart"
@@ -37,7 +42,7 @@ mkdir $logdir
 
 pushd $logdir
 
-scp $target:/usr/local/bin/install-log-$major.$minor-full .
+scp $target:/usr/local/bin/install-log-$major.$minor-$devel-full .
 scp $target:/tmp/keypair-inst.log .
 scp $target:/tmp/publish-test.log .
 scp $target:/tmp/http-tests.log .
