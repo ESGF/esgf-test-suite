@@ -3,6 +3,25 @@ esgf-test-suite
 
 Python (and bash) nosetests scripts for ESGF integration tests and validation
 
+## TLDR
+
+Well, it is nearly impossible to run esgf-test-suite without reading entirely this man. Sorry.
+
+### Recommanded tests for a classical ESGF installation
+
+```
+nosetests -v --nocapture --nologcapture --tc-file my_config.ini -a '!compute,!cog_create_user,!slcs' --with-html
+```
+Don't forget to configure the superset to the value _classic_ in the configuration file, the account
+and the cog sections (see section Configuration).
+
+### Recommanded tests for a ESGF docker deployement
+
+```
+nosetests -v --nocapture --nologcapture --tc-file my_config.ini -a 'basic,!compute' -a 'slcs' --with-html
+```
+Don't forget to configure the superset to the value _docker_ in the configuration file (see section Configuration).
+
 ## Purpose and limits of this tool:
 
 ESGF Test Suite is a full python application.
@@ -80,10 +99,13 @@ pip install nose splinter pyopenssl MyProxyClient requests nose-testconfig nose-
 
 ## Configuration:
 
+Configuration file is meant to be modified according to your needs and **save as with a different name** (like my\_config.ini). Git ignores files with the following pattern my\_config\*.ini
+
      vi [installation_dir]/esgf-test-suite/esgf-test-suite/default.ini   
 
-* Modify the section `[nodes]` and **save as with a different name** (like my\_config.ini).
-  If several nodes are specified, they all should be in the same federation. Account section do not need to be modified.
+* Modify the section `[nodes]` 
+  If several nodes are specified, they all should be in the same federation and the user account described in the Account
+  section will used for all the nodes.
 
 ```
 [nodes]
@@ -93,7 +115,15 @@ compute_node = my-node.esgf.org
 index_node = my-node.esgf.org
 ```
 
-Note: git ignores files with the following pattern my\_config\*.ini
+* Modify the section `[account]` that describes the user account to be used for the myproxy and download tests.
+
+Note: The creation of an account (cog_create_user) through the CoG interface is not possible until the captcha is disable. The creation and the login use the same information that the section `[account]` gives.
+
+* In the section `[browser]`, set false to the key `is_headless` only if you want to display firefox when the tests are running (debug purpose).
+
+* Set the CoG admin password (for testing the admin interface) in the section `[cog]`, key `admin_password`.
+
+* Set the MyProxy admin password (for testing the admin interface) in the section `[myproxy]`, key `admin_password`.
 
 * Select the superset of tests that corresponds to your type of ESGF stack installation with the configuration entry `type` in section `[test]`:
 
