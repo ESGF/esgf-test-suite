@@ -103,9 +103,8 @@ Configuration file is meant to be modified according to your needs and **save as
 
      vi [installation_dir]/esgf-test-suite/esgf-test-suite/default.ini   
 
-* Modify the section `[nodes]` 
-  If several nodes are specified, they all should be in the same federation and the user account described in the Account
-  section will used for all the nodes.
+* Modify the section `[nodes]`. 
+  If several nodes are specified, they all should be in the same federation and the same user account described in the section `[account]` will be used for the login and downloading tests (cog and myproxy tests).
 
 ```
 [nodes]
@@ -115,15 +114,13 @@ compute_node = my-node.esgf.org
 index_node = my-node.esgf.org
 ```
 
-* Modify the section `[account]` that describes the user account to be used for the myproxy and download tests.
+* Modify the section `[account]` that describes the user account to be used for the login and downloading tests (cog and myproxy tests).
 
-Note: The creation of an account (cog_create_user) through the CoG interface is not possible until the captcha is disable. The creation and the login use the same information that the section `[account]` gives.
+Note: The creation of an account (test named: cog_create_user) through the CoG interface is not possible until the captcha is disable. Both user creation and user login tests are based on the section `[account]`.
 
-* In the section `[browser]`, set false to the key `is_headless` only if you want to display firefox when the tests are running (debug purpose).
+* In the section `[browser]`, set the value of the key `is_headless` to `false`, only if you want to display firefox when the tests are running (debug purpose).
 
-* Set the CoG admin password (for testing the admin interface) in the section `[cog]`, key `admin_password`.
-
-* Set the MyProxy admin password (for testing the admin interface) in the section `[myproxy]`, key `admin_password`.
+* Testing the CoG admin interface login requires the admin password that can be set in the section `[cog]`, key `admin_password`.
 
 * Select the superset of tests that corresponds to your type of ESGF stack installation with the configuration entry `type` in section `[test]`:
 
@@ -138,6 +135,8 @@ Choose the value `docker` to run the set of tests that aim a 'docker' installati
 [test]
 type = docker
 ```
+
+* Testing the SLCS admin interface login requires the admin password that can be set in the section `[slcs]`, key `admin_password`.
 
 Note:
 
