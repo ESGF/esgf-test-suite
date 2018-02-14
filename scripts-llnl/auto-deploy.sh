@@ -5,7 +5,7 @@ devel=$3
 ntpdate -u 0.centos.pool.ntp.org
 cd /usr/local/bin/
 rm -rf *
-wget http://aims1.llnl.gov/esgf/dist/devel/esgf-installer/$1/esg-bootstrap
+wget http://aims1.llnl.gov/esgf/dist/devel/$1/$2/esgf-installer/esg-bootstrap
 if [ ! -z $devel ] ; then
     bash esg-bootstrap --devel
 else

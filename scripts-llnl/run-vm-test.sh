@@ -29,10 +29,11 @@ scp node_tests.py $target:/tmp
 
 ssh $target "bash /tmp/auto-deploy.sh $major $minor $devel"
 
-ssh $target "expect /tmp/auto-keypair.sh"
+
+ssh $target "bash /tmp/auto-keypair.sh"
 ssh $target "esg-node restart"
 
-ssh target "bash auto-test.sh"
+ssh $target "bash auto-test.sh"
 
 datestr=`date | sed s/\ /_/g`
 
