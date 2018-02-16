@@ -9,9 +9,16 @@ Well, it is nearly impossible to run esgf-test-suite without reading entirely th
 
 ### Recommanded tests for a classical ESGF installation
 
+* Without SLCS
 ```
 nosetests -v --nocapture --nologcapture --tc-file my_config.ini -a '!compute,!cog_create_user,!slcs' --with-html
 ```
+
+* With SLCS
+```
+nosetests -v --nocapture --nologcapture --tc-file my_config.ini -a '!compute,!cog_create_user' --with-html
+```
+
 Don't forget to configure the superset to the value _classic_ in the configuration file, the account
 and the cog sections (see section Configuration).
 
