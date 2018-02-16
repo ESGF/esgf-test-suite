@@ -1,7 +1,13 @@
 import utils.globals as globals
 
+def setup_package():
+  if(globals.is_debug):
+    print("*********** begin setup package")
+
 def teardown_package():
-  
+  if(globals.is_debug):
+    print("*********** begin teardown package")
+
   if globals.browser != None and not globals.is_debug:
     globals.browser.quit()
   

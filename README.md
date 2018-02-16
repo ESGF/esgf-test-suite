@@ -9,16 +9,23 @@ Well, it is nearly impossible to run esgf-test-suite without reading entirely th
 
 ### Recommanded tests for a classical ESGF installation
 
+* Without SLCS
 ```
-nosetests -v --nocapture --nologcapture --tc-file my_config.ini -a '!compute,!cog_create_user,!slcs' --with-html
+nosetests -v --nocapture --nologcapture --tc-file my_config.ini -a '!compute,!cog_create_user,!slcs' --with-html --with-id
 ```
+
+* With SLCS
+```
+nosetests -v --nocapture --nologcapture --tc-file my_config.ini -a '!compute,!cog_create_user' --with-html --with-id
+```
+
 Don't forget to configure the superset to the value _classic_ in the configuration file, the account
 and the cog sections (see section Configuration).
 
 ### Recommanded tests for a ESGF docker deployement
 
 ```
-nosetests -v --nocapture --nologcapture --tc-file my_config.ini -a 'basic,!compute' -a 'slcs' --with-html
+nosetests -v --nocapture --nologcapture --tc-file my_config.ini -a 'basic,!compute' -a 'slcs' --with-html  --with-id
 ```
 Don't forget to configure the superset to the value _docker_ in the configuration file (see section Configuration).
 
@@ -41,7 +48,6 @@ Current developments will also let admins to test and validate the stack by runn
 - Firefox (tested version: 58.0)
 - Globus-url-copy (MacOSX/homebrew: Globus Toolkit 6.0.1506371041 ; Linux: globus-gass-copy-progs 9.18-2) 
 - Nose (tested version: 1.3.7)
-- Splinter (tested version: 0.7.7)
 - Pyopenssl (OpenSSL ; tested version: 17.3.0)
 - MyProxyClient (tested version: 2.0.1)
 - Geckodriver (tested version: 0.19.0)
@@ -72,7 +78,7 @@ Just download the latest version of the binary [here](https://github.com/mozilla
 * Python packages installation. Command for pip:
 
 ```
-pip install nose splinter pyopenssl MyProxyClient requests nose-testconfig nose-htmloutput
+pip install nose pyopenssl MyProxyClient requests nose-testconfig nose-htmloutput
 ```
 
 ### MacOSX
@@ -94,7 +100,7 @@ Globus-url-copy is part of the Globus Toolkit. You can install Globus Toolkit vi
 * Python packages installation. Command for pip:
 
 ```
-pip install nose splinter pyopenssl MyProxyClient requests nose-testconfig nose-htmloutput
+pip install nose pyopenssl MyProxyClient requests nose-testconfig nose-htmloutput
 ```
 
 ## Configuration:
@@ -114,7 +120,7 @@ compute_node = my-node.esgf.org
 index_node = my-node.esgf.org
 ```
 
-* Modify the section `[account]` that describes the user account to be used for the login and downloading tests (cog and myproxy tests).
+* Modify the section `[account]` that describes the user account to be used for the login and downloading tests (cog, myproxy and http download tests).
 
 Note: The creation of an account (test named: cog_create_user) through the CoG interface is not possible until the captcha is disable. Both user creation and user login tests are based on the section `[account]`.
 
@@ -148,6 +154,13 @@ However, you don't have to fullfill the entire configuration file: you just have
 The following examples except that you run the command in the `[installation_dir]/esgf-test-suite/esgf-test-suite/` directory
 (yes twice, it is not a mistake) and the configuration file is named `my_config.ini`. ESGF-test-suite is based on the nose attributes, for more information about them, visit this [page](http://nose.readthedocs.io/en/latest/plugins/attrib.html)
 
+* Nose options
+  - `--with-html` generates a nice htlm report without the python traceback when tests fail (default report file name is 'nosetests.html').
+  - `--with-id` generates the id of the tests so you can rerun next time tests of your choice calling nosetest with `--with-id #` where # is the id numbers (space is the separator).
+  - `--failed` keeps nosetest to loop over the failed tests (like `--with-id` with the id of the failed tests).
+
+The nosetest doc is available [here](http://nose.readthedocs.io/en/latest/testing.html)
+
 * Run all the tests:
 ```
 nosetests -v --nocapture --nologcapture --tc-file my_config.ini 
@@ -158,7 +171,6 @@ Note: you can set the configuration file path to be automatically loaded with th
 export NOSE_TESTCONFIG_AUTOLOAD_INI=/path/to/my_config.ini
 nosetests -v --nocapture --nologcapture
 ```
-Note: you can generate a nice htlm report with the option `--with-html` (default report file name is 'nosetests.html')
 
 * Run a set of tests according to a nose attribute
 
@@ -237,16 +249,23 @@ have any attribute.
 
 ### Recommanded tests for a classical ESGF installation
 
+* Without SLCS
 ```
-nosetests -v --nocapture --nologcapture --tc-file my_config.ini -a '!compute,!cog_create_user,!slcs' --with-html
+nosetests -v --nocapture --nologcapture --tc-file my_config.ini -a '!compute,!cog_create_user,!slcs' --with-html --with-id
 ```
+
+* With SLCS
+```
+nosetests -v --nocapture --nologcapture --tc-file my_config.ini -a '!compute,!cog_create_user' --with-html --with-id
+```
+
 Don't forget to configure the superset to the value _classic_ in the configuration file, the account
 and the cog sections (see section Configuration).
 
 ### Recommanded tests for a ESGF docker deployement
 
 ```
-nosetests -v --nocapture --nologcapture --tc-file my_config.ini -a 'basic,!compute' -a 'slcs' --with-html
+nosetests -v --nocapture --nologcapture --tc-file my_config.ini -a 'basic,!compute' -a 'slcs' --with-html --with-id
 ```
 Don't forget to configure the superset to the value _docker_ in the configuration file (see section Configuration).
 
