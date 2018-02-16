@@ -5,6 +5,8 @@ from utils.abstract_browser_based_test import AbstractBrowserBasedTest
 
 import utils.globals as globals
 
+from selenium.webdriver.common.by import By
+
 @attr ('node_components')
 @attr ('idp')
 @attr ('slcs')
@@ -18,18 +20,16 @@ class TestSlcs(AbstractBrowserBasedTest):
 
   @attr ('slcs_django_admin_login')  
   def test_0_login_django_admin_interface(self):
-    url = "https://{0}/esgf-slcs/admin".format(self.idp_node)
-    globals.browser.visit(url)
-    globals.browser.find_by_id('id_username').fill(self.username)
-    globals.browser.find_by_id('id_password').fill(self.password)
-    globals.browser.find_by_value('Log in').click()
     
-    def func():
-      result = globals.browser.is_text_not_present("correct username and password")
-      result &= globals.browser.is_text_not_present("Please correct the error below")
-      return result
-   
-    is_passed = self.find_or_wait_until(func, "admin login")
-    err_msg = "Fail to connect to admin page of '{0}' with '{1}'".\
-      format(self.idp_node, self.username)
-    assert(is_passed), err_msg
+    url = "https://{0}/esgf-slcs/admin".format(self.idp_node)
+    
+    self.load_page(url, (By.ID, 'id_username'))
+
+    globals.browser.find_element_by_id('id_username').send_keys(self.username)
+    globals.browser.find_element_by_id('id_password').send_keys(self.password)
+    globals.browser.find_element_by_xpath("//input[@value='Log in']").click()
+
+    msg = "log onto the SLCS django admin page of {0}"\
+          .format(url)
+    
+    self.wait_loading(msg, (By.CLASS_NAME, 'dashboard'), (By.CLASS_NAME, 'errornote'))
