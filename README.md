@@ -155,12 +155,11 @@ The following examples except that you run the command in the `[installation_dir
 (yes twice, it is not a mistake) and the configuration file is named `my_config.ini`. ESGF-test-suite is based on the nose attributes, for more information about them, visit this [page](http://nose.readthedocs.io/en/latest/plugins/attrib.html)
 
 * Nose options
-
-the complete nosetest doc : [here](http://nose.readthedocs.io/en/latest/testing.html)
-
   - `--with-html` generates a nice htlm report without the python traceback when tests fail (default report file name is 'nosetests.html').
   - `--with-id` generates the id of the tests so you can rerun next time tests of your choice calling nosetest with `--with-id #` where # is the id numbers (space is the separator).
   - `--failed` keeps nosetest to loop over the failed tests (like `--with-id` with the id of the failed tests).
+
+The nosetest doc is available [here](http://nose.readthedocs.io/en/latest/testing.html)
 
 * Run all the tests:
 ```
