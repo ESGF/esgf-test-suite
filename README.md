@@ -29,6 +29,34 @@ nosetests -v --nocapture --nologcapture --tc-file my_config.ini -a 'basic,!compu
 ```
 Don't forget to configure the superset to the value _docker_ in the configuration file (see section Configuration).
 
+### Understanding the result of the tests
+
+* `ok` means the service been tested is 
+* `ERROR` means that the test has crashed. Please report an issue on [github](https://github.com/ESGF/esgf-test-suite/issues)
+* `FAIL` means that the test has not crashed but the service been tested is not 
+
+For the moment, until the end of the refactoring,
+everytime a test ends with `FAIL` or `ERROR` state, python display a traceback.
+The last line of each traceback block gives you the reason why the test has failed
+or crashed. For example:
+
+```
+======================================================================
+FAIL: test_cog.TestCog.test_1_user_login
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/seb/anaconda2/envs/esgf_python27/lib/python2.7/site-packages/nose/case.py", line 197, in runTest
+    self.test(*self.arg)
+  File "/home/seb/Documents/dev/esgf-test-suite/esgf-test-suite/test/test_node_components/test_index/test_cog.py", line 33, in test_1_user_login
+    self.usr.login_user()
+  File "/home/seb/Documents/dev/esgf-test-suite/esgf-test-suite/utils/user.py", line 66, in login_user
+    self.wait_loading('load the login page', (By.ID, 'username'), (By.CLASS_NAME, 'error-box'))
+  File "/home/seb/Documents/dev/esgf-test-suite/esgf-test-suite/utils/abstract_browser_based_test.py", line 125, in wait_loading
+    assert(False), "Timeout waiting for {0}".format(msg)
+AssertionError: Timeout waiting for load the login page
+```
+**AssertionError: Timeout waiting for load the login page**
+
 ## Purpose and limits of this tool:
 
 ESGF Test Suite is a full python application.
@@ -148,6 +176,34 @@ Note:
 
 esgf-test-suite raises a ConfigurationException if the configuration file is wrong or incomplete for the executed tests.
 However, you don't have to fullfill the entire configuration file: you just have to give the information needed for the tests that you want to execute.
+
+## Understanding the result of the tests
+
+* `ok` means the service been tested is 
+* `ERROR` means that the test has crashed. Please report an issue on [github](https://github.com/ESGF/esgf-test-suite/issues)
+* `FAIL` means that the test has not crashed but the service been tested is not 
+
+For the moment, until the end of the refactoring,
+everytime a test ends with `FAIL` or `ERROR` state, python display a traceback.
+The last line of each traceback block gives you the reason why the test has failed
+or crashed. For example:
+
+```
+======================================================================
+FAIL: test_cog.TestCog.test_1_user_login
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/seb/anaconda2/envs/esgf_python27/lib/python2.7/site-packages/nose/case.py", line 197, in runTest
+    self.test(*self.arg)
+  File "/home/seb/Documents/dev/esgf-test-suite/esgf-test-suite/test/test_node_components/test_index/test_cog.py", line 33, in test_1_user_login
+    self.usr.login_user()
+  File "/home/seb/Documents/dev/esgf-test-suite/esgf-test-suite/utils/user.py", line 66, in login_user
+    self.wait_loading('load the login page', (By.ID, 'username'), (By.CLASS_NAME, 'error-box'))
+  File "/home/seb/Documents/dev/esgf-test-suite/esgf-test-suite/utils/abstract_browser_based_test.py", line 125, in wait_loading
+    assert(False), "Timeout waiting for {0}".format(msg)
+AssertionError: Timeout waiting for load the login page
+```
+**AssertionError: Timeout waiting for load the login page**
 
 ## Usage:
 
