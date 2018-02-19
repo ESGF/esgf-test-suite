@@ -137,45 +137,82 @@ Configuration file is meant to be modified according to your needs and **save as
 
      vi [installation_dir]/esgf-test-suite/esgf-test-suite/default.ini   
 
-* Modify the section `[nodes]`. 
-  If several nodes are specified, they all should be in the same federation and the same user account described in the section `[account]` will be used for the login and downloading tests (cog and myproxy tests).
+esgf-test-suite raises a ConfigurationException if the configuration file is
+wrong or incomplete for the executed tests.
+However, you don't have to fullfill the entire configuration file:
+you just have to give the information needed for the tests that you want to execute.
 
-```
-[nodes]
-idp_node = my-node.esgf.org
-data_node = my-node.esgf.org
-compute_node = my-node.esgf.org
-index_node = my-node.esgf.org
-```
+* Section Test
 
-* Modify the section `[account]` that describes the user account to be used for the login and downloading tests (cog, myproxy and http download tests).
+This section configures some testing parameters.
 
-Note: The creation of an account (test named: cog_create_user) through the CoG interface is not possible until the captcha is disable. Both user creation and user login tests are based on the section `[account]`.
+  - entry `type` allows you to select the superset of tests that corresponds to
+    your type of ESGF stack installation. Choose the value `classic` to run the
+    set of tests that aim a 'classical' installation of ESGF stack. Choose the
+    value `docker` to run the set of tests that aim a 'docker' installation of ESGF stack
+  - entry `web_page_timeout` configures the timeout (integer in seconds) when waiting for a web page (i.e. CoG login)
+  - entry `download_timeout` configures the timeout (integer in seconds) when downloading files (i.e. download tests)
 
-* In the section `[browser]`, set the value of the configuration entry `is_headless` to `false`, only if you want to display firefox when the tests are running (debug purpose).
+* Section nodes 
 
-* Testing the CoG admin interface login requires the admin password that can be set in the section `[cog]`, configuration entry `admin_password`.
+This section let you specify the full qualified adresse of:
 
-* Select the superset of tests that corresponds to your type of ESGF stack installation with the configuration entry `type` in section `[test]`:
+  - `idp_node`: the idp node
+  - `data_node`: the data node
+  - `index_node`: the index node
+  - `compute_node`: the compute node
 
-Choose the value `classic` to run the set of tests that aim a 'classical' installation of ESGF stack:
-```
-[test]
-type = classic
-```
+You may leave some entries empty, but ESGF-test-suite won't let you run the tests
+that need the missing addresses.
 
-Choose the value `docker` to run the set of tests that aim a 'docker' installation of ESGF stack:
-```
-[test]
-type = docker
-```
+* Section account
 
-* Testing the SLCS admin interface login requires the admin password that can be set in the section `[slcs]`, configuration entry `admin_password`.
+This section describes the user account to be used for the login and downloading
+tests (cog, myproxy and http download tests).
+  
+  - `firstname`: set the user's first name
+  - `lastname`: set the user's last name
+  - `email`: set the user's email addresse
+  - `username`: set the login name of the account
+  - `password`: set the password of the account
+  - `institution`: set the user's institution
+  - `city`: set the user's city
+  - `country`: set the user's country
+ 
+Note: The creation of an account (test named: cog_create_user) through the CoG
+interface is not possible until the captcha is disable.
+Both user creation and user login tests rely on the section `[account]`.
 
-Note:
+* Section browser
 
-esgf-test-suite raises a ConfigurationException if the configuration file is wrong or incomplete for the executed tests.
-However, you don't have to fullfill the entire configuration file: you just have to give the information needed for the tests that you want to execute.
+This section let you configure the browser used to test CoG and other services.
+
+  - `soft`: specifies the browser to use. Firefox is only support for the moment.
+  - `is_headless`: set the value to `false`, only if you want to display firefox
+    when the tests are running (debug purpose).
+
+* Section cog
+
+Testing the CoG requires some information. This section provides the required
+information.
+
+  - `admin_username`: set the admin login name
+  - `admin_password`: set the admin password 
+
+* Section slcs
+
+Testing the SLCS requires some information. This section provides the required
+information.
+
+  - `admin_username`: set the admin login name
+  - `admin_password`: set the admin password 
+
+* Section sys
+
+This section configure development options.
+
+  - `is_debug`: set to `true` to output debugg information and to stop closing
+   the browser at the end of the execution.
 
 ## Understanding the result of the tests
 
