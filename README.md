@@ -79,6 +79,7 @@ Current developments will also let admins to test and validate the stack by runn
 - Pyopenssl (OpenSSL ; tested version: 17.3.0)
 - MyProxyClient (tested version: 2.0.1)
 - Geckodriver (tested version: 0.19.0)
+- Selenium (tested version 3.9.0)
 - LibXML (tested version: 2.9.3+dfsg1-1ubuntu0.5)
 - LibXSLT (tested version: 1.1.28-2.1ubuntu0.1)
 
@@ -106,7 +107,7 @@ Just download the latest version of the binary [here](https://github.com/mozilla
 * Python packages installation. Command for pip:
 
 ```
-pip install nose pyopenssl MyProxyClient requests nose-testconfig nose-htmloutput
+pip install -U nose pyopenssl MyProxyClient selenium requests nose-testconfig nose-htmloutput
 ```
 
 ### MacOSX
@@ -128,7 +129,7 @@ Globus-url-copy is part of the Globus Toolkit. You can install Globus Toolkit vi
 * Python packages installation. Command for pip:
 
 ```
-pip install nose pyopenssl MyProxyClient requests nose-testconfig nose-htmloutput
+pip install -U nose pyopenssl MyProxyClient selenium requests nose-testconfig nose-htmloutput
 ```
 
 ## Configuration:
