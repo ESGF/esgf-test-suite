@@ -19,7 +19,7 @@ class UserUtils(AbstractBrowserBasedTest):
     
     # Abort test if esgf-web-fe is not reachable
     url = "https://{0}/user/add".format(self.idp_server)
-    r = requests.get(url, verify=False, timeout=1)
+    r = requests.get(url, verify=False, timeout=config.get_int(config.TEST_SECTION, config.WEB_PAGE_TIMEOUT_KEY))
     assert r.status_code == 200, "Fail to connect to '" + url + "'"
 
     # Mapping user data to fit to web-fe user creation form 

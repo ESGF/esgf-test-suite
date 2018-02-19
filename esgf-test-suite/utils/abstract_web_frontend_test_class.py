@@ -15,7 +15,7 @@ class AbstractWebFrontEndTestClass(object):
     self._node_name = node_name
   
   def check_url(self, url):
-    r = requests.get(url, verify=False, timeout=5)
+    r = requests.get(url, verify=False, timeout=config.get_int(config.TEST_SECTION, config.WEB_PAGE_TIMEOUT_KEY))
     assert r.status_code == 200, "Fail to connect to '" + url + "'"
     
   @attr ('basic_ping')

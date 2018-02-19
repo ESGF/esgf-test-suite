@@ -25,7 +25,7 @@ import requests
 
 class AbstractBrowserBasedTest(object):
   
-  DEFAULT_TIMEOUT = 10 # seconds
+  DEFAULT_TIMEOUT = config.get_int(config.TEST_SECTION, config.WEB_PAGE_TIMEOUT_KEY) # seconds
   TITLE_FOR_404 = 'Page not found'
   DOWNLOAD_DIR_PATH='/tmp'
   

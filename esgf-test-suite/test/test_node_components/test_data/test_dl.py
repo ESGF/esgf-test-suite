@@ -55,13 +55,15 @@ class TestDataDownload(AbstractBrowserBasedTest, AbstractMyproxyBasedTest):
     path = self._get_endpoint_path('HTTPServer')
     url = "http://{0}/thredds/fileServer/{1}".format(self.data_node, path)
 
-    r = requests.get(url, verify=False, timeout=10, stream=True)
+    r = requests.get(url, verify=False, timeout=config\
+          .get_int(config.TEST_SECTION, config.WEB_PAGE_TIMEOUT_KEY), stream=True)
     if r.status_code == 200:
       return # as file has been downloaded and credential wasn't needed.
     
     # else open a globals.browser and give the credential so as to download the file.
 
-    self.load_page(url, (By.ID, 'SubmitButton'), timeout=15)
+    self.load_page(url, (By.ID, 'SubmitButton'), timeout=config\
+      .get_int(config.TEST_SECTION, config.DOWNLOAD_TIMEOUT_KEY))
 
     OpenID = "https://{0}/esgf-idp/openid/{1}".format(self.idp_node, self.username)
 
@@ -71,7 +73,8 @@ class TestDataDownload(AbstractBrowserBasedTest, AbstractMyproxyBasedTest):
     globals.browser.find_element_by_id('SubmitButton').click()
 
     msg = "load the openID page {0}".format(OpenID)
-    self.wait_loading(msg, (By.ID, 'password'), (By.CLASS_NAME, 'errorbox'), timeout=15)
+    self.wait_loading(msg, (By.ID, 'password'), (By.CLASS_NAME, 'errorbox'),\
+      timeout=config.get_int(config.TEST_SECTION, config.DOWNLOAD_TIMEOUT_KEY))
   
     globals.browser.find_element_by_id('password').send_keys(self.password)
     globals.browser.find_element_by_xpath("//input[@value='SUBMIT']").click()
