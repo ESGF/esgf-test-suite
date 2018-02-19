@@ -19,8 +19,7 @@ nosetests -v --nocapture --nologcapture --tc-file my_config.ini -a '!compute,!co
 nosetests -v --nocapture --nologcapture --tc-file my_config.ini -a '!compute,!cog_create_user' --with-html --with-id
 ```
 
-Don't forget to configure the superset to the value _classic_ in the configuration file, the account
-and the cog sections (see section Configuration).
+Don't forget to configure the superset to the value _classic_ in the configuration file.
 
 ### Recommanded tests for a ESGF docker deployement
 
@@ -31,12 +30,12 @@ Don't forget to configure the superset to the value _docker_ in the configuratio
 
 ### Understanding the result of the tests
 
-* `ok` means the service been tested is 
-* `ERROR` means that the test has crashed. Please report an issue on [github](https://github.com/ESGF/esgf-test-suite/issues)
-* `FAIL` means that the test has not crashed but the service been tested is not 
+* `ok`: the service been tested is alright.
+* `ERROR`: the test has crashed. Please report an issue on [github](https://github.com/ESGF/esgf-test-suite/issues)
+* `FAIL`: the test has not crashed but the service, that has been tested, failed.
 
-For the moment, until the end of the refactoring,
-everytime a test ends with `FAIL` or `ERROR` state, python display a traceback.
+For the moment, until the end of this refactoring,
+everytime a test ends with `FAIL` or `ERROR` state, python displays a traceback.
 The last line of each traceback block gives you the reason why the test has failed
 or crashed. For example:
 
@@ -55,7 +54,8 @@ Traceback (most recent call last):
     assert(False), "Timeout waiting for {0}".format(msg)
 AssertionError: Timeout waiting for load the login page
 ```
-**AssertionError: Timeout waiting for load the login page**
+'**AssertionError: Timeout waiting for load the login page**' is what you are
+looking for.
 
 ## Purpose and limits of this tool:
 
@@ -134,21 +134,23 @@ pip install -U nose pyopenssl MyProxyClient selenium requests nose-testconfig no
 
 ## Configuration:
 
-Configuration file is meant to be modified according to your needs and **save as with a different name** (like my\_config.ini). Git ignores files with the following pattern my\_config\*.ini
+Configuration file is meant to be modified according to your needs and
+**save as with a different name** (like my\_config.ini).
+Git ignores files with the following pattern my\_config\*.ini
 
      vi [installation_dir]/esgf-test-suite/esgf-test-suite/default.ini   
 
 esgf-test-suite raises a ConfigurationException if the configuration file is
-wrong or incomplete for the executed tests.
+wrong or incomplete.
 However, you don't have to fullfill the entire configuration file:
 you just have to give the information needed for the tests that you want to execute.
 
 * Section test
 
   - entry `type` allows you to select the superset of tests that corresponds to
-    your type of ESGF stack installation. Choose the value `classic` to run the
-    set of tests that aim a 'classical' installation of ESGF stack. Choose the
-    value `docker` to run the set of tests that aim a 'docker' installation of ESGF stack
+    the type your ESGF stack installation. Choose the value `classic` to run the
+    set of tests that aims a 'classical' installation of the ESGF stack. Choose the
+    value `docker` to run the set of tests that aims a 'docker' installation of the ESGF stack
   - entry `web_page_timeout` configures the timeout (integer in seconds) when waiting for a web page (i.e. CoG login)
   - entry `download_timeout` configures the timeout (integer in seconds) when downloading files (i.e. download tests)
 
@@ -159,7 +161,7 @@ you just have to give the information needed for the tests that you want to exec
   - `index_node`: the index node
   - `compute_node`: the compute node
 
-Specify the full qualified adresse of your nodes.
+Specify the full qualified address of your nodes.
 You may leave some entries empty, but ESGF-test-suite won't let you run the tests
 that need the missing addresses.
 
@@ -167,7 +169,7 @@ that need the missing addresses.
  
   - `firstname`: set the user's first name
   - `lastname`: set the user's last name
-  - `email`: set the user's email addresse
+  - `email`: set the user's email address
   - `username`: set the login name of the account
   - `password`: set the password of the account
   - `institution`: set the user's institution
@@ -179,30 +181,31 @@ tests (cog, myproxy and http download tests).
 
 Note: The creation of an account (test named: cog_create_user) through the CoG
 interface is not possible until the captcha is disable.
-Both user creation and user login tests rely on the section `[account]`.
+Both user creation and user login tests rely on the section `account`.
+You cannot create a user that already exists.
 
 * Section browser
 
   - `soft`: specifies the browser to use. Firefox is only support for the moment.
   - `is_headless`: set the value to `false`, only if you want to display firefox
-    when the tests are running (debug purpose).
+    when the tests are running (debugging).
 
 This section let you configure the browser used to test CoG and other services.
 
 * Section cog
 
-  - `admin_username`: set the admin login name
-  - `admin_password`: set the admin password 
+  - `admin_username`: set the admin's login name
+  - `admin_password`: set the admin's password 
 
-Testing the CoG requires some information. This section provides the required
+Testing CoG requires some information. This section provides the required
 information.
 
 * Section slcs
 
-  - `admin_username`: set the admin login name
-  - `admin_password`: set the admin password 
+  - `admin_username`: set the admin's login name
+  - `admin_password`: set the admin's password 
 
-Testing the SLCS requires some information. This section provides the required
+Testing SLCS requires some information. This section provides the required
 information.  
 
 * Section sys
@@ -210,16 +213,16 @@ information.
   - `is_debug`: set to `true` to output debugg information and to stop closing
    the browser at the end of the execution.
 
-This section configure development options.
+This section configures the development options.
 
 ## Understanding the result of the tests
 
-* `ok` means the service been tested is 
-* `ERROR` means that the test has crashed. Please report an issue on [github](https://github.com/ESGF/esgf-test-suite/issues)
-* `FAIL` means that the test has not crashed but the service been tested is not 
+* `ok`: the service been tested is alright.
+* `ERROR`: the test has crashed. Please report an issue on [github](https://github.com/ESGF/esgf-test-suite/issues)
+* `FAIL`: the test has not crashed but the service, that has been tested, failed.
 
-For the moment, until the end of the refactoring,
-everytime a test ends with `FAIL` or `ERROR` state, python display a traceback.
+For the moment, until the end of this refactoring,
+everytime a test ends with `FAIL` or `ERROR` state, python displays a traceback.
 The last line of each traceback block gives you the reason why the test has failed
 or crashed. For example:
 
@@ -238,12 +241,16 @@ Traceback (most recent call last):
     assert(False), "Timeout waiting for {0}".format(msg)
 AssertionError: Timeout waiting for load the login page
 ```
-**AssertionError: Timeout waiting for load the login page**
+'**AssertionError: Timeout waiting for load the login page**' is what you are
+looking for.
 
 ## Usage:
 
-The following examples except that you run the command in the `[installation_dir]/esgf-test-suite/esgf-test-suite/` directory
-(yes twice, it is not a mistake) and the configuration file is named `my_config.ini`. ESGF-test-suite is based on the nose attributes, for more information about them, visit this [page](http://nose.readthedocs.io/en/latest/plugins/attrib.html)
+The following examples except that you run the command in the
+`[installation_dir]/esgf-test-suite/esgf-test-suite/` directory
+(yes twice, it is not a mistake) and the configuration file is named `my_config.ini`.
+ESGF-test-suite is based on the nose attributes, for more information about them,
+visit this [page](http://nose.readthedocs.io/en/latest/plugins/attrib.html)
 
 * Nose options
   - `--with-html` generates a nice htlm report without the python traceback when tests fail (default report file name is 'nosetests.html').
@@ -350,8 +357,7 @@ nosetests -v --nocapture --nologcapture --tc-file my_config.ini -a '!compute,!co
 nosetests -v --nocapture --nologcapture --tc-file my_config.ini -a '!compute,!cog_create_user' --with-html --with-id
 ```
 
-Don't forget to configure the superset to the value _classic_ in the configuration file, the account
-and the cog sections (see section Configuration).
+Don't forget to configure the superset to the value _classic_ in the configuration file.
 
 ### Recommanded tests for a ESGF docker deployement
 
