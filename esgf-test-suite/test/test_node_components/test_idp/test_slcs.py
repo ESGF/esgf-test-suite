@@ -21,8 +21,8 @@ class TestSlcs(AbstractBrowserBasedTest):
   @attr ('slcs_django_admin_login')  
   def test_0_login_django_admin_interface(self):
     
-    # Clear the browser from any previsous login.
-    globals.browser.delete_all_cookies()
+    # Alway start with this method so as to dodge side effects.
+    self.reset_browser()
 
     url = "https://{0}/esgf-slcs/admin".format(self.idp_node)
     

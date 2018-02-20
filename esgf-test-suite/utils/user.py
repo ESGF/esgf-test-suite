@@ -52,8 +52,8 @@ class UserUtils(AbstractBrowserBasedTest):
                                 self.idp_server)
     assert(does_user_exist), err_msg
 
-    # Clear the browser from any previsous login.
-    globals.browser.delete_all_cookies()
+    # Alway start with this method so as to dodge side effects.
+    self.reset_browser()
 
     URL = "https://{0}/login".format(self.idp_server)
     OpenID = "https://{0}/esgf-idp/openid/".format(self.idp_server)
@@ -78,8 +78,8 @@ class UserUtils(AbstractBrowserBasedTest):
   
   def check_user_exists(self):
     
-    # Clear the browser from any previsous login.
-    globals.browser.delete_all_cookies()
+    # Alway start with this method so as to dodge side effects.
+    self.reset_browser()
 
     URL = "https://{0}/login".format(self.idp_server)
     OpenID = "https://{0}/esgf-idp/openid/{1}".format(self.idp_server,
@@ -103,8 +103,8 @@ class UserUtils(AbstractBrowserBasedTest):
     
   def create_user(self):
     
-    # Clear the browser from any previsous login.
-    globals.browser.delete_all_cookies()
+    # Alway start with this method so as to dodge side effects.
+    self.reset_browser()
 
     URL = "https://{0}/user/add".format(self.idp_server)
     

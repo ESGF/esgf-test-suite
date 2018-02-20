@@ -50,7 +50,8 @@ class TestDataDownload(AbstractBrowserBasedTest, AbstractMyproxyBasedTest):
   @attr ('dl_http')
   def test_0_http_browser_download(self):
     
-    globals.browser.delete_all_cookies()
+    # Alway start with this method so as to dodge side effects.
+    self.reset_browser()
 
     path = self._get_endpoint_path('HTTPServer')
     url = "http://{0}/thredds/fileServer/{1}".format(self.data_node, path)

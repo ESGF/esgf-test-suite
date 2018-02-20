@@ -28,7 +28,10 @@ class AbstractBrowserBasedTest(object):
   DEFAULT_TIMEOUT = config.get_int(config.TEST_SECTION, config.WEB_PAGE_TIMEOUT_KEY) # seconds
   TITLE_FOR_404 = 'Page not found'
   DOWNLOAD_DIR_PATH='/tmp'
-  
+
+  #_firefox_capabilities = None
+  #_firefox_profile = None
+
   def __init__(self):
     if globals.browser == None:
       
@@ -129,3 +132,10 @@ class AbstractBrowserBasedTest(object):
       value = expected_element[1]
       element = globals.browser.find_element(by, value)
       test_expected_element(element)
+
+  def reset_browser(self):
+
+    globals.browser.get('about:blank') # Stop loading web page.
+    globals.browser.delete_all_cookies() # Clean the browser state.
+    #globals.browser.close()
+    #globals.browser.start_session({'browser_name':'firefox'})
