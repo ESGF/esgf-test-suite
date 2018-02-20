@@ -86,7 +86,7 @@ class TestDataDownload(AbstractBrowserBasedTest, AbstractMyproxyBasedTest):
     # TODO check file hash ==> create a test data set
 
   @attr ('dl_gridftp')
-  def test_1_globus_url_copy(self):
+  def test_1_gridftp  _url_copy(self):
     path = self._get_endpoint_path('GridFTP')
     url = "gsiftp://{0}:2811//{1}".format(self.data_node, path)
     os.environ['X509_USER_PROXY'] = globals.myproxy_utils.credsfile
