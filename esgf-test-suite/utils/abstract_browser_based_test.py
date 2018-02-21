@@ -72,7 +72,7 @@ class AbstractBrowserBasedTest(object):
   def load_page(self, url, expected_element=(By.TAG_NAME, 'html'), timeout=DEFAULT_TIMEOUT):
 
     r = requests.get(url, verify=False, timeout=timeout)
-    err_msg = "Fail to connect to '{0}' (code = {1})".format(url, r.status_code)
+    err_msg = "fail to connect to '{0}' (code = {1})".format(url, r.status_code)
     assert(r.status_code < 403), err_msg
     
     if(timeout != self.DEFAULT_TIMEOUT):
@@ -81,13 +81,13 @@ class AbstractBrowserBasedTest(object):
     try:
       globals.browser.get(url)
     except TimeoutException:
-      assert(False), "Timeout waiting for {0}".format(url)
+      assert(False), "timeout waiting for {0}".format(url)
 
     element = expected_conditions.presence_of_element_located(expected_element)
     try:
       WebDriverWait(globals.browser, timeout).until(element)
     except TimeoutException:
-      assert(False), "Timeout waiting for {0}".format(url)
+      assert(False), "timeout waiting for {0}".format(url)
 
     if(timeout != self.DEFAULT_TIMEOUT):
       globals.browser.set_page_load_timeout(self.DEFAULT_TIMEOUT)
@@ -103,7 +103,7 @@ class AbstractBrowserBasedTest(object):
     try:
       WebDriverWait(globals.browser, timeout).until(element)
     except TimeoutException:
-      assert(False), "Timeout waiting for {0}".format(msg)
+      assert(False), "timeout waiting for {0}".format(msg)
 
     # The is supposed to be loaded. Let's search the not_expected_element.
     if(not_expected_element):
@@ -112,9 +112,9 @@ class AbstractBrowserBasedTest(object):
         value = not_expected_element[1]
         element = globals.browser.find_element(by, value)
         if(element.text):
-          assert(False), "Fail to {0} (reason: '{1}')".format(msg, element.text)
+          assert(False), "fail to {0} (reason: '{1}')".format(msg, element.text)
         else:
-          assert(False), "Fail to {0}".format(msg)
+          assert(False), "fail to {0}".format(msg)
       except NoSuchElementException:
         pass
 
@@ -125,7 +125,7 @@ class AbstractBrowserBasedTest(object):
         element = expected_conditions.presence_of_element_located(expected_element)
         WebDriverWait(globals.browser, timeout).until(element)
       except TimeoutException:
-        assert(False), "Timeout waiting for {0}".format(msg)
+        assert(False), "timeout waiting for {0}".format(msg)
 
     if(test_expected_element):
       by = expected_element[0]
