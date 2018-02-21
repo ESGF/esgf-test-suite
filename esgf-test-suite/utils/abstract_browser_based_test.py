@@ -71,9 +71,13 @@ class AbstractBrowserBasedTest(object):
       
   def load_page(self, url, expected_element=(By.TAG_NAME, 'html'), timeout=DEFAULT_TIMEOUT):
 
-    r = requests.get(url, verify=False, timeout=timeout)
-    err_msg = "fail to connect to '{0}' (code = {1})".format(url, r.status_code)
-    assert(r.status_code < 403), err_msg
+    try:
+      r = requests.get(url, verify=False, timeout=timeout)
+      err_msg = "fail to connect to '{0}' (code = {1})".format(url, r.status_code)
+      assert(r.status_code < 403), err_msg
+    except Exception as e:
+      err_msg = "fail to connect to '{0}'".format(url)
+      assert(False), err_msg
     
     if(timeout != self.DEFAULT_TIMEOUT):
       globals.browser.set_page_load_timeout(timeout)
