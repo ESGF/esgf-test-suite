@@ -1,14 +1,12 @@
 import requests
 
 import utils.configuration as config
-import utils.naming as naming
 
 from selenium.webdriver.common.by import By
 
 from abstract_browser_based_test import AbstractBrowserBasedTest
 import utils.globals as globals
 
-from selenium import webdriver
 from selenium.common.exceptions import TimeoutException, NoSuchElementException
 
 class UserUtils(AbstractBrowserBasedTest):
@@ -17,12 +15,7 @@ class UserUtils(AbstractBrowserBasedTest):
 
     self.idp_server = config.get(config.NODES_SECTION, config.IDP_NODE_KEY)
     
-    # Abort test if esgf-web-fe is not reachable
-    url = "https://{0}/user/add".format(self.idp_server)
-    r = requests.get(url, verify=False, timeout=config.get_int(config.TEST_SECTION, config.WEB_PAGE_TIMEOUT_KEY))
-    assert r.status_code == 200, "Fail to connect to '" + url + "'"
-
-    # Mapping user data to fit to web-fe user creation form 
+    # Mapping user data to fit to web-fe user creation form
     self.elements = {'first_name'       : config.get(config.ACCOUNT_SECTION,
                                                      config.USER_FIRST_NAME_KEY),
                      'last_name'        : config.get(config.ACCOUNT_SECTION,
