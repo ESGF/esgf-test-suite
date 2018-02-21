@@ -19,7 +19,7 @@ class TestSlcs(AbstractBrowserBasedTest):
     self.password = config.get(config.SLCS_SECTION, config.ADMIN_PASSWORD_KEY)
 
   @attr ('slcs_django_admin_login')  
-  def test_0_login_django_admin_interface(self):
+  def test_slcs_django_admin_login(self):
     
     # Alway start with this method so as to dodge side effects.
     self.reset_browser()

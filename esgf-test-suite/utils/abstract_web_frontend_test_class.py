@@ -19,7 +19,7 @@ class AbstractWebFrontEndTestClass(object):
     assert r.status_code == 200, "fail to connect to '" + url + "'"
     
   @attr ('basic_ping')
-  def test_frontends_availability(self):
+  def test_basic_ping(self):
     for front_end in self._front_ends:
       url = "https://" + self._node_name + "/" + front_end
       yield self.check_url, url

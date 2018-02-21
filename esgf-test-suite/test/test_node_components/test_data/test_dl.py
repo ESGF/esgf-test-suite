@@ -48,8 +48,8 @@ class TestDataDownload(AbstractBrowserBasedTest, AbstractMyproxyBasedTest):
         return path
   
   @attr ('dl_http')
-  def test_0_http_browser_download(self):
-    
+  def test_dl_http(self):
+
     # Alway start with this method so as to dodge side effects.
     self.reset_browser()
 
@@ -86,7 +86,7 @@ class TestDataDownload(AbstractBrowserBasedTest, AbstractMyproxyBasedTest):
     # TODO check file hash ==> create a test data set
 
   @attr ('dl_gridftp')
-  def test_1_gridftp_url_copy(self):
+  def test_dl_gridftp(self):
     path = self._get_endpoint_path('GridFTP')
     url = "gsiftp://{0}:2811//{1}".format(self.data_node, path)
     os.environ['X509_USER_PROXY'] = globals.myproxy_utils.credsfile

@@ -28,12 +28,12 @@ class TestCog(AbstractBrowserBasedTest):
     self.usr = user.UserUtils()
   
   @attr ('cog_user_login')
-  def test_1_user_login(self):
+  def test_cog_user_login(self):
 
     self.usr.login_user()    
     
   @attr ('cog_root_login')
-  def test_2_root_login(self):
+  def test_cog_root_login(self):
     
     # Alway start with this method so as to dodge side effects.
     self.reset_browser()
@@ -57,7 +57,7 @@ class TestCog(AbstractBrowserBasedTest):
     self.wait_loading(msg, not_expected_element=(By.CLASS_NAME, 'errornote'))
     
   @attr ('cog_create_user')
-  def test_0_create_user(self):
+  def test_cog_create_user(self):
 
     does_user_exist=self.usr.check_user_exists()
     
