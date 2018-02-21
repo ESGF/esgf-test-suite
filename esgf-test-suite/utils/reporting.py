@@ -28,4 +28,4 @@ class Reporting(Plugin):
   def formatFailure(self, test, err):
 
     ec, ev, tb = err
-    return('Reason', ev, '')
+    return(ec, ev, None)
