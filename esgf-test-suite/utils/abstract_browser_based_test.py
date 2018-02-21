@@ -133,8 +133,10 @@ class AbstractBrowserBasedTest(object):
       element = globals.browser.find_element(by, value)
       test_expected_element(element)
 
+  # Call this method so as to avoid side effects between runs of test.
   def reset_browser(self):
 
     globals.browser.close()
     globals.browser.start_session(capabilities = AbstractBrowserBasedTest._firefox_capabilities,\
                                   browser_profile = AbstractBrowserBasedTest._firefox_profile)
+    globals.browser.delete_all_cookies() # Belt and Braces.
