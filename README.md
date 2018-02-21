@@ -34,29 +34,6 @@ Don't forget to configure the superset to the value _docker_ in the configuratio
 * `ERROR`: the test has crashed. Please report an issue on [github](https://github.com/ESGF/esgf-test-suite/issues)
 * `FAIL`: the test has not crashed but the service, that has been tested, failed.
 
-For the moment, until the end of this refactoring,
-everytime a test ends with `FAIL` or `ERROR` state, python displays a traceback.
-The last line of each traceback block gives you the reason why the test has failed
-or crashed. For example:
-
-```
-======================================================================
-FAIL: test_cog.TestCog.test_1_user_login
-----------------------------------------------------------------------
-Traceback (most recent call last):
-  File "/home/seb/anaconda2/envs/esgf_python27/lib/python2.7/site-packages/nose/case.py", line 197, in runTest
-    self.test(*self.arg)
-  File "/home/seb/Documents/dev/esgf-test-suite/esgf-test-suite/test/test_node_components/test_index/test_cog.py", line 33, in test_1_user_login
-    self.usr.login_user()
-  File "/home/seb/Documents/dev/esgf-test-suite/esgf-test-suite/utils/user.py", line 66, in login_user
-    self.wait_loading('load the login page', (By.ID, 'username'), (By.CLASS_NAME, 'error-box'))
-  File "/home/seb/Documents/dev/esgf-test-suite/esgf-test-suite/utils/abstract_browser_based_test.py", line 125, in wait_loading
-    assert(False), "Timeout waiting for {0}".format(msg)
-AssertionError: Timeout waiting for load the login page
-```
-'**AssertionError: Timeout waiting for load the login page**' is what you are
-looking for.
-
 ## Purpose and limits of this tool:
 
 ESGF Test Suite is a full python application.
@@ -221,29 +198,6 @@ This section configures the development options.
 * `ERROR`: the test has crashed. Please report an issue on [github](https://github.com/ESGF/esgf-test-suite/issues)
 * `FAIL`: the test has not crashed but the service, that has been tested, failed.
 
-For the moment, until the end of this refactoring,
-everytime a test ends with `FAIL` or `ERROR` state, python displays a traceback.
-The last line of each traceback block gives you the reason why the test has failed
-or crashed. For example:
-
-```
-======================================================================
-FAIL: test_cog.TestCog.test_1_user_login
-----------------------------------------------------------------------
-Traceback (most recent call last):
-  File "/home/seb/anaconda2/envs/esgf_python27/lib/python2.7/site-packages/nose/case.py", line 197, in runTest
-    self.test(*self.arg)
-  File "/home/seb/Documents/dev/esgf-test-suite/esgf-test-suite/test/test_node_components/test_index/test_cog.py", line 33, in test_1_user_login
-    self.usr.login_user()
-  File "/home/seb/Documents/dev/esgf-test-suite/esgf-test-suite/utils/user.py", line 66, in login_user
-    self.wait_loading('load the login page', (By.ID, 'username'), (By.CLASS_NAME, 'error-box'))
-  File "/home/seb/Documents/dev/esgf-test-suite/esgf-test-suite/utils/abstract_browser_based_test.py", line 125, in wait_loading
-    assert(False), "Timeout waiting for {0}".format(msg)
-AssertionError: Timeout waiting for load the login page
-```
-'**AssertionError: Timeout waiting for load the login page**' is what you are
-looking for.
-
 ## Usage:
 
 The following examples except that you run the command in the
@@ -256,6 +210,7 @@ visit this [page](http://nose.readthedocs.io/en/latest/plugins/attrib.html)
   - `--with-html` generates a nice htlm report without the python traceback when tests fail (default report file name is 'nosetests.html').
   - `--with-id` generates the id of the tests so you can rerun next time tests of your choice calling nosetest with `--with-id #` where # is the id numbers (space is the separator).
   - `--failed` keeps nosetest to loop over the failed tests (like `--with-id` with the id of the failed tests).
+  - `--rednose --force-color --hide-skips` this one colors the output of nosetests but I will have to install rednose: `pip install rednose`. Do not use this option when redirecting the output into a file.
 
 The nosetest doc is available [here](http://nose.readthedocs.io/en/latest/testing.html)
 
