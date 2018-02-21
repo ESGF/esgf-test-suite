@@ -20,12 +20,12 @@ class MyProxyUtils(object):
     self.idp_addr= config.get(config.NODES_SECTION, config.IDP_NODE_KEY).encode('ascii', 'replace')
     self.myproxy = MyProxyClient(hostname=self.idp_addr)
     self.myproxy._setCACertDir(self.cacertdir)
-
+    self.credentials = None
+    self.trustRoots = None
 
   def get_trustroots(self):
     # Get trust roots
 
-    self.trustRoots = None
     try:
       self.trustRoots = self.myproxy.getTrustRoots(config.get(config.ACCOUNT_SECTION, config.USER_NAME_KEY),
                           config.get(config.ACCOUNT_SECTION, config.USER_PASSWORD_KEY),
@@ -36,7 +36,6 @@ class MyProxyUtils(object):
 
   def get_credentials(self):
 
-    self.credentials = None
     try:
       # Get credentials (and trustroots)
       username = config.get(config.ACCOUNT_SECTION, config.USER_NAME_KEY)
