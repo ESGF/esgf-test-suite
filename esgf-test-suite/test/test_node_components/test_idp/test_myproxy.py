@@ -29,7 +29,7 @@ class TestMyProxy(AbstractMyproxyBasedTest):
         if fileName.endswith('.0'):
           # test parsing certificate
           cert = crypto.load_certificate(crypto.FILETYPE_PEM, fileContents)
-          assert(isinstance(cert, crypto.X509)), "Unsupported certificate format '{0}'".format(cert)
+          assert(isinstance(cert, crypto.X509)), "unsupported certificate format '{0}'".format(cert)
           subj = cert.get_subject()
           err_msg = "fail to get the trusted root certificates for '{0}'".format(config.get(config.NODES_SECTION, config.IDP_NODE_KEY))
           assert(subj), err_msg
@@ -39,8 +39,8 @@ class TestMyProxy(AbstractMyproxyBasedTest):
   @attr ('myproxy_get_credentials')
   def test_myproxy_get_credentials(self):
 
+    # Test output from get_credentials
     if(globals.myproxy_utils.credentials):
-      # Test output from get_credentials
       err_msg = "unsupported credentials format '{0}'".format(globals.myproxy_utils.credentials)
       assert(isinstance(globals.myproxy_utils.credentials, tuple)), err_msg
       cert = crypto.load_certificate(crypto.FILETYPE_PEM,
