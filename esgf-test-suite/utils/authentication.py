@@ -1,7 +1,8 @@
 import os
 import shutil
 
-from myproxy.client import MyProxyClient
+from myproxy.client import MyProxyClient, MyProxyClientGetError
+
 from OpenSSL import crypto
 
 import utils.configuration as config
@@ -23,19 +24,31 @@ class MyProxyUtils(object):
 
   def get_trustroots(self):
     # Get trust roots
+
+    self.trustRoots = None
     try:
       self.trustRoots = self.myproxy.getTrustRoots(config.get(config.ACCOUNT_SECTION, config.USER_NAME_KEY),
                           config.get(config.ACCOUNT_SECTION, config.USER_PASSWORD_KEY),
                           writeToCACertDir=True, bootstrap=True)
     except socket_error as serr:
-      if serr.errno == errno.ECONNREFUSED:
-        err = socket_error("unable to connect to myproxy server in {0}".format(self.idp_addr))
-        raise err
+      err = socket_error("unable to connect to myproxy server '{0}'".format(self.idp_addr))
+      assert(False), err
 
   def get_credentials(self):
-    # Get credentials (and trustroots)
-    self.credentials = self.myproxy.logon(config.get(config.ACCOUNT_SECTION, config.USER_NAME_KEY),
-                         config.get(config.ACCOUNT_SECTION, config.USER_PASSWORD_KEY))
+
+    self.credentials = None
+    try:
+      # Get credentials (and trustroots)
+      username = config.get(config.ACCOUNT_SECTION, config.USER_NAME_KEY)
+      password = config.get(config.ACCOUNT_SECTION, config.USER_PASSWORD_KEY)
+      self.credentials = self.myproxy.logon(username, password)
+    except MyProxyClientGetError:
+      err_msg = "wrong username and password combination when getting credentials for user '{0}'".format(username)
+      assert(False), err_msg
+    except socket_error:
+      err = socket_error("unable to connect to myproxy server '{0}'".format(self.idp_addr))
+      assert (False), err
+
     # Write Credentials
     with open(self.credsfile, 'w') as f:
       f.write(self.credentials[0]+self.credentials[1])
