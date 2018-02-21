@@ -35,8 +35,8 @@ class TestCog(AbstractBrowserBasedTest):
   @attr ('cog_root_login')
   def test_2_root_login(self):
     
-    # Clear the browser from any previsous login.
-    globals.browser.delete_all_cookies()
+    # Alway start with this method so as to dodge side effects.
+    self.reset_browser()
     
     idp_node=config.get(config.NODES_SECTION, config.IDP_NODE_KEY)
     url = "https://{0}/login2".format(idp_node)

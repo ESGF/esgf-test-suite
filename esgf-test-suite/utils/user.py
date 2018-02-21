@@ -19,7 +19,7 @@ class UserUtils(AbstractBrowserBasedTest):
     
     # Abort test if esgf-web-fe is not reachable
     url = "https://{0}/user/add".format(self.idp_server)
-    r = requests.get(url, verify=False, timeout=1)
+    r = requests.get(url, verify=False, timeout=config.get_int(config.TEST_SECTION, config.WEB_PAGE_TIMEOUT_KEY))
     assert r.status_code == 200, "Fail to connect to '" + url + "'"
 
     # Mapping user data to fit to web-fe user creation form 
@@ -44,9 +44,6 @@ class UserUtils(AbstractBrowserBasedTest):
 
   def login_user(self):
 
-    # Clear the browser from any previsous login.
-    globals.browser.delete_all_cookies()
-
     does_user_exist = self.check_user_exists()
     
     err_msg = "User '{0}' doesn't exist for '{1}'".format(
@@ -54,6 +51,9 @@ class UserUtils(AbstractBrowserBasedTest):
                                 config.USER_NAME_KEY),
                                 self.idp_server)
     assert(does_user_exist), err_msg
+
+    # Alway start with this method so as to dodge side effects.
+    self.reset_browser()
 
     URL = "https://{0}/login".format(self.idp_server)
     OpenID = "https://{0}/esgf-idp/openid/".format(self.idp_server)
@@ -78,6 +78,9 @@ class UserUtils(AbstractBrowserBasedTest):
   
   def check_user_exists(self):
     
+    # Alway start with this method so as to dodge side effects.
+    self.reset_browser()
+
     URL = "https://{0}/login".format(self.idp_server)
     OpenID = "https://{0}/esgf-idp/openid/{1}".format(self.idp_server,
                        config.get(config.ACCOUNT_SECTION, config.USER_NAME_KEY))
@@ -100,6 +103,9 @@ class UserUtils(AbstractBrowserBasedTest):
     
   def create_user(self):
     
+    # Alway start with this method so as to dodge side effects.
+    self.reset_browser()
+
     URL = "https://{0}/user/add".format(self.idp_server)
     
     self.load_page(URL, (By.NAME, 'first_name'))

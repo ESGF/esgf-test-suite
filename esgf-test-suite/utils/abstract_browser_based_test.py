@@ -25,10 +25,13 @@ import requests
 
 class AbstractBrowserBasedTest(object):
   
-  DEFAULT_TIMEOUT = 10 # seconds
+  DEFAULT_TIMEOUT = config.get_int(config.TEST_SECTION, config.WEB_PAGE_TIMEOUT_KEY) # seconds
   TITLE_FOR_404 = 'Page not found'
   DOWNLOAD_DIR_PATH='/tmp'
-  
+
+  _firefox_profile = None
+  _firefox_capabilities = None
+
   def __init__(self):
     if globals.browser == None:
       
@@ -43,15 +46,15 @@ class AbstractBrowserBasedTest(object):
       
       kwargs = dict()
 
-      firefox_profile = FirefoxProfile() # profile
-      firefox_profile.set_preference('extensions.logging.enabled', False)
-      firefox_profile.set_preference('network.dns.disableIPv6', False)
+      AbstractBrowserBasedTest._firefox_profile = FirefoxProfile() # profile
+      AbstractBrowserBasedTest._firefox_profile.set_preference('extensions.logging.enabled', False)
+      AbstractBrowserBasedTest._firefox_profile.set_preference('network.dns.disableIPv6', False)
 
       for key, value in pf.items():
-        firefox_profile.set_preference(key, value)
+        AbstractBrowserBasedTest._firefox_profile.set_preference(key, value)
 
-      firefox_capabilities = DesiredCapabilities().FIREFOX
-      firefox_capabilities["marionette"] = True
+      AbstractBrowserBasedTest._firefox_capabilities = DesiredCapabilities().FIREFOX
+      AbstractBrowserBasedTest._firefox_capabilities["marionette"] = True
 
       if is_headless:
         os.environ.update({"MOZ_HEADLESS": '1'})
@@ -59,8 +62,8 @@ class AbstractBrowserBasedTest(object):
         binary.add_command_line_options('-headless')
         kwargs['firefox_binary'] = binary
 
-      globals.browser = Firefox(firefox_profile,
-                                capabilities=firefox_capabilities,
+      globals.browser = Firefox(AbstractBrowserBasedTest._firefox_profile,
+                                capabilities = AbstractBrowserBasedTest._firefox_capabilities,
                                 **kwargs)
       globals.browser.set_page_load_timeout(self.DEFAULT_TIMEOUT)
 
@@ -129,3 +132,9 @@ class AbstractBrowserBasedTest(object):
       value = expected_element[1]
       element = globals.browser.find_element(by, value)
       test_expected_element(element)
+
+  def reset_browser(self):
+
+    globals.browser.close()
+    globals.browser.start_session(capabilities = AbstractBrowserBasedTest._firefox_capabilities,\
+                                  browser_profile = AbstractBrowserBasedTest._firefox_profile)
