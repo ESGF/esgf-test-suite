@@ -3,7 +3,6 @@ from utils.abstract_myproxy_based_test import AbstractMyproxyBasedTest
 from nose.plugins.attrib import attr
 
 import os
-import shutil
 import subprocess
 from operator import itemgetter
 from nose.plugins.skip import Skip, SkipTest
@@ -11,10 +10,10 @@ import requests
 
 import utils.globals as globals
 
-import utils.authentication as auth
 import utils.configuration as config
 import utils.catalog as cat
-import utils.user as usr
+
+from utils.abstract_web_frontend_test_class import AbstractWebFrontEndTestClass
 
 from selenium.webdriver.common.by import By
 
@@ -38,11 +37,11 @@ class TestDataDownload(AbstractBrowserBasedTest, AbstractMyproxyBasedTest):
 
   def _get_endpoint_path(self, service):
     if not self._endpoints:
-      raise SkipTest("No available endpoints at {1}".format(service, self.data_node))
+      raise SkipTest("no available endpoints at {1}".format(service, self.data_node))
     else:
       service_endpoints = [i for i in self._endpoints if service in i[2]] #Sort by service
       if not service_endpoints:
-        raise SkipTest("No available {0} endpoints at {1}".format(service, self.data_node))
+        raise SkipTest("no available {0} endpoints at {1}".format(service, self.data_node))
       else:
         path = min(service_endpoints,key=itemgetter(1))[0] #Pick smallest dataset 
         return path
@@ -53,13 +52,22 @@ class TestDataDownload(AbstractBrowserBasedTest, AbstractMyproxyBasedTest):
     # Alway start with this method so as to dodge side effects.
     self.reset_browser()
 
+    url = "http://{0}/thredds".format(self.data_node)
+    AbstractWebFrontEndTestClass.check_url(url)
+
+    self.reset_browser()
+
     path = self._get_endpoint_path('HTTPServer')
     url = "http://{0}/thredds/fileServer/{1}".format(self.data_node, path)
 
-    r = requests.get(url, verify=False, timeout=config\
-          .get_int(config.TEST_SECTION, config.WEB_PAGE_TIMEOUT_KEY), stream=True)
-    if r.status_code == 200:
-      return # as file has been downloaded and credential wasn't needed.
+    try:
+      r = requests.get(url, verify=False, timeout=config\
+            .get_int(config.TEST_SECTION, config.WEB_PAGE_TIMEOUT_KEY), stream=True)
+      if r.status_code == 200:
+        return # as file has been downloaded and credential wasn't needed.
+    except Exception as e:
+      err_msg = "fail to download '{0}'".format(url)
+      assert (False), err_msg
     
     # else open a globals.browser and give the credential so as to download the file.
 
@@ -94,7 +102,7 @@ class TestDataDownload(AbstractBrowserBasedTest, AbstractMyproxyBasedTest):
     command = ['globus-url-copy', '-b', url, TestDataDownload._DOWNLOADED_FILE_PATH]
     process = subprocess.Popen(command)
     process.wait()
-    assert(process.returncode == 0), "Fail to download by GridFTP"
+    assert(process.returncode == 0), "fail to download by GridFTP"
 
   @classmethod
   def teardown_class(self):

@@ -13,8 +13,9 @@ class AbstractWebFrontEndTestClass(object):
     requests.packages.urllib3.disable_warnings()
     self._front_ends = front_ends
     self._node_name = node_name
-  
-  def check_url(self, url):
+
+  @staticmethod
+  def check_url(url):
 
     try:
       r = requests.get(url, verify=False, timeout=config.get_int(config.TEST_SECTION, config.WEB_PAGE_TIMEOUT_KEY))
