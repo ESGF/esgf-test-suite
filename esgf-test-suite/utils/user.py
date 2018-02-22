@@ -54,16 +54,18 @@ class UserUtils(AbstractBrowserBasedTest):
     globals.browser.find_element_by_id('openid_identifier').send_keys(OpenID)
     globals.browser.find_element_by_xpath("//input[@value='Login']").click()
 
-    self.wait_loading('load the login page', (By.ID, 'username'), (By.CLASS_NAME, 'error-box'))
+    self.wait_loading('load the login page', (By.ID, 'username'),
+                      (By.CLASS_NAME, 'error-box'))
 
     # After check_user_exists, the page is asking for the user's password.
-    globals.browser.find_element_by_id('username').send_keys(config.get(config.ACCOUNT_SECTION,
-                                        config.USER_NAME_KEY))
-    globals.browser.find_element_by_id('password').send_keys(config.get(config.ACCOUNT_SECTION,
-                                        config.USER_PASSWORD_KEY))
+    globals.browser.find_element_by_id('username')\
+      .send_keys(config.get(config.ACCOUNT_SECTION, config.USER_NAME_KEY))
+    globals.browser.find_element_by_id('password')\
+      .send_keys(config.get(config.ACCOUNT_SECTION, config.USER_PASSWORD_KEY))
     globals.browser.find_element_by_xpath("//input[@value='SUBMIT']").click()
 
-    msg = "login with user '{0}' for '{1}'".format(config.get(config.ACCOUNT_SECTION, config.USER_NAME_KEY), self.idp_server)
+    msg = "login with user '{0}' for '{1}'"\
+      .format(config.get(config.ACCOUNT_SECTION, config.USER_NAME_KEY), self.idp_server)
     #text = 'Invalid OpenID and/or Password combination'
     self.wait_loading(msg, not_expected_element=(By.ID, 'null.errors'))
   
