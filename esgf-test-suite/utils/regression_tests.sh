@@ -17,7 +17,7 @@ function test_suite
     err_output_file_path="${TEST_DIR_PATH}/${1}_${run}.output"
     html_report_file_path="${TEST_DIR_PATH}/${1}_${run}.html"
 
-    nosetests -v --nocapture --nologcapture --tc-file "${2}" "${3}" \
+    python esgf-test.py -v --nocapture --nologcapture --tc-file "${2}" "${3}" \
       --with-html --html-file="${html_report_file_path}" --with-id \
       1>"${err_output_file_path}" 2>&1
 
@@ -34,8 +34,8 @@ mkdir -p "${TEST_DIR_PATH}"
 rm -f ${TEST_DIR_PATH}/*
 cd "${SCRIPT_PARENT_DIR_PATH}/.."
 
-test_suite "production"  "my_config_prod.ini" '-a '!compute,!slcs''
-test_suite "integration" "my_config_int.ini"  '-a '!compute''
-test_suite "development" "my_config_dev.ini"  '-a '!compute''
-test_suite "llnl" "my_config_llnl.ini"  '-a '!compute,!slcs_django_admin_login,!cog_root_login''
-test_suite "dkrz" "my_config_dkrz.ini"  '-a '!compute,!slcs_django_admin_login,!cog_root_login''
+test_suite "production"  "my_config_prod.ini" '-a '!compute,!slcs,!cog_create_user''
+test_suite "integration" "my_config_int.ini"  '-a '!compute,!cog_create_user''
+test_suite "development" "my_config_dev.ini"  '-a '!compute,!cog_create_user''
+test_suite "llnl" "my_config_llnl.ini"  '-a '!compute,!slcs_django_admin_login,!cog_root_login,!cog_create_user''
+test_suite "dkrz" "my_config_dkrz.ini"  '-a '!compute,!slcs_django_admin_login,!cog_root_login,!cog_create_user''
