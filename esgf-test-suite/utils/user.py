@@ -1,5 +1,3 @@
-import requests
-
 import utils.configuration as config
 
 from selenium.webdriver.common.by import By

@@ -1,7 +1,5 @@
 import requests
 
-from configuration_exception import ConfigurationException
-
 import utils.configuration as config
 from nose.plugins.attrib import attr
 

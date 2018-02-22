@@ -4,18 +4,11 @@ import utils.naming as naming
 
 import urllib3
 
-from selenium.common.exceptions import StaleElementReferenceException
-
 import os
 
-from selenium import webdriver
 from selenium.webdriver import DesiredCapabilities, Firefox
 from selenium.webdriver.firefox.firefox_profile import FirefoxProfile
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
-from selenium.webdriver.firefox.options import Options
-from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import TimeoutException, NoSuchElementException
 from selenium.webdriver.support.ui import WebDriverWait
