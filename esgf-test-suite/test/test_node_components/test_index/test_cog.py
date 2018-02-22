@@ -60,9 +60,8 @@ class TestCog(AbstractBrowserBasedTest):
   def test_cog_create_user(self):
 
     does_user_exist=self.usr.check_user_exists()
-    
+
     if(does_user_exist):
-      raise SkipTest("User already exists")
-    
-    # Create user
-    self.usr.create_user()
+      assert(False), "user '{0}' already exists".format(config.get(config.ACCOUNT_SECTION, config.USER_NAME_KEY))
+    else:
+      self.usr.create_user() # Create user
