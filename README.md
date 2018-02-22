@@ -57,6 +57,7 @@ Current developments will also let admins to test and validate the stack by runn
 - MyProxyClient (tested version: 2.0.1)
 - Geckodriver (tested version: 0.19.0)
 - Selenium (tested version 3.9.0)
+- Requests (tested version 2.18.4)
 - LibXML (tested version: 2.9.3+dfsg1-1ubuntu0.5)
 - LibXSLT (tested version: 1.1.28-2.1ubuntu0.1)
 
