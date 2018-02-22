@@ -3,12 +3,9 @@ import shutil
 
 from myproxy.client import MyProxyClient, MyProxyClientGetError
 
-from OpenSSL import crypto
-
 import utils.configuration as config
 import utils.naming as naming
 
-import errno
 from socket import error as socket_error
 
 class MyProxyUtils(object):
