@@ -14,3 +14,7 @@ def teardown_package():
   if globals.myproxy_utils != None and not globals.is_debug:
     globals.myproxy_utils.delete_credentials()
     globals.myproxy_utils.delete_trustroots()
+
+  if(not globals.is_debug\
+     and os.path.exists(AbstractBrowserBasedTest.GECKODRIVER_LOG_FILE_PATH):
+    os.remove(AbstractBrowserBasedTest.GECKODRIVER_LOG_FILE_PATH)  

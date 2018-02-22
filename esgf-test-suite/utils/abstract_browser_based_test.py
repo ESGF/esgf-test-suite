@@ -21,6 +21,7 @@ class AbstractBrowserBasedTest(object):
   DEFAULT_TIMEOUT = config.get_int(config.TEST_SECTION, config.WEB_PAGE_TIMEOUT_KEY) # seconds
   TITLE_FOR_404 = 'Page not found'
   DOWNLOAD_DIR_PATH='/tmp'
+  GECKODRIVER_LOG_FILE_PATH="{0}/geckodriver.log".format(os.getcwd())
 
   _firefox_profile = None
   _firefox_capabilities = None
@@ -56,7 +57,8 @@ class AbstractBrowserBasedTest(object):
         kwargs['firefox_binary'] = binary
 
       globals.browser = Firefox(AbstractBrowserBasedTest._firefox_profile,
-                                capabilities = AbstractBrowserBasedTest._firefox_capabilities,
+                  capabilities = AbstractBrowserBasedTest._firefox_capabilities,
+                    log_path=AbstractBrowserBasedTest.GECKODRIVER_LOG_FILE_PATH,
                                 **kwargs)
       globals.browser.set_page_load_timeout(self.DEFAULT_TIMEOUT)
 
