@@ -38,11 +38,11 @@ class TestDataDownload(AbstractBrowserBasedTest, AbstractMyproxyBasedTest):
 
   def _get_endpoint_path(self, service):
     if not self._endpoints:
-      assert(False), "No available endpoints at {1}".format(service, self.data_node)
+      raise SkipTest("No available endpoints at {1}".format(service, self.data_node))
     else:
       service_endpoints = [i for i in self._endpoints if service in i[2]] #Sort by service
       if not service_endpoints:
-        assert(False), "No available {0} endpoints at {1}".format(service, self.data_node)
+        raise SkipTest("No available {0} endpoints at {1}".format(service, self.data_node))
       else:
         path = min(service_endpoints,key=itemgetter(1))[0] #Pick smallest dataset 
         return path
