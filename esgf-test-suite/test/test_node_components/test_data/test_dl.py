@@ -52,6 +52,7 @@ class TestDataDownload(AbstractBrowserBasedTest, AbstractMyproxyBasedTest):
     # Alway start with this method so as to dodge side effects.
     self.reset_browser()
 
+    # Check the connection before trying to download. Make the test standalone.
     url = "http://{0}/thredds".format(self.data_node)
     AbstractWebFrontEndTestClass.check_url(url)
 
