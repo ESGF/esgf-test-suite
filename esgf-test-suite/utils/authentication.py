@@ -42,7 +42,7 @@ class MyProxyUtils(object):
       password = config.get(config.ACCOUNT_SECTION, config.USER_PASSWORD_KEY)
       self.credentials = self.myproxy.logon(username, password)
     except MyProxyClientGetError:
-      err_msg = "wrong username and password combination when getting credentials for user '{0}'".format(username)
+      err_msg = "wrong username and/or password combination when getting credentials for user '{0}'".format(username)
       assert(False), err_msg
     except socket_error:
       err = socket_error("unable to connect to myproxy server '{0}'".format(self.idp_addr))
