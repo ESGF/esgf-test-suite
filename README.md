@@ -97,6 +97,12 @@ Tested with MacOSX Sierra and Miniconda for Python 2.7
 Just download the latest version of the binary [here](https://github.com/mozilla/geckodriver/releases) (according to your OS) and add the path of the binary into the `PATH` environment variable.
 
     export PATH=/path/to/geckodriver:$PATH
+    
+OR
+
+Install Geckodriver via Homebrew:
+
+     brew install geckodriver
 
 * Globus-url-copy installation
 
