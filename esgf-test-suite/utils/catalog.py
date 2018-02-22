@@ -182,7 +182,8 @@ class ThreddsUtils(object):
     try:
       content = urllib2.urlopen(main_url)
     except:
-      return projects
+      err_msg = "unable to get the catalog at '{0}'".format(main_url)
+      assert(False), err_msg
 
     for event, cr in etree.iterparse(content, events=('end',), tag=catalog_ns + 'catalogRef'):
       path = cr.get('{http://www.w3.org/1999/xlink}href')

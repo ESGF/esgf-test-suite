@@ -52,12 +52,6 @@ class TestDataDownload(AbstractBrowserBasedTest, AbstractMyproxyBasedTest):
     # Alway start with this method so as to dodge side effects.
     self.reset_browser()
 
-    # Check the connection before trying to download. Make the test standalone.
-    url = "http://{0}/thredds".format(self.data_node)
-    AbstractWebFrontEndTestClass.check_url(url)
-
-    self.reset_browser()
-
     path = self._get_endpoint_path('HTTPServer')
     url = "http://{0}/thredds/fileServer/{1}".format(self.data_node, path)
 
@@ -96,6 +90,7 @@ class TestDataDownload(AbstractBrowserBasedTest, AbstractMyproxyBasedTest):
 
   @attr ('dl_gridftp')
   def test_dl_gridftp(self):
+
     path = self._get_endpoint_path('GridFTP')
     url = "gsiftp://{0}:2811//{1}".format(self.data_node, path)
     os.environ['X509_USER_PROXY'] = globals.myproxy_utils.credsfile
