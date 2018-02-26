@@ -50,7 +50,7 @@ Current developments will also let admins to test and validate the stack by runn
 
 - Shell environment  
 - Python 2.7 or higher (but not 3.x)
-- Firefox (tested version: 58.0)
+- Firefox (tested version: 58.0) **!! esgf-test-suite/Gekodriver doesn't work with versions of Firefox less than 58 (like the esr channel) !!**
 - Globus-url-copy (MacOSX/homebrew: Globus Toolkit 6.0.1506371041 ; Linux: globus-gass-copy-progs 9.18-2) 
 - Nose (tested version: 1.3.7)
 - Pyopenssl (OpenSSL ; tested version: 17.3.0)
@@ -172,7 +172,8 @@ You cannot create a user that already exists.
 
   - `soft`: specifies the browser to use. Firefox is only support for the moment.
   - `is_headless`: set the value to `false`, only if you want to display firefox
-    when the tests are running (debugging).
+    when the tests are running (debugging). **esgf-test-suite/selenium/geckodriver requires that the window of Firefox keeps
+    the focus while the tests are running. So don't switch to other windows when is_headless is set to True**
 
 This section let you configure the browser used to test CoG and other services.
 
@@ -334,5 +335,7 @@ Don't forget to configure the superset to the value _docker_ in the configuratio
 * This test suite can run with another browser than Firefox, provided a browser driver that will replace Geckodriver and modify your configuration file.
 * Git ignores the geckodriver.log, my\_config\*.ini files and nosetests\*.html files.
 * Do not use double quotes when specifying the nose attributes. Always use simple quotes.
+* Esgf-test-suite/geckodriver/selenium don't work with version of Firefox less than 58.
+* Don't make the Firefox window loose its focus when is_enable is set to True.
 
 DISCLAIMER - the scripts in this repo are provided as is - use at your own risk - they have been tested only on a single system and may require modification to work correctly on other systems.
