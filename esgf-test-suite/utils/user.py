@@ -1,14 +1,10 @@
-import requests
-
 import utils.configuration as config
-import utils.naming as naming
 
 from selenium.webdriver.common.by import By
 
 from abstract_browser_based_test import AbstractBrowserBasedTest
 import utils.globals as globals
 
-from selenium import webdriver
 from selenium.common.exceptions import TimeoutException, NoSuchElementException
 
 class UserUtils(AbstractBrowserBasedTest):
@@ -17,12 +13,7 @@ class UserUtils(AbstractBrowserBasedTest):
 
     self.idp_server = config.get(config.NODES_SECTION, config.IDP_NODE_KEY)
     
-    # Abort test if esgf-web-fe is not reachable
-    url = "https://{0}/user/add".format(self.idp_server)
-    r = requests.get(url, verify=False, timeout=config.get_int(config.TEST_SECTION, config.WEB_PAGE_TIMEOUT_KEY))
-    assert r.status_code == 200, "Fail to connect to '" + url + "'"
-
-    # Mapping user data to fit to web-fe user creation form 
+    # Mapping user data to fit to web-fe user creation form
     self.elements = {'first_name'       : config.get(config.ACCOUNT_SECTION,
                                                      config.USER_FIRST_NAME_KEY),
                      'last_name'        : config.get(config.ACCOUNT_SECTION,
@@ -63,16 +54,18 @@ class UserUtils(AbstractBrowserBasedTest):
     globals.browser.find_element_by_id('openid_identifier').send_keys(OpenID)
     globals.browser.find_element_by_xpath("//input[@value='Login']").click()
 
-    self.wait_loading('load the login page', (By.ID, 'username'), (By.CLASS_NAME, 'error-box'))
+    self.wait_loading('load the login page', (By.ID, 'username'),
+                      (By.CLASS_NAME, 'error-box'))
 
     # After check_user_exists, the page is asking for the user's password.
-    globals.browser.find_element_by_id('username').send_keys(config.get(config.ACCOUNT_SECTION,
-                                        config.USER_NAME_KEY))
-    globals.browser.find_element_by_id('password').send_keys(config.get(config.ACCOUNT_SECTION,
-                                        config.USER_PASSWORD_KEY))
+    globals.browser.find_element_by_id('username')\
+      .send_keys(config.get(config.ACCOUNT_SECTION, config.USER_NAME_KEY))
+    globals.browser.find_element_by_id('password')\
+      .send_keys(config.get(config.ACCOUNT_SECTION, config.USER_PASSWORD_KEY))
     globals.browser.find_element_by_xpath("//input[@value='SUBMIT']").click()
 
-    msg = "login with user '{0}' for '{1}'".format(config.get(config.ACCOUNT_SECTION, config.USER_NAME_KEY), self.idp_server)
+    msg = "login with user '{0}' for '{1}'"\
+      .format(config.get(config.ACCOUNT_SECTION, config.USER_NAME_KEY), self.idp_server)
     #text = 'Invalid OpenID and/or Password combination'
     self.wait_loading(msg, not_expected_element=(By.ID, 'null.errors'))
   

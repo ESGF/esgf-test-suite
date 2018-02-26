@@ -11,12 +11,12 @@ Well, it is nearly impossible to run esgf-test-suite without reading entirely th
 
 * Without SLCS
 ```
-nosetests -v --nocapture --nologcapture --tc-file my_config.ini -a '!compute,!cog_create_user,!slcs' --with-html --with-id
+python2 esgf-test.py -v --nocapture --nologcapture --tc-file my_config.ini -a '!compute,!cog_create_user,!slcs' --with-html --with-id
 ```
 
 * With SLCS
 ```
-nosetests -v --nocapture --nologcapture --tc-file my_config.ini -a '!compute,!cog_create_user' --with-html --with-id
+python2 esgf-test.py -v --nocapture --nologcapture --tc-file my_config.ini -a '!compute,!cog_create_user' --with-html --with-id
 ```
 
 Don't forget to configure the superset to the value _classic_ in the configuration file.
@@ -24,7 +24,7 @@ Don't forget to configure the superset to the value _classic_ in the configurati
 ### Recommanded tests for a ESGF docker deployement
 
 ```
-nosetests -v --nocapture --nologcapture --tc-file my_config.ini -a 'basic,!compute' -a 'slcs' --with-html  --with-id
+python2 esgf-test.py -v --nocapture --nologcapture --tc-file my_config.ini -a 'basic,!compute' -a 'slcs' --with-html  --with-id
 ```
 Don't forget to configure the superset to the value _docker_ in the configuration file (see section Configuration).
 
@@ -33,29 +33,6 @@ Don't forget to configure the superset to the value _docker_ in the configuratio
 * `ok`: the service been tested is alright.
 * `ERROR`: the test has crashed. Please report an issue on [github](https://github.com/ESGF/esgf-test-suite/issues)
 * `FAIL`: the test has not crashed but the service, that has been tested, failed.
-
-For the moment, until the end of this refactoring,
-everytime a test ends with `FAIL` or `ERROR` state, python displays a traceback.
-The last line of each traceback block gives you the reason why the test has failed
-or crashed. For example:
-
-```
-======================================================================
-FAIL: test_cog.TestCog.test_1_user_login
-----------------------------------------------------------------------
-Traceback (most recent call last):
-  File "/home/seb/anaconda2/envs/esgf_python27/lib/python2.7/site-packages/nose/case.py", line 197, in runTest
-    self.test(*self.arg)
-  File "/home/seb/Documents/dev/esgf-test-suite/esgf-test-suite/test/test_node_components/test_index/test_cog.py", line 33, in test_1_user_login
-    self.usr.login_user()
-  File "/home/seb/Documents/dev/esgf-test-suite/esgf-test-suite/utils/user.py", line 66, in login_user
-    self.wait_loading('load the login page', (By.ID, 'username'), (By.CLASS_NAME, 'error-box'))
-  File "/home/seb/Documents/dev/esgf-test-suite/esgf-test-suite/utils/abstract_browser_based_test.py", line 125, in wait_loading
-    assert(False), "Timeout waiting for {0}".format(msg)
-AssertionError: Timeout waiting for load the login page
-```
-'**AssertionError: Timeout waiting for load the login page**' is what you are
-looking for.
 
 ## Purpose and limits of this tool:
 
@@ -73,13 +50,14 @@ Current developments will also let admins to test and validate the stack by runn
 
 - Shell environment  
 - Python 2.7 or higher (but not 3.x)
-- Firefox (tested version: 58.0)
+- Firefox (tested version: 58.0) **!! esgf-test-suite/Gekodriver doesn't work with versions of Firefox less than 58 (like the esr channel) !!**
 - Globus-url-copy (MacOSX/homebrew: Globus Toolkit 6.0.1506371041 ; Linux: globus-gass-copy-progs 9.18-2) 
 - Nose (tested version: 1.3.7)
 - Pyopenssl (OpenSSL ; tested version: 17.3.0)
 - MyProxyClient (tested version: 2.0.1)
 - Geckodriver (tested version: 0.19.0)
 - Selenium (tested version 3.9.0)
+- Requests (tested version 2.18.4)
 - LibXML (tested version: 2.9.3+dfsg1-1ubuntu0.5)
 - LibXSLT (tested version: 1.1.28-2.1ubuntu0.1)
 
@@ -119,6 +97,12 @@ Tested with MacOSX Sierra and Miniconda for Python 2.7
 Just download the latest version of the binary [here](https://github.com/mozilla/geckodriver/releases) (according to your OS) and add the path of the binary into the `PATH` environment variable.
 
     export PATH=/path/to/geckodriver:$PATH
+    
+OR
+
+Install Geckodriver via Homebrew:
+
+     brew install geckodriver
 
 * Globus-url-copy installation
 
@@ -188,7 +172,8 @@ You cannot create a user that already exists.
 
   - `soft`: specifies the browser to use. Firefox is only support for the moment.
   - `is_headless`: set the value to `false`, only if you want to display firefox
-    when the tests are running (debugging).
+    when the tests are running (debugging). **esgf-test-suite/selenium/geckodriver requires that the window of Firefox keeps
+    the focus while the tests are running. So don't switch to other windows when is_headless is set to True**
 
 This section let you configure the browser used to test CoG and other services.
 
@@ -221,29 +206,6 @@ This section configures the development options.
 * `ERROR`: the test has crashed. Please report an issue on [github](https://github.com/ESGF/esgf-test-suite/issues)
 * `FAIL`: the test has not crashed but the service, that has been tested, failed.
 
-For the moment, until the end of this refactoring,
-everytime a test ends with `FAIL` or `ERROR` state, python displays a traceback.
-The last line of each traceback block gives you the reason why the test has failed
-or crashed. For example:
-
-```
-======================================================================
-FAIL: test_cog.TestCog.test_1_user_login
-----------------------------------------------------------------------
-Traceback (most recent call last):
-  File "/home/seb/anaconda2/envs/esgf_python27/lib/python2.7/site-packages/nose/case.py", line 197, in runTest
-    self.test(*self.arg)
-  File "/home/seb/Documents/dev/esgf-test-suite/esgf-test-suite/test/test_node_components/test_index/test_cog.py", line 33, in test_1_user_login
-    self.usr.login_user()
-  File "/home/seb/Documents/dev/esgf-test-suite/esgf-test-suite/utils/user.py", line 66, in login_user
-    self.wait_loading('load the login page', (By.ID, 'username'), (By.CLASS_NAME, 'error-box'))
-  File "/home/seb/Documents/dev/esgf-test-suite/esgf-test-suite/utils/abstract_browser_based_test.py", line 125, in wait_loading
-    assert(False), "Timeout waiting for {0}".format(msg)
-AssertionError: Timeout waiting for load the login page
-```
-'**AssertionError: Timeout waiting for load the login page**' is what you are
-looking for.
-
 ## Usage:
 
 The following examples except that you run the command in the
@@ -256,25 +218,26 @@ visit this [page](http://nose.readthedocs.io/en/latest/plugins/attrib.html)
   - `--with-html` generates a nice htlm report without the python traceback when tests fail (default report file name is 'nosetests.html').
   - `--with-id` generates the id of the tests so you can rerun next time tests of your choice calling nosetest with `--with-id #` where # is the id numbers (space is the separator).
   - `--failed` keeps nosetest to loop over the failed tests (like `--with-id` with the id of the failed tests).
+  - `--rednose --force-color --hide-skips` this one colors the output of nosetests but I will have to install rednose: `pip install rednose`. Do not use this option when redirecting the output into a file.
 
 The nosetest doc is available [here](http://nose.readthedocs.io/en/latest/testing.html)
 
 * Run all the tests:
 ```
-nosetests -v --nocapture --nologcapture --tc-file my_config.ini 
+python2 esgf-test.py.py -v --nocapture --nologcapture --tc-file my_config.ini 
 ```
 Note: you can set the configuration file path to be automatically loaded with the environment variable `NOSE_TESTCONFIG_AUTOLOAD_INI`:
 
 ```
 export NOSE_TESTCONFIG_AUTOLOAD_INI=/path/to/my_config.ini
-nosetests -v --nocapture --nologcapture
+python2 esgf-test.py.py -v --nocapture --nologcapture
 ```
 
 * Run a set of tests according to a nose attribute
 
 This command line executes only the basic tests:
 ```
-nosetests -v --nocapture --nologcapture --tc-file my_config.ini -a 'basic'
+python2 esgf-test.py.py -v --nocapture --nologcapture --tc-file my_config.ini -a 'basic'
 ```
 Note: see the section _test selection_ for more information about nose attributes.
 
@@ -283,7 +246,7 @@ Note: see the section _test selection_ for more information about nose attribute
 This command line executes only the basic tests for the index node configured in `my_config.ini` (basic set _intersect_ index 
 set):
 ```
-nosetests -v --nocapture --nologcapture --tc-file my_config.ini -a 'basic,index'
+python2 esgf-test.py.py -v --nocapture --nologcapture --tc-file my_config.ini -a 'basic,index'
 ```
 Note: You may provide as many attributes as you want (the operator is still _intersect_).
 
@@ -291,14 +254,14 @@ Note: You may provide as many attributes as you want (the operator is still _int
 
 This command line executes the basic tests for all types of node except the basic tests of the compute node:
 ```
-nosetests -v --nocapture --nologcapture --tc-file my_config.ini -a 'basic,!compute'
+python2 esgf-test.py.py -v --nocapture --nologcapture --tc-file my_config.ini -a 'basic,!compute'
 ```
 * Run an union of sets of tests according to nose attributes
 
 This example runs the union of the set of tests for the idp node and the set of tests for the index node (idp set _plus_ index 
 set):
 ```
-nosetests -v --nocapture --nologcapture --tc-file my_config.ini -a 'idp' -a 'index'
+python2 esgf-test.py.py -v --nocapture --nologcapture --tc-file my_config.ini -a 'idp' -a 'index'
 ```
 Note: You may provide as many '-a' expressions as you want (the operator is still _plus_).
 
@@ -309,7 +272,7 @@ user'.
 
 This example runs the tests located in test/test\_node\_components/test\_index (the tests for index node).
 ```
-nosetests -v --nocapture --nologcapture --tc-file my_config.ini utils ./test/test_node_components/test_index
+python2 esgf-test.py.py -v --nocapture --nologcapture --tc-file my_config.ini utils ./test/test_node_components/test_index
 ```
 Note: the `utils` directory is mandatory (esgf-test-suite python libraries).
 
@@ -317,7 +280,7 @@ Note: the `utils` directory is mandatory (esgf-test-suite python libraries).
 
 This example run the basic tests for index node, overring the index node value from the default configuration: it tests the index node of LLNL:
 ```
-nosetests -v --nocapture --nologcapture --tc-file default.ini -a 'basic,index' --tc='nodes.index_node:esgf-node.llnl.gov'
+python2 esgf-test.py.py -v --nocapture --nologcapture --tc-file default.ini -a 'basic,index' --tc='nodes.index_node:esgf-node.llnl.gov'
 ```
 Note: the `nodes.index_node` corresponds to the section `nodes` and the key `index_node` in the configuration file.
 
@@ -325,7 +288,7 @@ Note: the `nodes.index_node` corresponds to the section `nodes` and the key `ind
 
 This example runs the basic tests for the index node of LLNL:
 ```
-nosetests -v --nocapture --nologcapture -a 'basic,index' --tc='nodes.index_node:esgf-node.llnl.gov'
+python2 esgf-test.py.py -v --nocapture --nologcapture -a 'basic,index' --tc='nodes.index_node:esgf-node.llnl.gov'
 ```
 More informations about the command line options concerning the configuration [here](https://pypi.python.org/pypi/nose-testconfig).
 
@@ -349,12 +312,12 @@ have any attribute.
 
 * Without SLCS
 ```
-nosetests -v --nocapture --nologcapture --tc-file my_config.ini -a '!compute,!cog_create_user,!slcs' --with-html --with-id
+python2 esgf-test.py.py -v --nocapture --nologcapture --tc-file my_config.ini -a '!compute,!cog_create_user,!slcs' --with-html --with-id
 ```
 
 * With SLCS
 ```
-nosetests -v --nocapture --nologcapture --tc-file my_config.ini -a '!compute,!cog_create_user' --with-html --with-id
+python2 esgf-test.py.py -v --nocapture --nologcapture --tc-file my_config.ini -a '!compute,!cog_create_user' --with-html --with-id
 ```
 
 Don't forget to configure the superset to the value _classic_ in the configuration file.
@@ -362,7 +325,7 @@ Don't forget to configure the superset to the value _classic_ in the configurati
 ### Recommanded tests for a ESGF docker deployement
 
 ```
-nosetests -v --nocapture --nologcapture --tc-file my_config.ini -a 'basic,!compute' -a 'slcs' --with-html --with-id
+python2 esgf-test.py.py -v --nocapture --nologcapture --tc-file my_config.ini -a 'basic,!compute' -a 'slcs' --with-html --with-id
 ```
 Don't forget to configure the superset to the value _docker_ in the configuration file (see section Configuration).
 
@@ -372,5 +335,7 @@ Don't forget to configure the superset to the value _docker_ in the configuratio
 * This test suite can run with another browser than Firefox, provided a browser driver that will replace Geckodriver and modify your configuration file.
 * Git ignores the geckodriver.log, my\_config\*.ini files and nosetests\*.html files.
 * Do not use double quotes when specifying the nose attributes. Always use simple quotes.
+* Esgf-test-suite/geckodriver/selenium don't work with version of Firefox less than 58.
+* Don't make the Firefox window loose its focus when is_enable is set to True.
 
 DISCLAIMER - the scripts in this repo are provided as is - use at your own risk - they have been tested only on a single system and may require modification to work correctly on other systems.
