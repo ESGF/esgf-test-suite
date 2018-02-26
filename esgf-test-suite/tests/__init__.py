@@ -6,11 +6,11 @@ from utils.abstract_browser_based_test import AbstractBrowserBasedTest
 
 def setup_package():
   if(globals.is_debug):
-    print("*********** begin setup package")
+    print("*********** begin setup package ***********\n")
 
 def teardown_package():
   if(globals.is_debug):
-    print("*********** begin teardown package")
+    print("\n*********** begin teardown package ***********")
 
   if globals.browser != None and not globals.is_debug:
     globals.browser.quit()
