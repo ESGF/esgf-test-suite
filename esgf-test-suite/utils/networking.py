@@ -19,6 +19,9 @@ def ping_tcp_port(host, port, timeout=config.get_int(config.TEST_SECTION, config
     s.close()
     result = True
     end = time.time()
+  except socket.timeout:
+    result = False
+    err_msg = 'timed out'
   except Exception as e:
     # Connection refused is not a failure.
     if e[0] == errno.ECONNREFUSED:
