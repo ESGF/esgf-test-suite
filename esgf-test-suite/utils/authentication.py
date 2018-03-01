@@ -28,7 +28,8 @@ class MyProxyUtils(object):
                           config.get(config.ACCOUNT_SECTION, config.USER_PASSWORD_KEY),
                           writeToCACertDir=True, bootstrap=True)
     except socket_error as serr:
-      err = socket_error("unable to connect to myproxy server '{0}'".format(self.idp_addr))
+      err = "unable to connect to myproxy server '{0}' (reason: {1})"\
+        .format(self.idp_addr, serr)
       assert(False), err
 
   def get_credentials(self):
@@ -38,11 +39,13 @@ class MyProxyUtils(object):
       username = config.get(config.ACCOUNT_SECTION, config.USER_NAME_KEY)
       password = config.get(config.ACCOUNT_SECTION, config.USER_PASSWORD_KEY)
       self.credentials = self.myproxy.logon(username, password)
-    except MyProxyClientGetError:
-      err_msg = "wrong username and/or password combination when getting credentials for user '{0}'".format(username)
+    except MyProxyClientGetError as e1:
+      err_msg = "wrong username and/or password combination when getting credentials for user '{0}' (reason: {1})"\
+        .format(username, e1)
       assert(False), err_msg
-    except socket_error:
-      err = socket_error("unable to connect to myproxy server '{0}'".format(self.idp_addr))
+    except socket_error as e2:
+      err = "unable to connect to myproxy server '{0}' (reason: {1})"\
+        .format(self.idp_addr, e2)
       assert (False), err
 
     # Write Credentials
