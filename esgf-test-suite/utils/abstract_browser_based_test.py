@@ -66,7 +66,7 @@ class AbstractBrowserBasedTest(object):
       err_msg = "fail to connect to '{0}' (code = {1})".format(url, r.status_code)
       assert(r.status_code < 403), err_msg
     except Exception as e:
-      err_msg = "fail to connect to '{0}'".format(url)
+      err_msg = "fail to connect to '{0}' (reason: {1})".format(url, e)
       assert(False), err_msg
     
     if(timeout != self.DEFAULT_TIMEOUT):

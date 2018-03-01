@@ -181,8 +181,9 @@ class ThreddsUtils(object):
 
     try:
       content = urllib2.urlopen(main_url)
-    except:
-      err_msg = "unable to get the catalog at '{0}'".format(main_url)
+    except Exception as e:
+      err_msg = "unable to get the catalog at '{0}' (reason: {1})"\
+        .format(main_url, e)
       assert(False), err_msg
 
     for event, cr in etree.iterparse(content, events=('end',), tag=catalog_ns + 'catalogRef'):
