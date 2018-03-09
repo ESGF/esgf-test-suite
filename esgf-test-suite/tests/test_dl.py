@@ -64,7 +64,7 @@ class TestDataDownload(AbstractBrowserBasedTest, AbstractMyproxyBasedTest):
       if r.status_code == 200:
         return # as file has been downloaded and credential wasn't needed.
     except Exception as e:
-      err_msg = "fail to download '{0}'".format(url)
+      err_msg = "fail to download '{0}' (reason: {1})".format(url, e)
       assert (False), err_msg
     
     # else open a globals.browser and give the credential so as to download the file.

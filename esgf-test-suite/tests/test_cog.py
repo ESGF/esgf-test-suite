@@ -38,8 +38,8 @@ class TestCog(AbstractBrowserBasedTest):
     # Alway start with this method so as to dodge side effects.
     self.reset_browser()
     
-    idp_node=config.get(config.NODES_SECTION, config.IDP_NODE_KEY)
-    url = "https://{0}/login2".format(idp_node)
+    index_node=config.get(config.NODES_SECTION, config.INDEX_NODE_KEY)
+    url = "https://{0}/login2".format(index_node)
     
     self.load_page(url)
 
@@ -52,7 +52,7 @@ class TestCog(AbstractBrowserBasedTest):
     globals.browser.find_element_by_xpath("//input[@value='Login']").click()
       
     msg = "log onto the Cog admin page of '{0}'"\
-          .format(config.get(config.NODES_SECTION, config.IDP_NODE_KEY))
+          .format(index_node)
     
     self.wait_loading(msg, not_expected_element=(By.CLASS_NAME, 'errornote'))
     

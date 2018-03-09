@@ -23,7 +23,7 @@ function test_suite
 
     if [ ${?} -ne 0 ]; then
       echo -e "\033[31mKO\033[0m"
-      xdg-open "${html_report_file_path}"
+      #xdg-open "${html_report_file_path}"
     else
       echo -e "\033[32mok\033[0m"
     fi
@@ -35,6 +35,7 @@ rm -f ${TEST_DIR_PATH}/*
 cd "${SCRIPT_PARENT_DIR_PATH}/.."
 
 test_suite "production"  "my_config_prod.ini" '-a '!compute,!slcs,!cog_create_user''
+test_suite "cds"  "my_config_cds.ini" '-a '!compute,!slcs,!cog_create_user''
 test_suite "integration" "my_config_int.ini"  '-a '!compute,!cog_create_user''
 test_suite "development" "my_config_dev.ini"  '-a '!compute,!cog_create_user''
 test_suite "llnl" "my_config_llnl.ini"  '-a '!compute,!slcs_django_admin_login,!cog_root_login,!cog_create_user''
