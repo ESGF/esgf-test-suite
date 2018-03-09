@@ -23,7 +23,7 @@ function test_suite
 
     if [ ${?} -ne 0 ]; then
       echo -e "\033[31mKO\033[0m"
-      xdg-open "${html_report_file_path}"
+      #xdg-open "${html_report_file_path}"
     else
       echo -e "\033[32mok\033[0m"
     fi
