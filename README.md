@@ -85,7 +85,7 @@ Just download the latest version of the binary [here](https://github.com/mozilla
 * Python packages installation. Command for pip:
 
 ```
-pip install -U nose pyopenssl MyProxyClient selenium requests nose-testconfig nose-htmloutput
+pip install -U nose pyopenssl MyProxyClient selenium requests nose-testconfig nose-htmloutput lxml
 ```
 
 ### MacOSX
@@ -113,7 +113,7 @@ Globus-url-copy is part of the Globus Toolkit. You can install Globus Toolkit vi
 * Python packages installation. Command for pip:
 
 ```
-pip install -U nose pyopenssl MyProxyClient selenium requests nose-testconfig nose-htmloutput
+pip install -U nose pyopenssl MyProxyClient selenium requests nose-testconfig nose-htmloutput lxml
 ```
 
 ## Configuration:
