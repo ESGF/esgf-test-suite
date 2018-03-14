@@ -21,10 +21,8 @@ import requests
 class AbstractBrowserBasedTest(object):
   
   DEFAULT_TIMEOUT = config.get_int(config.TEST_SECTION, config.WEB_PAGE_TIMEOUT_KEY) # seconds
-  TITLE_FOR_404 = 'Page not found'
   DOWNLOAD_DIR_PATH='/tmp'
-  GECKODRIVER_LOG_FILE_PATH="{0}/geckodriver.log".format(os.getcwd())
-
+  
   _firefox_profile = None
   _firefox_capabilities = None
 
@@ -135,7 +133,7 @@ class AbstractBrowserBasedTest(object):
       options.add_argument(self.__get_arg())
       globals.browser = Firefox(AbstractBrowserBasedTest._firefox_profile,
                                 firefox_options = options,
-                                log_path=AbstractBrowserBasedTest.GECKODRIVER_LOG_FILE_PATH)
+                                log_path=naming.GECKODRIVER_LOG_FILE_PATH)
       globals.browser.set_page_load_timeout(self.DEFAULT_TIMEOUT)
     else:
       globals.browser.close()
