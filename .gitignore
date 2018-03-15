@@ -6,3 +6,4 @@ nosetests*.html
 .noseids
 tmp
 .DS_Store
+*.singularity.img
