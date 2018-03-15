@@ -68,6 +68,8 @@ Current developments will also let admins to test and validate the stack by runn
 
 ### Linux
 
+Tested with Linux Mint 18.3
+
 * OS packages installation.
 
 Command for Red Hat / CentOS / Scientifix Linux:
@@ -89,6 +91,16 @@ Just download the latest version of the binary [here](https://github.com/mozilla
 
 ```
 pip install -U nose pyopenssl MyProxyClient selenium requests nose-testconfig nose-htmloutput lxml
+```
+* Clone this repository
+
+Then cd to the directory `[parent_directory]/esgf-test-suite/esgf-test-suite/` (yes twice, it is not a mistake).
+
+Note: the branch master is always at the last stable version.
+
+```
+git clone https://github.com/ESGF/esgf-test-suite.git
+cd ./esgf-test-suite/esgf-test-suite
 ```
 
 ### MacOSX
@@ -118,6 +130,42 @@ Globus-url-copy is part of the Globus Toolkit. You can install Globus Toolkit vi
 ```
 pip install -U nose pyopenssl MyProxyClient selenium requests nose-testconfig nose-htmloutput lxml
 ```
+
+* Clone this repository
+
+Then cd to the directory `[parent_directory]/esgf-test-suite/esgf-test-suite/` (yes twice, it is not a mistake).
+
+Note: the branch master is always at the last stable version.
+
+```
+git clone https://github.com/ESGF/esgf-test-suite.git
+cd ./esgf-test-suite/esgf-test-suite
+```
+
+### Singularity
+
+Tested with Singularity 2.4.4 under MacOSX Sierra, Linux Mint 18.3 and CentOS 7.
+
+A Singularity image of container is also available. At the moment, it only packages the dependencies (python, pip packages, etc.) of the esgf-test-suite and not the test-suite itself.
+This image is built from the offical docker image of the latest version of LTS Ubuntu (Singularity recipe is described [here](https://github.com/ESGF/esgf-test-suite/blob/master/esgf-test-suite/singularity/esgf-test-suite.def)).
+
+* Linux
+
+  * Install Singularity (procedure available [here](http://singularity.lbl.gov/install-linux))
+  
+  * Download the image [here](http://distrib-coffee.ipsl.jussieu.fr/pub/esgf/dist/esgf-test-suite/esgf-test-suite_env.singularity.img) (sha1: fcfe86d38c45f8436cf8930c32d987b9c80db9b8)
+  
+  * Clone this repository then cd to it: `git clone https://github.com/ESGF/esgf-test-suite.git ; cd ./esgf-test-suite/esgf-test-suite`
+
+  * Turn on the esgf-test-suite environment image, once per session: `singularity shell esgf-test-suite_env.singularity.img`
+
+* MacOSX
+
+  * Create a Linux virtual machine (procedure available [here](http://singularity.lbl.gov/install-mac))
+  * ssh into the virtual machine: `vagrant ssh`
+  * Download the image [here](http://distrib-coffee.ipsl.jussieu.fr/pub/esgf/dist/esgf-test-suite/esgf-test-suite_env.singularity.img) (sha1: fcfe86d38c45f8436cf8930c32d987b9c80db9b8)
+  * Clone this repository then cd to it: `git clone https://github.com/ESGF/esgf-test-suite.git ; cd ./esgf-test-suite/esgf-test-suite`
+  * Turn on the esgf-test-suite environment image, once per session: `singularity shell esgf-test-suite_env.singularity.img`
 
 ## Configuration:
 

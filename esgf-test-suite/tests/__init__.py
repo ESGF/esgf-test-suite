@@ -2,7 +2,7 @@ import utils.globals as globals
 
 import os
 
-from utils.abstract_browser_based_test import AbstractBrowserBasedTest
+import utils.naming as naming
 
 def setup_package():
   if(globals.is_debug):
@@ -20,5 +20,5 @@ def teardown_package():
     globals.myproxy_utils.delete_trustroots()
 
   if(not globals.is_debug\
-     and os.path.exists(AbstractBrowserBasedTest.GECKODRIVER_LOG_FILE_PATH)):
-    os.remove(AbstractBrowserBasedTest.GECKODRIVER_LOG_FILE_PATH)  
+     and os.path.exists(naming.GECKODRIVER_LOG_FILE_PATH)):
+    os.remove(naming.GECKODRIVER_LOG_FILE_PATH)  

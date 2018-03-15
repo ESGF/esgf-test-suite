@@ -19,6 +19,9 @@ class MyProxyUtils(object):
     self.myproxy._setCACertDir(self.cacertdir)
     self.credentials = None
     self.trustRoots = None
+    # Reset the eventually files (for example, after a debugg session).
+    self.delete_credentials()
+    self.delete_trustroots()
 
   def get_trustroots(self):
     # Get trust roots
