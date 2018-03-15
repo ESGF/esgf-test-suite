@@ -155,17 +155,17 @@ This image is built from the offical docker image of the latest version of LTS U
   
   * Download the image [here](http://distrib-coffee.ipsl.jussieu.fr/pub/esgf/dist/esgf-test-suite/esgf-test-suite_env.singularity.img) (sha1: fcfe86d38c45f8436cf8930c32d987b9c80db9b8)
   
-  * Clone this repository then cd to the directory of the repository: `git clone https://github.com/ESGF/esgf-test-suite.git ; cd ./esgf-test-suite/esgf-test-suite`
+  * Clone this repository then cd to it: `git clone https://github.com/ESGF/esgf-test-suite.git ; cd ./esgf-test-suite/esgf-test-suite`
 
-  * Turn on the esgf-test-suite environment image once per session: `singularity shell esgf-test-suite_env.singularity.img`
+  * Turn on the esgf-test-suite environment image, once per session: `singularity shell esgf-test-suite_env.singularity.img`
 
 * MacOSX
 
   * Create a Linux virtual machine (procedure available [here](http://singularity.lbl.gov/install-mac))
   * ssh into the virtual machine: `vagrant ssh`
   * Download the image [here](http://distrib-coffee.ipsl.jussieu.fr/pub/esgf/dist/esgf-test-suite/esgf-test-suite_env.singularity.img) (sha1: fcfe86d38c45f8436cf8930c32d987b9c80db9b8)
-  * Clone this repository then cd to the directory of the repository: `git clone https://github.com/ESGF/esgf-test-suite.git ; cd ./esgf-test-suite/esgf-test-suite`
-  * Turn on the esgf-test-suite environment image once per session: `singularity shell esgf-test-suite_env.singularity.img`
+  * Clone this repository then cd to it: `git clone https://github.com/ESGF/esgf-test-suite.git ; cd ./esgf-test-suite/esgf-test-suite`
+  * Turn on the esgf-test-suite environment image, once per session: `singularity shell esgf-test-suite_env.singularity.img`
 
 ## Configuration:
 
