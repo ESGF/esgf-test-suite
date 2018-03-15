@@ -90,6 +90,16 @@ Just download the latest version of the binary [here](https://github.com/mozilla
 ```
 pip install -U nose pyopenssl MyProxyClient selenium requests nose-testconfig nose-htmloutput lxml
 ```
+* Clone this repository
+
+Then cd to the directory `[parent_directory]/esgf-test-suite/esgf-test-suite/` (yes twice, it is not a mistake).
+
+Note: the branch master is always at the last stable version.
+
+```
+git clone https://github.com/ESGF/esgf-test-suite.git
+cd ./esgf-test-suite/esgf-test-suite
+```
 
 ### MacOSX
 
@@ -117,6 +127,17 @@ Globus-url-copy is part of the Globus Toolkit. You can install Globus Toolkit vi
 
 ```
 pip install -U nose pyopenssl MyProxyClient selenium requests nose-testconfig nose-htmloutput lxml
+```
+
+* Clone this repository
+
+Then cd to the directory `[parent_directory]/esgf-test-suite/esgf-test-suite/` (yes twice, it is not a mistake).
+
+Note: the branch master is always at the last stable version.
+
+```
+git clone https://github.com/ESGF/esgf-test-suite.git
+cd ./esgf-test-suite/esgf-test-suite
 ```
 
 ## Configuration:
