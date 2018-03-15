@@ -166,7 +166,7 @@ cd ./esgf-test-suite/esgf-test-suite
   * Turn on the esgf-test-suite environment image every session
 
 ```
-singularity shell esgf-test-suite_env.img
+singularity shell esgf-test-suite_env.singularity.img
 ```
 
 ## Configuration:
