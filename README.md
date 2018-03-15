@@ -68,6 +68,8 @@ Current developments will also let admins to test and validate the stack by runn
 
 ### Linux
 
+Tested with Linux Mint 18.3
+
 * OS packages installation.
 
 Command for Red Hat / CentOS / Scientifix Linux:
@@ -139,6 +141,8 @@ Note: the branch master is always at the last stable version.
 git clone https://github.com/ESGF/esgf-test-suite.git
 cd ./esgf-test-suite/esgf-test-suite
 ```
+
+### Singularity 
 
 ## Configuration:
 
