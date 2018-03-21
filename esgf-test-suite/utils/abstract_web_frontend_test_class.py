@@ -19,7 +19,7 @@ class AbstractWebFrontEndTestClass(object):
       r = requests.get(url, verify=False, timeout=config.get_int(config.TEST_SECTION, config.WEB_PAGE_TIMEOUT_KEY))
       assert r.status_code == 200, "fail to connect to '" + url + "'"
     except Exception as e:
-      err_msg = "fail to connect to '{0}' (reason: {1})".format(url, e)
+      err_msg = "fail to connect to '{0}' (reason: {1} or page not found)".format(url, e)
       assert(False), err_msg
     
   @attr ('basic_ping')
