@@ -73,13 +73,13 @@ class AbstractBrowserBasedTest(object):
     try:
       globals.browser.get(url)
     except TimeoutException:
-      assert(False), "timeout waiting for {0}".format(url)
+      assert(False), "page not found or timeout for {0}".format(url)
 
     element = expected_conditions.presence_of_element_located(expected_element)
     try:
       WebDriverWait(globals.browser, timeout).until(element)
     except TimeoutException:
-      assert(False), "timeout waiting for {0}".format(url)
+      assert(False), "page not found or timeout  for {0}".format(url)
 
     if(timeout != self.DEFAULT_TIMEOUT):
       globals.browser.set_page_load_timeout(self.DEFAULT_TIMEOUT)
@@ -95,7 +95,7 @@ class AbstractBrowserBasedTest(object):
     try:
       WebDriverWait(globals.browser, timeout).until(element)
     except TimeoutException:
-      assert(False), "timeout waiting for {0}".format(msg)
+      assert(False), "page not found or timeout for {0}".format(msg)
 
     # The is supposed to be loaded. Let's search the not_expected_element.
     if(not_expected_element):
@@ -117,7 +117,7 @@ class AbstractBrowserBasedTest(object):
         element = expected_conditions.presence_of_element_located(expected_element)
         WebDriverWait(globals.browser, timeout).until(element)
       except TimeoutException:
-        assert(False), "timeout waiting for {0}".format(msg)
+        assert(False), "page not found or timeout for {0}".format(msg)
 
     if(test_expected_element):
       by = expected_element[0]
