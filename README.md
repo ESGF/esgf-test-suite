@@ -11,12 +11,12 @@ Well, it is nearly impossible to run esgf-test-suite without reading entirely th
 
 * Without SLCS
 ```
-python2 esgf-test.py -v --nocapture --nologcapture --tc-file my_config.ini -a '!compute,!cog_create_user,!slcs' --with-html --with-id
+python2 esgf-test.py -v --nocapture --nologcapture --tc-file my_config.ini -a '!compute,!cog_create_user,!slcs' --with-id
 ```
 
 * With SLCS
 ```
-python2 esgf-test.py -v --nocapture --nologcapture --tc-file my_config.ini -a '!compute,!cog_create_user' --with-html --with-id
+python2 esgf-test.py -v --nocapture --nologcapture --tc-file my_config.ini -a '!compute,!cog_create_user' --with-id
 ```
 
 Don't forget to configure the superset to the value _classic_ in the configuration file.
@@ -24,7 +24,7 @@ Don't forget to configure the superset to the value _classic_ in the configurati
 ### Recommanded tests for a ESGF docker deployement
 
 ```
-python2 esgf-test.py -v --nocapture --nologcapture --tc-file my_config.ini -a 'basic,!compute' -a 'slcs' --with-html  --with-id
+python2 esgf-test.py -v --nocapture --nologcapture --tc-file my_config.ini -a 'basic,!compute' -a 'slcs' --with-id
 ```
 Don't forget to configure the superset to the value _docker_ in the configuration file (see section Configuration).
 
@@ -363,12 +363,12 @@ have any attribute.
 
 * Without SLCS
 ```
-python2 esgf-test.py.py -v --nocapture --nologcapture --tc-file my_config.ini -a '!compute,!cog_create_user,!slcs' --with-html --with-id
+python2 esgf-test.py.py -v --nocapture --nologcapture --tc-file my_config.ini -a '!compute,!cog_create_user,!slcs' --with-id
 ```
 
 * With SLCS
 ```
-python2 esgf-test.py.py -v --nocapture --nologcapture --tc-file my_config.ini -a '!compute,!cog_create_user' --with-html --with-id
+python2 esgf-test.py.py -v --nocapture --nologcapture --tc-file my_config.ini -a '!compute,!cog_create_user' --with-id
 ```
 
 Don't forget to configure the superset to the value _classic_ in the configuration file.
@@ -376,7 +376,7 @@ Don't forget to configure the superset to the value _classic_ in the configurati
 ### Recommanded tests for a ESGF docker deployement
 
 ```
-python2 esgf-test.py.py -v --nocapture --nologcapture --tc-file my_config.ini -a 'basic,!compute' -a 'slcs' --with-html --with-id
+python2 esgf-test.py.py -v --nocapture --nologcapture --tc-file my_config.ini -a 'basic,!compute' -a 'slcs' --with-id
 ```
 Don't forget to configure the superset to the value _docker_ in the configuration file (see section Configuration).
 
