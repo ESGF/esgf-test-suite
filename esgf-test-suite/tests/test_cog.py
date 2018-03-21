@@ -28,18 +28,18 @@ class TestCog(AbstractBrowserBasedTest):
     self.usr = user.UserUtils()
   
   @attr ('cog_user_login')
-  def test_1_user_login(self):
+  def test_cog_user_login(self):
 
     self.usr.login_user()    
     
   @attr ('cog_root_login')
-  def test_2_root_login(self):
+  def test_cog_root_login(self):
     
-    # Clear the browser from any previsous login.
-    globals.browser.delete_all_cookies()
+    # Alway start with this method so as to dodge side effects.
+    self.reset_browser()
     
-    idp_node=config.get(config.NODES_SECTION, config.IDP_NODE_KEY)
-    url = "https://{0}/login2".format(idp_node)
+    index_node=config.get(config.NODES_SECTION, config.INDEX_NODE_KEY)
+    url = "https://{0}/login2".format(index_node)
     
     self.load_page(url)
 
@@ -52,17 +52,16 @@ class TestCog(AbstractBrowserBasedTest):
     globals.browser.find_element_by_xpath("//input[@value='Login']").click()
       
     msg = "log onto the Cog admin page of '{0}'"\
-          .format(config.get(config.NODES_SECTION, config.IDP_NODE_KEY))
+          .format(index_node)
     
     self.wait_loading(msg, not_expected_element=(By.CLASS_NAME, 'errornote'))
     
   @attr ('cog_create_user')
-  def test_0_create_user(self):
+  def test_cog_create_user(self):
 
     does_user_exist=self.usr.check_user_exists()
-    
+
     if(does_user_exist):
-      raise SkipTest("User already exists")
-    
-    # Create user
-    self.usr.create_user()
+      assert(False), "user '{0}' already exists".format(config.get(config.ACCOUNT_SECTION, config.USER_NAME_KEY))
+    else:
+      self.usr.create_user() # Create user

@@ -1,7 +1,5 @@
 import requests
 
-from configuration_exception import ConfigurationException
-
 import utils.configuration as config
 from nose.plugins.attrib import attr
 
@@ -13,13 +11,19 @@ class AbstractWebFrontEndTestClass(object):
     requests.packages.urllib3.disable_warnings()
     self._front_ends = front_ends
     self._node_name = node_name
-  
-  def check_url(self, url):
-    r = requests.get(url, verify=False, timeout=5)
-    assert r.status_code == 200, "Fail to connect to '" + url + "'"
+
+  @staticmethod
+  def check_url(url):
+
+    try:
+      r = requests.get(url, verify=False, timeout=config.get_int(config.TEST_SECTION, config.WEB_PAGE_TIMEOUT_KEY))
+      assert r.status_code == 200, "fail to connect to '" + url + "'"
+    except Exception as e:
+      err_msg = "fail to connect to '{0}' (reason: {1} or page not found)".format(url, e)
+      assert(False), err_msg
     
   @attr ('basic_ping')
-  def test_frontends_availability(self):
+  def test_basic_ping(self):
     for front_end in self._front_ends:
       url = "https://" + self._node_name + "/" + front_end
       yield self.check_url, url

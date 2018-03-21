@@ -1,6 +1,8 @@
 from testconfig import config
 from configuration_exception import ConfigurationException
 
+import sys
+
 ############################ CONFIGURATION KEYS ################################
 
 ### SECTION 'NODES'
@@ -51,6 +53,8 @@ ADMIN_PASSWORD_KEY = 'admin_password'
 TEST_SECTION = 'test'
 
 TYPE_KEY     = 'type'
+WEB_PAGE_TIMEOUT_KEY  = 'web_page_timeout'
+DOWNLOAD_TIMEOUT_KEY  = 'download_timeout'
 
 ### SECTION 'SYSTEM'
 
@@ -73,7 +77,7 @@ def _get_section(section_name):
   try:
     section = config[section_name]
   except Exception:
-    err_msg = "[CONF] unknown configuration section '{0}'".format(section_name)
+    err_msg = "[CONF] missing configuration section '{0}'".format(section_name)
     raise ConfigurationException(err_msg)
 
   return section
@@ -95,15 +99,35 @@ def get(section_name, key_name):
   
   return result
 
+def get_int(section_name, key_name):
+  try:
+    string_value = get(section_name, key_name)
+    return int(string_value)
+  except ValueError:
+    err_msg = "[CONF] convertion error in the section '{0}', entry '{1}': can't read '{2}' as an integer"\
+      .format(section_name, key_name, string_value)
+    print >> sys.stderr, err_msg
+    exit(-1)
+
+def get_float(section_name, key_name):
+  try:
+    string_value = get(section_name, key_name)
+    return float(string_value)
+  except ValueError:
+    err_msg = "[CONF] convertion error in the section '{0}', entry '{1}': can't read '{2}' as a float"\
+      .format(section_name, key_name, string_value)
+    print >> sys.stderr, err_msg
+    exit(-1)
+
 def _assert_config_key(section, section_name, key_name):
   
   try:
     value = section[key_name]
   except Exception:
-    err_msg = "[CONF] empty or unknown key '{0}' in section '{1}'".format(key_name, section_name)
+    err_msg = "[CONF] missing key '{0}' in section '{1}'".format(key_name, section_name)
     raise ConfigurationException(err_msg)  
 
-  err_msg = "[CONF] empty value for key '{0}' in section '{1}'".format(key_name, section_name)
+  err_msg = "[CONF] missing value for key '{0}' in section '{1}'".format(key_name, section_name)
   
   if not value or value.isspace():
     raise ConfigurationException(err_msg)
