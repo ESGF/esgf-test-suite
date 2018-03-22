@@ -50,7 +50,7 @@ Current developments will also let admins to test and validate the stack by runn
 
 - Shell environment  
 - Python 2.7 or higher (but not 3.x)
-- Firefox (tested version: 58.0) **!! esgf-test-suite/Gekodriver doesn't work with versions of Firefox less than 58 (like the esr channel) !!**
+- Firefox (tested version: 59.0.1) **!! esgf-test-suite/Gekodriver doesn't work with versions of Firefox less than 58 (like the esr channel) !!**
 - Globus-url-copy (MacOSX/homebrew: Globus Toolkit 6.0.1506371041 ; Linux: globus-gass-copy-progs 9.18-2) 
 - Nose (tested version: 1.3.7)
 - Pyopenssl (OpenSSL ; tested version: 17.3.0)
