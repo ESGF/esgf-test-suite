@@ -84,12 +84,18 @@ class TestDataDownload(AbstractBrowserBasedTest, AbstractMyproxyBasedTest):
       timeout=config.get_int(config.TEST_SECTION, config.DOWNLOAD_TIMEOUT_KEY))
   
     globals.browser.find_element_by_id('password').send_keys(self.password)
-    globals.browser.find_element_by_xpath("//input[@value='SUBMIT']").click()
-
-    msg = "authentication with username '{0}'".format(self.username)
-    self.wait_loading(msg, not_expected_element=(By.ID, 'null.errors'))
-
-    # TODO check file hash ==> create a test data set
+    
+    try:
+      globals.browser.find_element_by_xpath("//input[@value='SUBMIT']").click()
+      msg = "authentication with username '{0}'".format(self.username)
+      self.wait_loading(msg, not_expected_element=(By.ID, 'null.errors'))
+      # TODO check file hash ==> create a test data set
+    except WebDriverException as e:
+      reason = str(e)
+      if 'fileNotFound' in reason:
+        reason = 'not found'
+      err_msg = "fail to download '{0}' (reason: {1})".format(url, reason)
+      assert (False), err_msg
 
   @attr ('dl_gridftp')
   def test_dl_gridftp(self):
