@@ -327,7 +327,7 @@ python2 esgf-test.py.py -v --nocapture --nologcapture --tc-file my_config.ini ut
 ```
 Note: the `utils` directory is mandatory (esgf-test-suite python libraries).
 
-* Run tests, overring configuration
+* Run tests, overriding the configuration
 
 This example run the basic tests for index node, overring the index node value from the default configuration: it tests the index node of LLNL:
 ```
