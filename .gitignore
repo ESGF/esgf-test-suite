@@ -3,3 +3,7 @@
 geckodriver.log
 my_config*.ini
 nosetests*.html
+.noseids
+tmp
+.DS_Store
+*.singularity.img

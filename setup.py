@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(name='esgf-test-suite',
-      version='2.0.0',
+      version='2.3.0',
       description='Nose scripts for ESGF integration test and validation',
       url='http://github.com/ESGF/esgf-test-suite',
       author='Nicolas Carenton',
@@ -16,7 +16,7 @@ setup(name='esgf-test-suite',
 	        'MyProxyClient',
 	        'requests',
 	        'lxml',
-	        'splinter',
+	        'selenium',
           'nose-testconfig',
           'nose-htmloutput'
       ],
