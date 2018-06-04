@@ -18,7 +18,7 @@ expect {
 
     }
 
-    "Please enter your Certificate Athority" {
+    "Please enter your Certificate Authority" {
 	send /tmp/cachain.pem\n\n ; exp_continue
     }
 
