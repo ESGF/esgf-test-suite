@@ -10,11 +10,11 @@ expect {
     }
 
     "Please set the password for this keystore" {
-	send esgrocks\n ; exp_continue
+	send CHANGEME\n ; exp_continue
     }
 
     "Please re-enter the password for this keystore" {
-	send esgrocks\n ; exp_continue
+	send CHANGEME\n ; exp_continue
 
     }
 
