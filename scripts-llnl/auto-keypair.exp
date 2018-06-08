@@ -1,5 +1,8 @@
 #!/usr/bin/expect -f
 
+set timeout 600
+stty -echo
+
 spawn /usr/local/bin/esg-node --install-keypair /tmp/cert.cer.txt /tmp/pcmdi8.key 
 expect {
 
@@ -25,6 +28,10 @@ expect {
     "Is the above information correct" {
         send \n ; exp_continue
 
+    }
+
+    "Please enter the password for this keystore" {
+	send CHANGEME\n ; exp_continue
     }
 
     "Please restart this node for keys to take effect" {
