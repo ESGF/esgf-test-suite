@@ -1,7 +1,6 @@
 #!/usr/bin/expect -f
 
 set timeout 600
-#stty -echo
 
 spawn /usr/local/bin/esg-node --install-keypair /tmp/cert.cer.txt /tmp/pcmdi8.key 
 expect {
