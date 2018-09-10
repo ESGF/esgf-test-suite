@@ -30,7 +30,7 @@ class MyProxyUtils(object):
       self.trustRoots = self.myproxy.getTrustRoots(config.get(config.ACCOUNT_SECTION, config.USER_NAME_KEY),
                           config.get(config.ACCOUNT_SECTION, config.USER_PASSWORD_KEY),
                           writeToCACertDir=True, bootstrap=True)
-    except socket_error as serr:
+    except Exception as serr:
       err = "unable to connect to myproxy server '{0}' (reason: {1})"\
         .format(self.idp_addr, serr)
       assert(False), err
@@ -46,7 +46,7 @@ class MyProxyUtils(object):
       err_msg = "wrong username and/or password combination when getting credentials for user '{0}' (reason: {1})"\
         .format(username, e1)
       assert(False), err_msg
-    except socket_error as e2:
+    except Exception as e2:
       err = "unable to connect to myproxy server '{0}' (reason: {1})"\
         .format(self.idp_addr, e2)
       assert (False), err
