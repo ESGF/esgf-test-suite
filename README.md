@@ -275,20 +275,20 @@ The nosetest doc is available [here](http://nose.readthedocs.io/en/latest/testin
 
 * Run all the tests:
 ```
-python2 esgf-test.py.py -v --nocapture --nologcapture --tc-file my_config.ini 
+python2 esgf-test.py -v --nocapture --nologcapture --tc-file my_config.ini 
 ```
 Note: you can set the configuration file path to be automatically loaded with the environment variable `NOSE_TESTCONFIG_AUTOLOAD_INI`:
 
 ```
 export NOSE_TESTCONFIG_AUTOLOAD_INI=/path/to/my_config.ini
-python2 esgf-test.py.py -v --nocapture --nologcapture
+python2 esgf-test.py -v --nocapture --nologcapture
 ```
 
 * Run a set of tests according to a nose attribute
 
 This command line executes only the basic tests:
 ```
-python2 esgf-test.py.py -v --nocapture --nologcapture --tc-file my_config.ini -a 'basic'
+python2 esgf-test.py -v --nocapture --nologcapture --tc-file my_config.ini -a 'basic'
 ```
 Note: see the section _test selection_ for more information about nose attributes.
 
@@ -297,7 +297,7 @@ Note: see the section _test selection_ for more information about nose attribute
 This command line executes only the basic tests for the index node configured in `my_config.ini` (basic set _intersect_ index 
 set):
 ```
-python2 esgf-test.py.py -v --nocapture --nologcapture --tc-file my_config.ini -a 'basic,index'
+python2 esgf-test.py -v --nocapture --nologcapture --tc-file my_config.ini -a 'basic,index'
 ```
 Note: You may provide as many attributes as you want (the operator is still _intersect_).
 
@@ -305,14 +305,14 @@ Note: You may provide as many attributes as you want (the operator is still _int
 
 This command line executes the basic tests for all types of node except the basic tests of the compute node:
 ```
-python2 esgf-test.py.py -v --nocapture --nologcapture --tc-file my_config.ini -a 'basic,!compute'
+python2 esgf-test.py -v --nocapture --nologcapture --tc-file my_config.ini -a 'basic,!compute'
 ```
 * Run an union of sets of tests according to nose attributes
 
 This example runs the union of the set of tests for the idp node and the set of tests for the index node (idp set _plus_ index 
 set):
 ```
-python2 esgf-test.py.py -v --nocapture --nologcapture --tc-file my_config.ini -a 'idp' -a 'index'
+python2 esgf-test.py -v --nocapture --nologcapture --tc-file my_config.ini -a 'idp' -a 'index'
 ```
 Note: You may provide as many '-a' expressions as you want (the operator is still _plus_).
 
@@ -323,15 +323,15 @@ user'.
 
 This example runs the tests located in test/test\_node\_components/test\_index (the tests for index node).
 ```
-python2 esgf-test.py.py -v --nocapture --nologcapture --tc-file my_config.ini utils ./test/test_node_components/test_index
+python2 esgf-test.py -v --nocapture --nologcapture --tc-file my_config.ini utils ./test/test_node_components/test_index
 ```
 Note: the `utils` directory is mandatory (esgf-test-suite python libraries).
 
-* Run tests, overring configuration
+* Run tests, overriding the configuration
 
 This example run the basic tests for index node, overring the index node value from the default configuration: it tests the index node of LLNL:
 ```
-python2 esgf-test.py.py -v --nocapture --nologcapture --tc-file default.ini -a 'basic,index' --tc='nodes.index_node:esgf-node.llnl.gov'
+python2 esgf-test.py -v --nocapture --nologcapture --tc-file default.ini -a 'basic,index' --tc='nodes.index_node:esgf-node.llnl.gov'
 ```
 Note: the `nodes.index_node` corresponds to the section `nodes` and the key `index_node` in the configuration file.
 
@@ -339,7 +339,7 @@ Note: the `nodes.index_node` corresponds to the section `nodes` and the key `ind
 
 This example runs the basic tests for the index node of LLNL:
 ```
-python2 esgf-test.py.py -v --nocapture --nologcapture -a 'basic,index' --tc='nodes.index_node:esgf-node.llnl.gov'
+python2 esgf-test.py -v --nocapture --nologcapture -a 'basic,index' --tc='nodes.index_node:esgf-node.llnl.gov'
 ```
 More informations about the command line options concerning the configuration [here](https://pypi.python.org/pypi/nose-testconfig).
 
@@ -363,12 +363,12 @@ have any attribute.
 
 * Without SLCS
 ```
-python2 esgf-test.py.py -v --nocapture --nologcapture --tc-file my_config.ini -a '!compute,!cog_create_user,!slcs' --with-id
+python2 esgf-test.py -v --nocapture --nologcapture --tc-file my_config.ini -a '!compute,!cog_create_user,!slcs' --with-id
 ```
 
 * With SLCS
 ```
-python2 esgf-test.py.py -v --nocapture --nologcapture --tc-file my_config.ini -a '!compute,!cog_create_user' --with-id
+python2 esgf-test.py -v --nocapture --nologcapture --tc-file my_config.ini -a '!compute,!cog_create_user' --with-id
 ```
 
 Don't forget to configure the superset to the value _classic_ in the configuration file.
@@ -376,7 +376,7 @@ Don't forget to configure the superset to the value _classic_ in the configurati
 ### Recommanded tests for a ESGF docker deployement
 
 ```
-python2 esgf-test.py.py -v --nocapture --nologcapture --tc-file my_config.ini -a 'basic,!compute' -a 'slcs' --with-id
+python2 esgf-test.py -v --nocapture --nologcapture --tc-file my_config.ini -a 'basic,!compute' -a 'slcs' --with-id
 ```
 Don't forget to configure the superset to the value _docker_ in the configuration file (see section Configuration).
 
