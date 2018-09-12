@@ -1,17 +1,14 @@
 Bootstrap: docker
-From: ubuntu:latest
+From: centos:latest
 
 %labels
 MAINTAINER sebastien.gardoll@ipsl.fr
 
 %post
-
-  apt-get -y update
-  apt-get -y dist-upgrade
-  apt-get -y install myproxy firefox python2.7-dev libssl-dev libxml2-dev libxslt-dev globus-gass-copy-progs wget
-
-  ln -s /usr/bin/python2.7  /usr/bin/python2
-  ln -s /usr/bin/python2.7  /usr/bin/python
+  
+  yum -y update
+  yum -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+  yum -y install python-devel openssl-devel libxml2-devel libxslt-devel globus-gass-copy-progs firefox myproxy wget
 
   wget https://bootstrap.pypa.io/get-pip.py -O /tmp/get-pip.py
 
@@ -26,6 +23,4 @@ MAINTAINER sebastien.gardoll@ipsl.fr
   rm /tmp/get-pip.py
   rm /tmp/geckodriver-v0.19.1-linux64.tar.gz
 
-  apt-get remove -y wget
-
-  apt-get clean
+  yum -y erase wget
