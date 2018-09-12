@@ -8,7 +8,7 @@ MAINTAINER sebastien.gardoll@ipsl.fr
 
   apt-get -y update
   apt-get -y dist-upgrade
-  apt-get -y install firefox python2.7-dev libssl-dev libxml2-dev libxslt-dev globus-gass-copy-progs wget
+  apt-get -y install myproxy firefox python2.7-dev libssl-dev libxml2-dev libxslt-dev globus-gass-copy-progs wget
 
   ln -s /usr/bin/python2.7  /usr/bin/python2
   ln -s /usr/bin/python2.7  /usr/bin/python

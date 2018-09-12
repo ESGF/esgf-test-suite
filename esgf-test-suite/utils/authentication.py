@@ -3,7 +3,8 @@ import os
 import subprocess
 import shutil
 
-from myproxy.client import MyProxyClient, MyProxyClientGetError
+# WORKAROUND SSL-MYPROXYCLIENT PROBLEM
+# from myproxy.client import MyProxyClient, MyProxyClientGetError
 
 import utils.configuration as config
 import utils.naming as naming
@@ -20,8 +21,8 @@ class MyProxyUtils(object):
       os.makedirs(cert_parent_dir_path) # WORKAROUND SSL-MYPROXYCLIENT PROBLEM
     self.credsfile = os.path.expanduser(naming.CREDENTIALS_FILE_PATH)
     self.idp_addr= config.get(config.NODES_SECTION, config.IDP_NODE_KEY).encode('ascii', 'replace')
-    self.myproxy = MyProxyClient(hostname=self.idp_addr)
-    self.myproxy._setCACertDir(self.cacertdir)
+    # self.myproxy = MyProxyClient(hostname=self.idp_addr) # WORKAROUND SSL-MYPROXYCLIENT PROBLEM
+    # self.myproxy._setCACertDir(self.cacertdir) # WORKAROUND SSL-MYPROXYCLIENT PROBLEM
     self.credentials = None
     self.trustRoots = None
     self.port = '7512'
