@@ -153,7 +153,7 @@ This image is built from the offical docker image of the latest version of LTS U
 
   * Install Singularity (procedure available [here](http://singularity.lbl.gov/install-linux))
   
-  * Download the image [here](http://distrib-coffee.ipsl.jussieu.fr/pub/esgf/dist/esgf-test-suite/esgf-test-suite_env.singularity.img) (sha1: fcfe86d38c45f8436cf8930c32d987b9c80db9b8)
+  * Download the image [here](http://distrib-coffee.ipsl.jussieu.fr/pub/esgf/dist/esgf-test-suite/esgf-test-suite_env.singularity.img) (sha1: 869b98a087a24b08bfcf394ad7028fb3a606215c)
   
   * Clone this repository then cd to it: `git clone https://github.com/ESGF/esgf-test-suite.git ; cd ./esgf-test-suite/esgf-test-suite`
 
@@ -163,7 +163,7 @@ This image is built from the offical docker image of the latest version of LTS U
 
   * Create a Linux virtual machine (procedure available [here](http://singularity.lbl.gov/install-mac))
   * ssh into the virtual machine: `vagrant ssh`
-  * Download the image [here](http://distrib-coffee.ipsl.jussieu.fr/pub/esgf/dist/esgf-test-suite/esgf-test-suite_env.singularity.img) (sha1: fcfe86d38c45f8436cf8930c32d987b9c80db9b8)
+  * Download the image [here](http://distrib-coffee.ipsl.jussieu.fr/pub/esgf/dist/esgf-test-suite/esgf-test-suite_env.singularity.img) (sha1: 869b98a087a24b08bfcf394ad7028fb3a606215c)
   * Clone this repository then cd to it: `git clone https://github.com/ESGF/esgf-test-suite.git ; cd ./esgf-test-suite/esgf-test-suite`
   * Turn on the esgf-test-suite environment image, once per session: `singularity shell esgf-test-suite_env.singularity.img`
 
