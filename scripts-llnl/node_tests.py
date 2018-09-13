@@ -2,7 +2,7 @@ import requests
 
 server_base = "https://esgf-dev1.llnl.gov/"
 
-mod_lst = ["esg-orp", "esgf-nm", "esgf-idp"]
+mod_lst = ["esg-orp", "esgf-nm", "esgf-idp", "esg-search/search"]
 
 resp = requests.get(server_base)
 
