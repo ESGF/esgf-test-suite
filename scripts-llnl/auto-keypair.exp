@@ -20,8 +20,9 @@ expect {
 
     }
 
+
     "Please enter your Certificate Authority" {
-	send /tmp/cachain.pem\n\n ; exp_continue
+	send /tmp/cachain.pem\n/etc/grid-security/certificates/3513523f.0\n ; exp_continue
     }
 
     "Is the above information correct" {
