@@ -55,6 +55,7 @@ Current developments will also let admins to test and validate the stack by runn
 - Nose (tested version: 1.3.7)
 - Pyopenssl (OpenSSL ; tested version: 17.3.0)
 - MyProxyClient (tested version: 2.0.1)
+- Myproxy (tested version v6.1)
 - Geckodriver (tested version: 0.20.0)
 - Selenium (tested version 3.9.0)
 - Requests (tested version 2.18.4)
@@ -74,11 +75,11 @@ Tested with Linux Mint 18.3
 
 Command for Red Hat / CentOS / Scientifix Linux:
      
-     yum install python-devel openssl-devel libxml2-devel libxslt-devel globus-gass-copy-progs firefox
+     yum install python-devel openssl-devel libxml2-devel libxslt-devel globus-gass-copy-progs firefox myproxy
 
 Command for Debian like Systems:
      
-     apt-get install python2.7-dev libssl-dev libxml2-dev libxslt-dev globus-gass-copy-progs firefox
+     apt-get install python2.7-dev libssl-dev libxml2-dev libxslt-dev globus-gass-copy-progs firefox myproxy
 
 * Geckodriver installation (driver for Firefox):
 
