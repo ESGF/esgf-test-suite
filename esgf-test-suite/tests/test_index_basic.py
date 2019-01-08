@@ -8,8 +8,8 @@ import utils.configuration as config
 @attr ('basic')
 class TestWebFrontEnds(AbstractWebFrontEndTestClass):
   
-  _front_ends_docker    = ['projects/testproject', 'solr/#', 'esg-search/search', 'esg-orp']
-  _front_ends_installer = ['', 'solr/#', 'esg-search/search', 'esg-orp']
+  _front_ends_docker    = ['projects/testproject', 'solr/#', 'esg-search/search', 'esg-orp/home.htm']
+  _front_ends_installer = ['', 'solr/#', 'esg-search/search', 'esg-orp/home.htm']
   
   def __init__(self):
     
