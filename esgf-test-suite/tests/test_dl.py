@@ -112,6 +112,8 @@ class TestDataDownload(AbstractBrowserBasedTest, AbstractMyproxyBasedTest):
     os.environ['X509_USER_PROXY'] = globals.myproxy_utils.credsfile
     os.environ['X509_CERT_DIR'] = globals.myproxy_utils.cacertdir
     command = ['globus-url-copy', '-b', url, TestDataDownload._DOWNLOADED_FILE_PATH]
+    print "globus-url-copy -b {u} {p}".format(u=url,
+                                              p=TestDataDownload._DOWNLOADED_FILE_PATH)
     process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     process.wait()
     stdout, stderr = process.communicate()
