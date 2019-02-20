@@ -7,19 +7,20 @@ from operator import itemgetter
 from StringIO import StringIO
 
 import utils.configuration as config
-
+import utils.globals as globals
 
 class ThreddsUtils(object):
+  
+  catalog_ns = '{http://www.unidata.ucar.edu/namespaces/thredds/InvCatalog/v1.0}'
+  # catalog.py experienced memory problem when computing more than twice the
+  # endpoints of a data node. So this variable is sort of singleton of the 
+  # endpoints of the data node.
+  endpoints = None
+
   def __init__(self):
     # init
-    global in_queue
-    in_queue = multiprocessing.JoinableQueue()
-    global out_queue
-    out_queue = multiprocessing.Queue()
-
-    global catalog_ns
-    catalog_ns = '{http://www.unidata.ucar.edu/namespaces/thredds/InvCatalog/v1.0}'
-
+    self.in_queue = multiprocessing.JoinableQueue()
+    self.out_queue = multiprocessing.Queue()
     self.data_node = config.get(config.NODES_SECTION, config.DATA_NODE_KEY)
 
   def chunk_it(self, seq, num):
@@ -37,10 +38,10 @@ class ThreddsUtils(object):
     ds_services = []
 
     # Collecting available services from <serviceName>some_service</serviceName>
-    for sv in dataset.iterchildren(tag=catalog_ns + 'serviceName'):
+    for sv in dataset.iterchildren(tag=ThreddsUtils.catalog_ns + 'serviceName'):
       ds_services.append(services_def[sv.text])
     # Collecting available services from <access serviceName="some_service">
-    for acc in dataset.iterchildren(tag=catalog_ns + 'access'):
+    for acc in dataset.iterchildren(tag=ThreddsUtils.catalog_ns + 'access'):
       try:
         ds_services.append(services_def[acc.get('serviceName')])
       except:
@@ -53,7 +54,7 @@ class ThreddsUtils(object):
     if "aggregation" in dataset.get('urlPath'):
       size = float('inf')
     else:
-      for si in dataset.iterchildren(tag=catalog_ns + 'dataSize'):
+      for si in dataset.iterchildren(tag=ThreddsUtils.catalog_ns + 'dataSize'):
         units = si.get('units')
         if units == 'Kbytes':
           size = float(si.text) / 1024
@@ -70,7 +71,7 @@ class ThreddsUtils(object):
     datasets_list = []
 
     # Parsing datasets XML document
-    for events, ds in etree.iterparse(StringIO(data), tag=catalog_ns + 'dataset'):
+    for events, ds in etree.iterparse(StringIO(data), tag=ThreddsUtils.catalog_ns + 'dataset'):
       # Only interested in datasets which have an URL
       if ds.get('urlPath'):
         # Building dataset entry with URL, size and available services
@@ -85,7 +86,7 @@ class ThreddsUtils(object):
   def get_services_definition(self, data):
     services_def = {}
 
-    for events, sv in etree.iterparse(StringIO(data), tag=catalog_ns + 'service'):
+    for events, sv in etree.iterparse(StringIO(data), tag=ThreddsUtils.catalog_ns + 'service'):
       if sv.get('serviceType') != 'Compound':
         services_def.update({sv.get('name'): sv.get('serviceType')})
 
@@ -109,10 +110,10 @@ class ThreddsUtils(object):
     return datasets_list
 
   def queue_manager(self):
-    for item in iter(in_queue.get, None):
-      out_queue.put(self.worker(item))
-      in_queue.task_done()
-    in_queue.task_done()
+    for item in iter(self.in_queue.get, None):
+      self.out_queue.put(self.worker(item))
+      self.in_queue.task_done()
+    self.in_queue.task_done()
 
   def map_processes(self, chunks):
     processes = []
@@ -125,21 +126,21 @@ class ThreddsUtils(object):
 
     # Feeding the input queue with chunks
     for cr in chunks:
-      in_queue.put(cr)
+      self.in_queue.put(cr)
 
     # Waiting for every chunk to be processed
-    in_queue.join()
+    self.in_queue.join()
 
     # Feeding the input queue with None to be sure
     for p in processes:
-      in_queue.put(None)
+      self.in_queue.put(None)
 
     # Collecting results from output queue
     datasets_list = []
     for p in processes:
-      datasets_list.extend(out_queue.get())
+      datasets_list.extend(self.out_queue.get())
 
-    in_queue.join()
+    self.in_queue.join()
 
     for p in processes:
       p.join()
@@ -150,7 +151,7 @@ class ThreddsUtils(object):
     filtered = []
 
     content = urllib2.urlopen(proj_url)
-    for event, cr in etree.iterparse(content, events=('end',), tag=catalog_ns + 'catalogRef'):
+    for event, cr in etree.iterparse(content, events=('end',), tag=ThreddsUtils.catalog_ns + 'catalogRef'):
       path = cr.get('{http://www.w3.org/1999/xlink}href')
       if matcher in path:
         filtered.append(re.sub('catalog.xml', '', proj_url) + path)
@@ -186,7 +187,7 @@ class ThreddsUtils(object):
         .format(main_url, e)
       assert(False), err_msg
 
-    for event, cr in etree.iterparse(content, events=('end',), tag=catalog_ns + 'catalogRef'):
+    for event, cr in etree.iterparse(content, events=('end',), tag=ThreddsUtils.catalog_ns + 'catalogRef'):
       path = cr.get('{http://www.w3.org/1999/xlink}href')
       # Exclude DatasetScans
       if 'thredds' not in path:
@@ -195,19 +196,21 @@ class ThreddsUtils(object):
     return projects
 
   def get_endpoints(self):
-    endpoints = []
+    if ThreddsUtils.endpoints is None:
+      endpoints = []
 
-    # Determining number of processes and chunks
-    nb_chunks = multiprocessing.cpu_count() * 16
+      # Determining number of processes and chunks
+      nb_chunks = multiprocessing.cpu_count() * 16
 
-    # Getting projects href links from main catalog (http://data_node/thredds/catalog/catalog.xml)
-    projects = self.get_projects()
+      # Getting projects href links from main catalog (http://data_node/thredds/catalog/catalog.xml)
+      projects = self.get_projects()
 
-    # Getting and chunking catalogrefs href links from project catalogs (ex: http://data_node/thredds/geomip/catalog.xml)
-    catalogrefs = self.get_catalogrefs(projects)
-    chunked_catalogrefs = self.chunk_it(catalogrefs, nb_chunks)
+      # Getting and chunking catalogrefs href links from project catalogs (ex: http://data_node/thredds/geomip/catalog.xml)
+      catalogrefs = self.get_catalogrefs(projects)
+      chunked_catalogrefs = self.chunk_it(catalogrefs, nb_chunks)
 
-    # Starting multiprocessed work
-    endpoints = self.map_processes(chunked_catalogrefs)
+      # Starting multiprocessed work
+      endpoints = self.map_processes(chunked_catalogrefs)
+      ThreddsUtils.endpoints = endpoints
 
-    return endpoints
+    return ThreddsUtils.endpoints
