@@ -15,6 +15,8 @@ import utils.catalog as cat
 
 from selenium.webdriver.common.by import By
 
+from selenium.common.exceptions import NoSuchElementException
+
 import utils.networking as networking
 
 import utils.naming as naming
@@ -74,8 +76,11 @@ class TestDataDownload(AbstractBrowserBasedTest, AbstractMyproxyBasedTest):
 
     OpenID = "https://{0}/esgf-idp/openid/{1}".format(self.idp_node, self.username)
 
-    globals.browser.find_element_by_class_name('custom-combobox-input')\
+    try:
+      globals.browser.find_element_by_class_name('custom-combobox-input')\
                    .send_keys(OpenID)
+    except NoSuchElementException:
+      assert(False), "{0} is corrupted or not compliant with esgf-test-suite".format(url)
     
     globals.browser.find_element_by_id('SubmitButton').click()
 
