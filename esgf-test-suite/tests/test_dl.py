@@ -36,6 +36,7 @@ class TestDataDownload(AbstractBrowserBasedTest, AbstractMyproxyBasedTest):
     self._tu = cat.ThreddsUtils()
     self._endpoints = self._tu.get_endpoints()
     self.data_node = config.get(config.NODES_SECTION, config.DATA_NODE_KEY)
+    self.gridftp_node = config.get(config.NODES_SECTION, config.GRIDFTP_NODE_KEY)
     self.idp_node = config.get(config.NODES_SECTION, config.IDP_NODE_KEY)
     self.username = config.get(config.ACCOUNT_SECTION, config.USER_NAME_KEY)
     self.password = config.get(config.ACCOUNT_SECTION, config.USER_PASSWORD_KEY)
@@ -59,7 +60,7 @@ class TestDataDownload(AbstractBrowserBasedTest, AbstractMyproxyBasedTest):
 
     path = self._get_endpoint_path('HTTPServer')
     url = "http://{0}/thredds/fileServer/{1}".format(self.data_node, path)
-
+    print("url downloaded: {0}".format(url))
     try:
       r = requests.get(url, verify=False, timeout=config\
             .get_int(config.TEST_SECTION, config.WEB_PAGE_TIMEOUT_KEY), stream=True)
@@ -113,7 +114,9 @@ class TestDataDownload(AbstractBrowserBasedTest, AbstractMyproxyBasedTest):
     assert(is_enable[0]), err_msg
 
     path = self._get_endpoint_path('GridFTP')
-    url = "gsiftp://{0}:{1}//{2}".format(self.data_node, gridftp_port, path)
+    url = "gsiftp://{0}:{1}//{2}".format(self.gridftp_node, gridftp_port, path)
+    print("url downloaded: {0}".format(url))
+    
     os.environ['X509_USER_PROXY'] = globals.myproxy_utils.credsfile
     os.environ['X509_CERT_DIR'] = globals.myproxy_utils.cacertdir
     command = ['globus-url-copy', '-b', url, TestDataDownload._DOWNLOADED_FILE_PATH]
