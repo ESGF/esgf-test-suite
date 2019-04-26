@@ -36,7 +36,6 @@ class TestDataDownload(AbstractBrowserBasedTest, AbstractMyproxyBasedTest):
     self._tu = cat.ThreddsUtils()
     self._endpoints = self._tu.get_endpoints()
     self.data_node = config.get(config.NODES_SECTION, config.DATA_NODE_KEY)
-    self.gridftp_node = config.get(config.NODES_SECTION, config.GRIDFTP_NODE_KEY)
     self.idp_node = config.get(config.NODES_SECTION, config.IDP_NODE_KEY)
     self.username = config.get(config.ACCOUNT_SECTION, config.USER_NAME_KEY)
     self.password = config.get(config.ACCOUNT_SECTION, config.USER_PASSWORD_KEY)
@@ -106,11 +105,13 @@ class TestDataDownload(AbstractBrowserBasedTest, AbstractMyproxyBasedTest):
   @attr ('dl_gridftp')
   def test_dl_gridftp(self):
 
+    self.gridftp_node = config.get(config.NODES_SECTION, config.GRIDFTP_NODE_KEY)
+
     gridftp_port = naming.GRIDFTP_PORT_NUMBER
 
-    is_enable = networking.ping_tcp_port(self.data_node, gridftp_port)
+    is_enable = networking.ping_tcp_port(self.gridftp_node, gridftp_port)
     err_msg = "gridftp server not found at {0} port {1} (reason: {2})"\
-      .format(self.data_node, gridftp_port, is_enable[2])
+      .format(self.gridftp_node, gridftp_port, is_enable[2])
     assert(is_enable[0]), err_msg
 
     path = self._get_endpoint_path('GridFTP')
