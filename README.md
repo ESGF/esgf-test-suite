@@ -196,6 +196,7 @@ you just have to give the information needed for the tests that you want to exec
   - `data_node`: the data node
   - `index_node`: the index node
   - `compute_node`: the compute node
+  - `gridftp_node`: the gridftp node
 
 Specify the full qualified address of your nodes.
 You may leave some entries empty, but ESGF-test-suite won't let you run the tests
