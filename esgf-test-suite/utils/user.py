@@ -51,7 +51,11 @@ class UserUtils(AbstractBrowserBasedTest):
     
     self.load_page(URL, (By.ID, 'openid_identifier'))
 
-    globals.browser.find_element_by_id('openid_identifier').send_keys(OpenID)
+    try:
+      globals.browser.find_element_by_id('openid_identifier').send_keys(OpenID)
+    except NoSuchElementException:
+      assert(False), "{0} is corrupted or not compliant with esgf-test-suite".format(URL)
+
     globals.browser.find_element_by_xpath("//input[@value='Login']").click()
 
     self.wait_loading('load the login page', (By.ID, 'username'),
@@ -80,7 +84,11 @@ class UserUtils(AbstractBrowserBasedTest):
 
     self.load_page(URL, (By.ID, 'openid_identifier'))
 
-    globals.browser.find_element_by_id('openid_identifier').send_keys(OpenID)
+    try:
+      globals.browser.find_element_by_id('openid_identifier').send_keys(OpenID)
+    except NoSuchElementException:
+      assert(False), "{0} is corrupted or not compliant with esgf-test-suite".format(URL)
+
     globals.browser.find_element_by_xpath("//input[@value='Login']").click()
 
     self.wait_loading('load the login confirmation')
@@ -105,7 +113,10 @@ class UserUtils(AbstractBrowserBasedTest):
 
     # Filling the form
     for element_name in self.elements:
-      globals.browser.find_element_by_name(element_name).send_keys(self.elements[element_name])
+      try:
+        globals.browser.find_element_by_name(element_name).send_keys(self.elements[element_name])
+      except NoSuchElementException:
+        assert(False), "{0} is corrupted or not compliant with esgf-test-suite".format(URL)
 
     globals.browser.find_element_by_xpath("//input[@value='Submit']").click()
 

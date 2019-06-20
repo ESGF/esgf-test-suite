@@ -7,6 +7,8 @@ import utils.globals as globals
 
 from selenium.webdriver.common.by import By
 
+from selenium.common.exceptions import NoSuchElementException
+
 @attr ('node_components')
 @attr ('idp')
 @attr ('slcs')
@@ -28,7 +30,11 @@ class TestSlcs(AbstractBrowserBasedTest):
     
     self.load_page(url, (By.ID, 'id_username'))
 
-    globals.browser.find_element_by_id('id_username').send_keys(self.username)
+    try:
+      globals.browser.find_element_by_id('id_username').send_keys(self.username)
+    except NoSuchElementException:
+      assert(False), "{0} is corrupted or not compliant with esgf-test-suite".format(url)
+    
     globals.browser.find_element_by_id('id_password').send_keys(self.password)
     globals.browser.find_element_by_xpath("//input[@value='Log in']").click()
 

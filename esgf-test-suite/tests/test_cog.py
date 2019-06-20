@@ -16,6 +16,8 @@ import sys
 
 from selenium.webdriver.common.by import By
 
+from selenium.common.exceptions import NoSuchElementException
+
 @attr ('node_components')
 @attr ('index')
 @attr ('cog')
@@ -43,16 +45,18 @@ class TestCog(AbstractBrowserBasedTest):
     
     self.load_page(url)
 
-    globals.browser.find_element_by_id('id_username')\
-                   .send_keys(config.get(config.COG_SECTION, config.ADMIN_USERNAME_KEY))
+    try:
+      globals.browser.find_element_by_id('id_username')\
+                     .send_keys(config.get(config.COG_SECTION, config.ADMIN_USERNAME_KEY))
+    except NoSuchElementException:
+      assert(False), "{0} is corrupted or not compliant with esgf-test-suite".format(url)
 
     globals.browser.find_element_by_id('id_password')\
-                   .send_keys(config.get(config.COG_SECTION, config.ADMIN_PASSWORD_KEY))
+                     .send_keys(config.get(config.COG_SECTION, config.ADMIN_PASSWORD_KEY))
 
     globals.browser.find_element_by_xpath("//input[@value='Login']").click()
       
-    msg = "log onto the Cog admin page of '{0}'"\
-          .format(index_node)
+    msg = "log onto the Cog admin page of '{0}'".format(index_node)
     
     self.wait_loading(msg, not_expected_element=(By.CLASS_NAME, 'errornote'))
     
