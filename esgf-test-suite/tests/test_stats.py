@@ -17,7 +17,8 @@ class TestStatsFrontEnds(AbstractWebFrontEndTestClass):
                 'esgf-stats-api/obs4mips/stats-by-dataset/xml',
                 'esgf-stats-api/obs4mips/stats-by-realm/xml',
                 'esgf-stats-api/obs4mips/stats-by-source/xml',
-                'esgf-stats-api/obs4mips/stats-by-variable/xml']
+                'esgf-stats-api/obs4mips/stats-by-variable/xml',
+                'esgf-stats-api/cross-project/stats-by-time/xml']
   
   def __init__(self):
     AbstractWebFrontEndTestClass.__init__(self, TestStatsFrontEnds._stats_api,

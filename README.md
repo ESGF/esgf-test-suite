@@ -50,11 +50,12 @@ Current developments will also let admins to test and validate the stack by runn
 
 - Shell environment  
 - Python 2.7 or higher (but not 3.x)
-- Firefox (tested version: 58.0) **!! esgf-test-suite/Gekodriver doesn't work with versions of Firefox less than 58 (like the esr channel) !!**
+- Firefox (tested version: 59.0.1) **!! esgf-test-suite/Gekodriver doesn't work with versions of Firefox less than 58 (like the esr channel) !!**
 - Globus-url-copy (MacOSX/homebrew: Globus Toolkit 6.0.1506371041 ; Linux: globus-gass-copy-progs 9.18-2) 
 - Nose (tested version: 1.3.7)
 - Pyopenssl (OpenSSL ; tested version: 17.3.0)
 - MyProxyClient (tested version: 2.0.1)
+- Myproxy (tested version v6.1)
 - Geckodriver (tested version: 0.20.0)
 - Selenium (tested version 3.9.0)
 - Requests (tested version 2.18.4)
@@ -74,11 +75,11 @@ Tested with Linux Mint 18.3
 
 Command for Red Hat / CentOS / Scientifix Linux:
      
-     yum install python-devel openssl-devel libxml2-devel libxslt-devel globus-gass-copy-progs firefox
+     yum install python-devel openssl-devel libxml2-devel libxslt-devel globus-gass-copy-progs firefox myproxy
 
 Command for Debian like Systems:
      
-     apt-get install python2.7-dev libssl-dev libxml2-dev libxslt-dev globus-gass-copy-progs firefox
+     apt-get install python2.7-dev libssl-dev libxml2-dev libxslt-dev globus-gass-copy-progs firefox myproxy
 
 * Geckodriver installation (driver for Firefox):
 
@@ -153,7 +154,7 @@ This image is built from the offical docker image of the latest version of LTS U
 
   * Install Singularity (procedure available [here](http://singularity.lbl.gov/install-linux))
   
-  * Download the image [here](http://distrib-coffee.ipsl.jussieu.fr/pub/esgf/dist/esgf-test-suite/esgf-test-suite_env.singularity.img) (sha1: fcfe86d38c45f8436cf8930c32d987b9c80db9b8)
+  * Download the image [here](http://distrib-coffee.ipsl.jussieu.fr/pub/esgf/dist/esgf-test-suite/esgf-test-suite_env.singularity.img) (sha1: 869b98a087a24b08bfcf394ad7028fb3a606215c)
   
   * Clone this repository then cd to it: `git clone https://github.com/ESGF/esgf-test-suite.git ; cd ./esgf-test-suite/esgf-test-suite`
 
@@ -163,7 +164,7 @@ This image is built from the offical docker image of the latest version of LTS U
 
   * Create a Linux virtual machine (procedure available [here](http://singularity.lbl.gov/install-mac))
   * ssh into the virtual machine: `vagrant ssh`
-  * Download the image [here](http://distrib-coffee.ipsl.jussieu.fr/pub/esgf/dist/esgf-test-suite/esgf-test-suite_env.singularity.img) (sha1: fcfe86d38c45f8436cf8930c32d987b9c80db9b8)
+  * Download the image [here](http://distrib-coffee.ipsl.jussieu.fr/pub/esgf/dist/esgf-test-suite/esgf-test-suite_env.singularity.img) (sha1: 869b98a087a24b08bfcf394ad7028fb3a606215c)
   * Clone this repository then cd to it: `git clone https://github.com/ESGF/esgf-test-suite.git ; cd ./esgf-test-suite/esgf-test-suite`
   * Turn on the esgf-test-suite environment image, once per session: `singularity shell esgf-test-suite_env.singularity.img`
 
@@ -327,7 +328,7 @@ python2 esgf-test.py -v --nocapture --nologcapture --tc-file my_config.ini utils
 ```
 Note: the `utils` directory is mandatory (esgf-test-suite python libraries).
 
-* Run tests, overring configuration
+* Run tests, overriding the configuration
 
 This example run the basic tests for index node, overring the index node value from the default configuration: it tests the index node of LLNL:
 ```

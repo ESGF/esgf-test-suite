@@ -13,6 +13,7 @@ INDEX_NODE_KEY   = 'index_node'
 IDP_NODE_KEY     = 'idp_node'
 DATA_NODE_KEY    = 'data_node'
 COMPUTE_NODE_KEY = 'compute_node'
+GRIDFTP_NODE_KEY = 'gridftp_node'
 
 ### SECTION 'ACCOUNT'
 

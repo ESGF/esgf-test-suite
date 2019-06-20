@@ -6,8 +6,11 @@ FALSE = 'false'
 SUCCESS = 'SUCCESS'
 FAILURE = 'FAILURE'
 
-CA_CERT_DIR_PATH = "~/.esg/certificates"
-CREDENTIALS_FILE_PATH = "~/.esg/credentials.pem"
+# CA_CERT_DIR_PATH = "~/.esg/certificates"  # WORKAROUND SSL-MYPROXYCLIENT PROBLEM
+# CREDENTIALS_FILE_PATH = "~/.esg/credentials.pem" # WORKAROUND SSL-MYPROXYCLIENT PROBLEM
+CA_CERT_DIR_PATH = "~/.globus/certificates"  # WORKAROUND SSL-MYPROXYCLIENT PROBLEM
+CREDENTIALS_FILE_PATH = "~/.globus/certificate-file" # WORKAROUND SSL-MYPROXYCLIENT PROBLEM
+
 
 GECKODRIVER_LOG_FILE_PATH="{0}/geckodriver.log".format(os.getcwd())
 
