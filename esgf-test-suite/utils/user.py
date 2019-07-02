@@ -2,7 +2,7 @@ import utils.configuration as config
 
 from selenium.webdriver.common.by import By
 
-from abstract_browser_based_test import AbstractBrowserBasedTest
+from utils.abstract_browser_based_test import AbstractBrowserBasedTest
 import utils.globals as globals
 
 from selenium.common.exceptions import TimeoutException, NoSuchElementException

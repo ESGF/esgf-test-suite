@@ -1,5 +1,5 @@
 from testconfig import config
-from configuration_exception import ConfigurationException
+from utils.configuration_exception import ConfigurationException
 
 import sys
 
