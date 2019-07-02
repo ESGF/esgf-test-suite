@@ -1,13 +1,10 @@
 import re
-import urllib2
+import urllib.request, urllib.error, urllib.parse
 from lxml import etree
 import multiprocessing
-from multiprocessing import Queue
-from operator import itemgetter
 from io import BytesIO
 
 import utils.configuration as config
-import utils.globals as globals
 
 class ThreddsUtils(object):
   
@@ -97,7 +94,7 @@ class ThreddsUtils(object):
 
     for cr in catalogrefs:
       try:
-        content = urllib2.urlopen(cr)
+        content = urllib.request.urlopen(cr)
         data = content.read()
       except:
         continue
@@ -150,7 +147,7 @@ class ThreddsUtils(object):
   def filter_catalogrefs(self, proj_url, matcher):
     filtered = []
 
-    content = urllib2.urlopen(proj_url)
+    content = urllib.request.urlopen(proj_url)
     for event, cr in etree.iterparse(content, events=('end',), tag=ThreddsUtils.catalog_ns + 'catalogRef'):
       path = cr.get('{http://www.w3.org/1999/xlink}href')
       if matcher in path:
@@ -163,7 +160,7 @@ class ThreddsUtils(object):
 
     for proj_url in projects:
       try:
-        content = urllib2.urlopen(proj_url)
+        content = urllib.request.urlopen(proj_url)
       except:
         continue
 
@@ -181,7 +178,7 @@ class ThreddsUtils(object):
     main_url = "http://{0}/thredds/catalog/catalog.xml".format(self.data_node);
 
     try:
-      content = urllib2.urlopen(main_url)
+      content = urllib.request.urlopen(main_url)
     except Exception as e:
       err_msg = "unable to get the catalog at '{0}' (reason: {1})"\
         .format(main_url, e)
