@@ -21,6 +21,7 @@ import utils.networking as networking
 
 import utils.naming as naming
 
+from selenium.common.exceptions import WebDriverException
 
 @attr ('node_components')
 @attr ('data')
