@@ -4,7 +4,7 @@ from lxml import etree
 import multiprocessing
 from multiprocessing import Queue
 from operator import itemgetter
-from StringIO import StringIO
+from io import BytesIO
 
 import utils.configuration as config
 import utils.globals as globals
@@ -71,7 +71,7 @@ class ThreddsUtils(object):
     datasets_list = []
 
     # Parsing datasets XML document
-    for events, ds in etree.iterparse(StringIO(data), tag=ThreddsUtils.catalog_ns + 'dataset'):
+    for events, ds in etree.iterparse(BytesIO(data), tag=ThreddsUtils.catalog_ns + 'dataset'):
       # Only interested in datasets which have an URL
       if ds.get('urlPath'):
         # Building dataset entry with URL, size and available services
@@ -86,7 +86,7 @@ class ThreddsUtils(object):
   def get_services_definition(self, data):
     services_def = {}
 
-    for events, sv in etree.iterparse(StringIO(data), tag=ThreddsUtils.catalog_ns + 'service'):
+    for events, sv in etree.iterparse(BytesIO(data), tag=ThreddsUtils.catalog_ns + 'service'):
       if sv.get('serviceType') != 'Compound':
         services_def.update({sv.get('name'): sv.get('serviceType')})
 
