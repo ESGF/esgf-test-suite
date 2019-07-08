@@ -44,10 +44,11 @@ class MyProxyUtils(object):
     
     # WORKAROUND SSL-MYPROXYCLIENT PROBLEM
     command = ['myproxy-get-trustroots', '-b', '-s', self.idp_addr, '-p', self.port]
-    process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, shell=False)
-    process.wait()
-    stdout, stderr = process.communicate()
-    assert(process.returncode == 0), "fail to get the trustroots of {0} (sdtout: {1} ; stderr: {2})".format(self.idp_addr, stdout, stderr)
+
+    process = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
+                             timeout=60)
+    assert(process.returncode == 0), "fail to get the trustroots of {0} (sdtout: {1} ; stderr: {2})".format(self.idp_addr, process.stdout, process.stderr)
+
     self.trustRoots = {}
     for item in os.listdir(self.cacertdir):
       filename, file_extension = os.path.splitext(item)
