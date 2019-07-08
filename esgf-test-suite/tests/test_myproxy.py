@@ -25,7 +25,7 @@ class TestMyProxy(AbstractMyproxyBasedTest):
     if(globals.myproxy_utils.trustRoots):
       err_msg = "unsupported trusted root certificate format '{0}'".format(globals.myproxy_utils.trustRoots)
       assert(isinstance(globals.myproxy_utils.trustRoots, dict)), err_msg
-      for fileName, fileContents in globals.myproxy_utils.trustRoots.items():
+      for fileName, fileContents in list(globals.myproxy_utils.trustRoots.items()):
         if fileName.endswith('.0'):
           # test parsing certificate
           cert = crypto.load_certificate(crypto.FILETYPE_PEM, fileContents)

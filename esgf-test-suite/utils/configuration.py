@@ -85,8 +85,8 @@ def _get_section(section_name):
 
 def get(section_name, key_name):
   
-  if _buffer.has_key(section_name):
-    if _buffer[section_name].has_key(key_name):
+  if section_name in _buffer:
+    if key_name in _buffer[section_name]:
       return _buffer[section_name][key_name]
     else:
       section = _get_section(section_name) # fetch the value of the key.
@@ -107,7 +107,7 @@ def get_int(section_name, key_name):
   except ValueError:
     err_msg = "[CONF] convertion error in the section '{0}', entry '{1}': can't read '{2}' as an integer"\
       .format(section_name, key_name, string_value)
-    print >> sys.stderr, err_msg
+    print(err_msg, file=sys.stderr)
     exit(-1)
 
 def get_float(section_name, key_name):
@@ -117,7 +117,7 @@ def get_float(section_name, key_name):
   except ValueError:
     err_msg = "[CONF] convertion error in the section '{0}', entry '{1}': can't read '{2}' as a float"\
       .format(section_name, key_name, string_value)
-    print >> sys.stderr, err_msg
+    print(err_msg, file=sys.stderr)
     exit(-1)
 
 def _assert_config_key(section, section_name, key_name):

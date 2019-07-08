@@ -60,7 +60,7 @@ class TestDataDownload(AbstractBrowserBasedTest, AbstractMyproxyBasedTest):
 
     path = self._get_endpoint_path('HTTPServer')
     url = "http://{0}/thredds/fileServer/{1}".format(self.data_node, path)
-    print("url downloaded: {0}".format(url))
+    print(("url downloaded: {0}".format(url)))
     try:
       r = requests.get(url, verify=False, timeout=config\
             .get_int(config.TEST_SECTION, config.WEB_PAGE_TIMEOUT_KEY), stream=True)
@@ -117,7 +117,7 @@ class TestDataDownload(AbstractBrowserBasedTest, AbstractMyproxyBasedTest):
 
     path = self._get_endpoint_path('GridFTP')
     url = "gsiftp://{0}:{1}//{2}".format(self.gridftp_node, gridftp_port, path)
-    print("url downloaded: {0}".format(url))
+    print(("url downloaded: {0}".format(url)))
     
     os.environ['X509_USER_PROXY'] = globals.myproxy_utils.credsfile
     os.environ['X509_CERT_DIR'] = globals.myproxy_utils.cacertdir

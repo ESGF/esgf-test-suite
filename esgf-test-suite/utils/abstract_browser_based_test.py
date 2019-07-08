@@ -48,7 +48,7 @@ class AbstractBrowserBasedTest(object):
       AbstractBrowserBasedTest._firefox_profile.set_preference('extensions.logging.enabled', False)
       AbstractBrowserBasedTest._firefox_profile.set_preference('network.dns.disableIPv6', False)
 
-      for key, value in pf.items():
+      for key, value in list(pf.items()):
         AbstractBrowserBasedTest._firefox_profile.set_preference(key, value)
 
       AbstractBrowserBasedTest._firefox_capabilities = DesiredCapabilities().FIREFOX
