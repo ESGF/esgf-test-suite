@@ -11,12 +11,12 @@ Well, it is nearly impossible to run esgf-test-suite without reading entirely th
 
 * Without SLCS
 ```
-python2 esgf-test.py -v --nocapture --nologcapture --tc-file my_config.ini -a '!compute,!cog_create_user,!slcs' --with-id
+python3 esgf-test.py -v --nocapture --nologcapture --tc-file my_config.ini -a '!compute,!cog_create_user,!slcs' --with-id
 ```
 
 * With SLCS
 ```
-python2 esgf-test.py -v --nocapture --nologcapture --tc-file my_config.ini -a '!compute,!cog_create_user' --with-id
+python3 esgf-test.py -v --nocapture --nologcapture --tc-file my_config.ini -a '!compute,!cog_create_user' --with-id
 ```
 
 Don't forget to configure the superset to the value _classic_ in the configuration file.
@@ -24,7 +24,7 @@ Don't forget to configure the superset to the value _classic_ in the configurati
 ### Recommanded tests for a ESGF docker deployement
 
 ```
-python2 esgf-test.py -v --nocapture --nologcapture --tc-file my_config.ini -a 'basic,!compute' -a 'slcs' --with-id
+python3 esgf-test.py -v --nocapture --nologcapture --tc-file my_config.ini -a 'basic,!compute' -a 'slcs' --with-id
 ```
 Don't forget to configure the superset to the value _docker_ in the configuration file (see section Configuration).
 
@@ -49,19 +49,19 @@ Current developments will also let admins to test and validate the stack by runn
 ## Requirements:
 
 - Shell environment  
-- Python 2.7 or higher (but not 3.x)
-- Firefox (tested version: 59.0.1) **!! esgf-test-suite/Gekodriver doesn't work with versions of Firefox less than 58 (like the esr channel) !!**
-- Globus-url-copy (MacOSX/homebrew: Globus Toolkit 6.0.1506371041 ; Linux: globus-gass-copy-progs 9.18-2) 
+- Python 3.6 or 3.7 (but not 2.x ; 3.8 is untested)
+- Firefox (tested version: 60.7.0esr) **!! esgf-test-suite/Gekodriver doesn't work with versions of Firefox less than 58 (like the esr channel) !!**
+- Globus-url-copy (MacOSX/homebrew: Globus Toolkit 6.0.1506371041 ; Linux: globus-gass-copy-progs 10.4-1) 
 - Nose (tested version: 1.3.7)
-- Pyopenssl (OpenSSL ; tested version: 17.3.0)
-- MyProxyClient (tested version: 2.0.1)
-- Myproxy (tested version v6.1)
+- Pyopenssl (OpenSSL ; tested version: 19.0.0)
+- MyProxyClient (tested version: 2.1.0)
+- Myproxy (tested version v6.2)
 - Geckodriver (tested version: 0.20.0)
-- Selenium (tested version 3.9.0)
-- Requests (tested version 2.18.4)
-- LibXML (tested version: 2.9.3+dfsg1-1ubuntu0.5)
-- LibXSLT (tested version: 1.1.28-2.1ubuntu0.1)
-- LXML (tested version: 4.1.0)
+- Selenium (tested version 3.141.0)
+- Requests (tested version 2.22.0)
+- LibXML (tested version: 2.9.1-6)
+- LibXSLT (tested version: 1.1.28-5)
+- LXML (tested version: 4.3.4)
 - Nose-testconfig (tested version: 0.10)
 - Nose-htmloutput (tested version: 0.6.0)
 
@@ -69,17 +69,13 @@ Current developments will also let admins to test and validate the stack by runn
 
 ### Linux
 
-Tested with Linux Mint 18.3
+Tested on CentOS 7.
 
 * OS packages installation.
 
-Command for Red Hat / CentOS / Scientifix Linux:
+Command for Red Hat / CentOS / Scientifix Linux 7:
      
-     yum install python-devel openssl-devel libxml2-devel libxslt-devel globus-gass-copy-progs firefox myproxy
-
-Command for Debian like Systems:
-     
-     apt-get install python2.7-dev libssl-dev libxml2-dev libxslt-dev globus-gass-copy-progs firefox myproxy
+     yum install openssl-devel libxml2-devel libxslt-devel globus-gass-copy-progs firefox myproxy
 
 * Geckodriver installation (driver for Firefox):
 
@@ -106,7 +102,7 @@ cd ./esgf-test-suite/esgf-test-suite
 
 ### MacOSX
 
-Tested with MacOSX Sierra and Miniconda for Python 2.7
+Untested on MacOSX. Sorry, waiting for feedback...
 
 * Geckodriver installation (driver for Firefox):
 
@@ -145,7 +141,7 @@ cd ./esgf-test-suite/esgf-test-suite
 
 ### Singularity
 
-Tested with Singularity 2.4.4 under MacOSX Sierra, Linux Mint 18.3 and CentOS 7.
+Tested with Singularity 2.5.2-dist on CentOS 7.
 
 A Singularity image of container is also available. At the moment, it only packages the dependencies (python, pip packages, etc.) of the esgf-test-suite and not the test-suite itself.
 This image is built from the offical docker image of the latest version of LTS Ubuntu (Singularity recipe is described [here](https://github.com/ESGF/esgf-test-suite/blob/master/esgf-test-suite/singularity/esgf-test-suite.def)).
@@ -277,20 +273,20 @@ The nosetest doc is available [here](http://nose.readthedocs.io/en/latest/testin
 
 * Run all the tests:
 ```
-python2 esgf-test.py -v --nocapture --nologcapture --tc-file my_config.ini 
+python3 esgf-test.py -v --nocapture --nologcapture --tc-file my_config.ini 
 ```
 Note: you can set the configuration file path to be automatically loaded with the environment variable `NOSE_TESTCONFIG_AUTOLOAD_INI`:
 
 ```
 export NOSE_TESTCONFIG_AUTOLOAD_INI=/path/to/my_config.ini
-python2 esgf-test.py -v --nocapture --nologcapture
+python3 esgf-test.py -v --nocapture --nologcapture
 ```
 
 * Run a set of tests according to a nose attribute
 
 This command line executes only the basic tests:
 ```
-python2 esgf-test.py -v --nocapture --nologcapture --tc-file my_config.ini -a 'basic'
+python3 esgf-test.py -v --nocapture --nologcapture --tc-file my_config.ini -a 'basic'
 ```
 Note: see the section _test selection_ for more information about nose attributes.
 
@@ -299,7 +295,7 @@ Note: see the section _test selection_ for more information about nose attribute
 This command line executes only the basic tests for the index node configured in `my_config.ini` (basic set _intersect_ index 
 set):
 ```
-python2 esgf-test.py -v --nocapture --nologcapture --tc-file my_config.ini -a 'basic,index'
+python3 esgf-test.py -v --nocapture --nologcapture --tc-file my_config.ini -a 'basic,index'
 ```
 Note: You may provide as many attributes as you want (the operator is still _intersect_).
 
@@ -307,14 +303,14 @@ Note: You may provide as many attributes as you want (the operator is still _int
 
 This command line executes the basic tests for all types of node except the basic tests of the compute node:
 ```
-python2 esgf-test.py -v --nocapture --nologcapture --tc-file my_config.ini -a 'basic,!compute'
+python3 esgf-test.py -v --nocapture --nologcapture --tc-file my_config.ini -a 'basic,!compute'
 ```
 * Run an union of sets of tests according to nose attributes
 
 This example runs the union of the set of tests for the idp node and the set of tests for the index node (idp set _plus_ index 
 set):
 ```
-python2 esgf-test.py -v --nocapture --nologcapture --tc-file my_config.ini -a 'idp' -a 'index'
+python3 esgf-test.py -v --nocapture --nologcapture --tc-file my_config.ini -a 'idp' -a 'index'
 ```
 Note: You may provide as many '-a' expressions as you want (the operator is still _plus_).
 
@@ -325,7 +321,7 @@ user'.
 
 This example runs the tests located in test/test\_node\_components/test\_index (the tests for index node).
 ```
-python2 esgf-test.py -v --nocapture --nologcapture --tc-file my_config.ini utils ./test/test_node_components/test_index
+python3 esgf-test.py -v --nocapture --nologcapture --tc-file my_config.ini utils ./test/test_node_components/test_index
 ```
 Note: the `utils` directory is mandatory (esgf-test-suite python libraries).
 
@@ -333,7 +329,7 @@ Note: the `utils` directory is mandatory (esgf-test-suite python libraries).
 
 This example run the basic tests for index node, overring the index node value from the default configuration: it tests the index node of LLNL:
 ```
-python2 esgf-test.py -v --nocapture --nologcapture --tc-file default.ini -a 'basic,index' --tc='nodes.index_node:esgf-node.llnl.gov'
+python3 esgf-test.py -v --nocapture --nologcapture --tc-file default.ini -a 'basic,index' --tc='nodes.index_node:esgf-node.llnl.gov'
 ```
 Note: the `nodes.index_node` corresponds to the section `nodes` and the key `index_node` in the configuration file.
 
@@ -341,7 +337,7 @@ Note: the `nodes.index_node` corresponds to the section `nodes` and the key `ind
 
 This example runs the basic tests for the index node of LLNL:
 ```
-python2 esgf-test.py -v --nocapture --nologcapture -a 'basic,index' --tc='nodes.index_node:esgf-node.llnl.gov'
+python3 esgf-test.py -v --nocapture --nologcapture -a 'basic,index' --tc='nodes.index_node:esgf-node.llnl.gov'
 ```
 More informations about the command line options concerning the configuration [here](https://pypi.python.org/pypi/nose-testconfig).
 
@@ -365,12 +361,12 @@ have any attribute.
 
 * Without SLCS
 ```
-python2 esgf-test.py -v --nocapture --nologcapture --tc-file my_config.ini -a '!compute,!cog_create_user,!slcs' --with-id
+python3 esgf-test.py -v --nocapture --nologcapture --tc-file my_config.ini -a '!compute,!cog_create_user,!slcs' --with-id
 ```
 
 * With SLCS
 ```
-python2 esgf-test.py -v --nocapture --nologcapture --tc-file my_config.ini -a '!compute,!cog_create_user' --with-id
+python3 esgf-test.py -v --nocapture --nologcapture --tc-file my_config.ini -a '!compute,!cog_create_user' --with-id
 ```
 
 Don't forget to configure the superset to the value _classic_ in the configuration file.
@@ -378,7 +374,7 @@ Don't forget to configure the superset to the value _classic_ in the configurati
 ### Recommanded tests for a ESGF docker deployement
 
 ```
-python2 esgf-test.py -v --nocapture --nologcapture --tc-file my_config.ini -a 'basic,!compute' -a 'slcs' --with-id
+python3 esgf-test.py -v --nocapture --nologcapture --tc-file my_config.ini -a 'basic,!compute' -a 'slcs' --with-id
 ```
 Don't forget to configure the superset to the value _docker_ in the configuration file (see section Configuration).
 
