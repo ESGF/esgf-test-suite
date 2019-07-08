@@ -82,13 +82,14 @@ class MyProxyUtils(object):
     #  os.chmod(self.credsfile, self.myproxy.PROXY_FILE_PERMISSIONS)
 
     # WORKAROUND SSL-MYPROXYCLIENT PROBLEM
+
     username = config.get(config.ACCOUNT_SECTION, config.USER_NAME_KEY)
     password = config.get(config.ACCOUNT_SECTION, config.USER_PASSWORD_KEY)
     command = ['myproxy-logon', '-S', '-T', '-s', self.idp_addr, '-p', self.port, '-l', username, '-o', self.credsfile, '-b']
-    process = subprocess.Popen(command,  stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, shell=False)
-    stdout, stderr = process.communicate(password)
-    process.wait()
-    assert(process.returncode == 0), "fail to get the credentials for {0} (sdtout: {1} ; stderr: {2})".format(self.idp_addr, stdout, stderr)
+
+    process = subprocess.run(command, input=password.encode(), stdout=subprocess.PIPE, stderr=subprocess.STDOUT, timeout=60)
+    assert(process.returncode == 0), "fail to get the credentials for {0} (sdtout: {1} ; stderr: {2})".format(self.idp_addr, process.stdout, process.stderr)
+
     file_content = ''
     with open(self.credsfile, 'r') as file:
       for line in file.readlines():
