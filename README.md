@@ -56,7 +56,7 @@ Current developments will also let admins to test and validate the stack by runn
 - Pyopenssl (OpenSSL ; tested version: 19.0.0)
 - MyProxyClient (tested version: 2.1.0)
 - Myproxy (tested version v6.2)
-- Geckodriver (tested version: 0.20.0)
+- Geckodriver (tested version: 0.24.0)
 - Selenium (tested version 3.141.0)
 - Requests (tested version 2.22.0)
 - LibXML (tested version: 2.9.1-6)
@@ -148,7 +148,7 @@ This image is built from the offical docker image of the latest version of LTS U
 
 * Linux
 
-  * Install Singularity (procedure available [here](http://singularity.lbl.gov/install-linux))
+  * Install Singularity (procedure available [here](https://sylabs.io/guides/3.2/admin-guide/admin_quickstart.html#installation))
   
   * Download the image [here](http://distrib-coffee.ipsl.jussieu.fr/pub/esgf/dist/esgf-test-suite/esgf-test-suite_env.singularity.img) (sha1: 869b98a087a24b08bfcf394ad7028fb3a606215c)
   

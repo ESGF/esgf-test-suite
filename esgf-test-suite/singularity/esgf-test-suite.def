@@ -1,26 +1,12 @@
 Bootstrap: docker
-From: centos:latest
+From: python:3.7.3-stretch
 
 %labels
 MAINTAINER sebastien.gardoll@ipsl.fr
 
 %post
   
-  yum -y update
-  yum -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
-  yum -y install python-devel openssl-devel libxml2-devel libxslt-devel globus-gass-copy-progs firefox myproxy wget
-
-  wget https://bootstrap.pypa.io/get-pip.py -O /tmp/get-pip.py
-
-  python2.7 /tmp/get-pip.py
-
+  apt-get -y update
+  apt-get -y install libssl-dev libxml2-dev libxslt1-dev globus-gass-copy-progs firefox-esr myproxy
   pip install -U nose pyopenssl MyProxyClient selenium requests nose-testconfig nose-htmloutput rednose lxml
-
-  wget https://github.com/mozilla/geckodriver/releases/download/v0.19.1/geckodriver-v0.19.1-linux64.tar.gz -O /tmp/geckodriver-v0.19.1-linux64.tar.gz
-
-  tar -xzvf /tmp/geckodriver-v0.19.1-linux64.tar.gz -C /usr/local/bin
-  
-  rm /tmp/get-pip.py
-  rm /tmp/geckodriver-v0.19.1-linux64.tar.gz
-
-  yum -y erase wget
+  curl -L https://github.com/mozilla/geckodriver/releases/download/v0.24.0/geckodriver-v0.24.0-linux64.tar.gz | tar xz -C /usr/local/bin
