@@ -1,5 +1,5 @@
 Bootstrap: docker
-From: python:3.7.3-stretch
+From: debian:latest
 
 %labels
 MAINTAINER sebastien.gardoll@ipsl.fr
@@ -7,6 +7,6 @@ MAINTAINER sebastien.gardoll@ipsl.fr
 %post
   
   apt-get -y update
-  apt-get -y install libssl-dev libxml2-dev libxslt1-dev globus-gass-copy-progs firefox-esr myproxy
-  pip install -U nose pyopenssl MyProxyClient selenium requests nose-testconfig nose-htmloutput rednose lxml
+  apt-get -y install curl python3 python3-pip libssl-dev libxml2-dev libxslt1-dev globus-gass-copy-progs firefox-esr myproxy
+  pip3 install -U nose pyopenssl MyProxyClient selenium requests nose-testconfig nose-htmloutput rednose lxml
   curl -L https://github.com/mozilla/geckodriver/releases/download/v0.24.0/geckodriver-v0.24.0-linux64.tar.gz | tar xz -C /usr/local/bin
