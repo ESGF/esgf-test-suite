@@ -176,9 +176,7 @@ class ThreddsUtils(object):
     for proj_url in projects:
       print(f"[DEBUG] fetching content of project '{proj_url}'")
       try:
-        #!!!
-        #content = urllib.request.urlopen(proj_url)
-        content = urllib.request.urlopen('file:///home_local/sgardoll/Documents/dev/esgf-test-suite/esgf-test-suite/catalog.xml')
+        content = urllib.request.urlopen(proj_url)
       except:
         continue
       print(f"[DEBUG] parsing the content of project '{proj_url}'")
