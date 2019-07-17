@@ -164,22 +164,22 @@ class ThreddsUtils(object):
       else:
         unfiltered.append(url)
 
-    print(f"[DEBUG] len of filtered: {len(filtered)}")
-    print(f"[DEBUG] len of unfiltered: {len(unfiltered)}")
+    #print(f"[DEBUG] len of filtered: {len(filtered)}")
+    #print(f"[DEBUG] len of unfiltered: {len(unfiltered)}")
     return (filtered, unfiltered)
 
   def get_catalogrefs(self, projects):
-    print("[DEBUG] starting get_catalogrefs")
+    #print("[DEBUG] starting get_catalogrefs")
     filtered   = list()
     unfiltered = list()
 
     for proj_url in projects:
-      print(f"[DEBUG] fetching content of project '{proj_url}'")
+      #print(f"[DEBUG] fetching content of project '{proj_url}'")
       try:
         content = urllib.request.urlopen(proj_url)
       except:
         continue
-      print(f"[DEBUG] parsing the content of project '{proj_url}'")
+      #print(f"[DEBUG] parsing the content of project '{proj_url}'")
       # Parsing catalogRef xml entries
       local_filtered, local_unfiltered = self.filter_catalogrefs(proj_url, '(.fx.)|(.mon.)', content)
       filtered.extend(local_filtered)
@@ -198,7 +198,7 @@ class ThreddsUtils(object):
       filtered.extend(unfiltered[0:last_index])
     else:
       filtered = random.sample(filtered, ThreddsUtils.CATALOG_REF_NUM_LIMIT)
-    print("[DEBUG] end of get_catalogrefs")
+    #print("[DEBUG] end of get_catalogrefs")
     return filtered
 
   def get_projects(self):
@@ -222,34 +222,32 @@ class ThreddsUtils(object):
 
   def get_endpoints(self):
     if ThreddsUtils.endpoints is None:
-      print("[DEBUG] starting get_endpoints")
+      #print("[DEBUG] starting get_endpoints")
       endpoints = []
 
       # Determining number of processes and chunks
       nb_chunks = multiprocessing.cpu_count()
-      print(f"[DEBUG] number of chunks: {nb_chunks}")
+      #print(f"[DEBUG] number of chunks: {nb_chunks}")
 
-      print("[DEBUG] getting projects")      
+      #print("[DEBUG] getting projects")      
       # Getting projects href links from main catalog (http://data_node/thredds/catalog/catalog.xml)
-      # !!!
       projects = self.get_projects()
-      #projects = ["http://vesg.ipsl.upmc.fr/thredds/catalog/esgcet/catalog.xml"]
-      print(f"[DEBUG] projects: {projects}")
+      #print(f"[DEBUG] projects: {projects}")
 
       # Getting and chunking catalogrefs href links from project catalogs (ex: http://data_node/thredds/geomip/catalog.xml)
-      print("[DEBUG] getting catalogrefs")
+      #print("[DEBUG] getting catalogrefs")
       catalogrefs = self.get_catalogrefs(projects)
-      print(f"[DEBUG] len of catalogrefs: {len(catalogrefs)}")
+      #print(f"[DEBUG] len of catalogrefs: {len(catalogrefs)}")
 
       print(catalogrefs[0])
-      print("[DEBUG] chunking catalogrefs")
+      #print("[DEBUG] chunking catalogrefs")
       chunked_catalogrefs = self.chunk_it(catalogrefs, nb_chunks)
-      print(f"[DEBUG] len of chunked_catalogrefs: {len(chunked_catalogrefs)}")
+      #print(f"[DEBUG] len of chunked_catalogrefs: {len(chunked_catalogrefs)}")
 
       # Starting multiprocessed work
-      print("[DEBUG] starting multiprocess work")
+      #print("[DEBUG] starting multiprocess work")
       endpoints = self.map_processes(chunked_catalogrefs)
       ThreddsUtils.endpoints = endpoints
 
-      print("[DEBUG] end of get_endpoints")
+      #print("[DEBUG] end of get_endpoints")
     return ThreddsUtils.endpoints

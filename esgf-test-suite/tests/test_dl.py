@@ -35,14 +35,14 @@ class TestDataDownload(AbstractBrowserBasedTest, AbstractMyproxyBasedTest):
     AbstractMyproxyBasedTest.__init__(self)
     
     self._tu = cat.ThreddsUtils()
-    print("[DEBUG] starting endpoints computation")
+    # print("[DEBUG] starting endpoints computation")
     self._endpoints = self._tu.get_endpoints()
     
     self.data_node = config.get(config.NODES_SECTION, config.DATA_NODE_KEY)
     self.idp_node = config.get(config.NODES_SECTION, config.IDP_NODE_KEY)
     self.username = config.get(config.ACCOUNT_SECTION, config.USER_NAME_KEY)
     self.password = config.get(config.ACCOUNT_SECTION, config.USER_PASSWORD_KEY)
-    print("[DEBUG] end of TestDataDownload initialization")
+    # print("[DEBUG] end of TestDataDownload initialization")
 
   def _get_endpoint_path(self, service):
     if not self._endpoints:
