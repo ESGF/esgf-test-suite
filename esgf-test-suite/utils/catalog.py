@@ -4,9 +4,12 @@ from lxml import etree
 import multiprocessing
 from io import BytesIO
 
+import random
 import utils.configuration as config
 
 class ThreddsUtils(object):
+  
+  CATALOG_REF_NUM_LIMIT = 100
   
   catalog_ns = '{http://www.unidata.ucar.edu/namespaces/thredds/InvCatalog/v1.0}'
   # catalog.py experienced memory problem when computing more than twice the
@@ -156,21 +159,24 @@ class ThreddsUtils(object):
     return filtered
 
   def get_catalogrefs(self, projects):
+    print("[DEBUG] starting get_catalogrefs")
     catalogrefs = []
 
     for proj_url in projects:
+      print(f"[DEBUG] fetching content of project '{proj_url}'")
       try:
         content = urllib.request.urlopen(proj_url)
       except:
         continue
-
-      # Parsing catalogRef xml entries
+      print(f"[DEBUG] parsing the content of project '{proj_url}'")
+      # Parsing catalogRef xml entries: very long computation time.
       catalogrefs.extend(self.filter_catalogrefs(proj_url, '.fx.'))
       if len(catalogrefs) == 0:
         catalogrefs.extend(self.filter_catalogrefs(proj_url, '.mon.'))
         if len(catalogrefs) == 0:
           catalogrefs.extend(self.filter_catalogrefs(proj_url, ''))
 
+    print("[DEBUG] end of get_catalogrefs")
     return catalogrefs
 
   def get_projects(self):
@@ -194,20 +200,35 @@ class ThreddsUtils(object):
 
   def get_endpoints(self):
     if ThreddsUtils.endpoints is None:
+      print("[DEBUG] starting get_endpoints")
       endpoints = []
 
       # Determining number of processes and chunks
-      nb_chunks = multiprocessing.cpu_count() * 16
+      nb_chunks = multiprocessing.cpu_count() #* 16
+      print(f"[DEBUG] number of chunks: {nb_chunks}")
 
+      print("[DEBUG] getting projects")      
       # Getting projects href links from main catalog (http://data_node/thredds/catalog/catalog.xml)
       projects = self.get_projects()
+      print(f"[DEBUG] projects: {projects}")
 
       # Getting and chunking catalogrefs href links from project catalogs (ex: http://data_node/thredds/geomip/catalog.xml)
+      print("[DEBUG] getting catalogrefs")
       catalogrefs = self.get_catalogrefs(projects)
+      print(f"[DEBUG] len of catalogrefs: {len(catalogrefs)}")
+
+      if len(catalogrefs) > ThreddsUtils.CATALOG_REF_NUM_LIMIT:
+        print(f"[DEBUG] limit catalogrefs to {ThreddsUtils.CATALOG_REF_NUM_LIMIT} items")
+        catalogrefs = random.sample(catalogrefs, ThreddsUtils.CATALOG_REF_NUM_LIMIT)
+
+      print("[DEBUG] chunking catalogrefs")
       chunked_catalogrefs = self.chunk_it(catalogrefs, nb_chunks)
+      print(f"[DEBUG] len of chunked_catalogrefs: {len(chunked_catalogrefs)}")
 
       # Starting multiprocessed work
+      print("[DEBUG] starting multiprocess work")
       endpoints = self.map_processes(chunked_catalogrefs)
       ThreddsUtils.endpoints = endpoints
 
+      print("[DEBUG] end of get_endpoints")
     return ThreddsUtils.endpoints
