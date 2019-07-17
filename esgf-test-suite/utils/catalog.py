@@ -239,7 +239,6 @@ class ThreddsUtils(object):
       catalogrefs = self.get_catalogrefs(projects)
       #print(f"[DEBUG] len of catalogrefs: {len(catalogrefs)}")
 
-      print(catalogrefs[0])
       #print("[DEBUG] chunking catalogrefs")
       chunked_catalogrefs = self.chunk_it(catalogrefs, nb_chunks)
       #print(f"[DEBUG] len of chunked_catalogrefs: {len(chunked_catalogrefs)}")
