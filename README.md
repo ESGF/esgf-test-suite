@@ -150,8 +150,8 @@ This image is built from the offical docker image of the latest version of LTS U
 
   * Install Singularity (procedure available [here](https://sylabs.io/guides/3.2/admin-guide/admin_quickstart.html#installation))
   
-  * Download the image [here](http://distrib-coffee.ipsl.jussieu.fr/pub/esgf/dist/esgf-test-suite/esgf-test-suite_env.singularity.img) (sha1: 010d031bd258b21d149ad0a0920de71a90b8fc7a)
-    The image that works with Python 2 is still available [here](http://distrib-coffee.ipsl.jussieu.fr/pub/esgf/dist/esgf-test-suite/esgf-test-suite_env.singularity.img.py2) (sha1: 869b98a087a24b08bfcf394ad7028fb3a606215c)
+  * Download the image [here](http://distrib-coffee.ipsl.jussieu.fr/pub/esgf/dist/esgf-test-suite/esgf-test-suite_env.singularity.img) (sha1: 010d031bd258b21d149ad0a0920de71a90b8fc7a).
+    The previous image that works with Python 2 is still available [here](http://distrib-coffee.ipsl.jussieu.fr/pub/esgf/dist/esgf-test-suite/esgf-test-suite_env.singularity.img.py2) (sha1: 869b98a087a24b08bfcf394ad7028fb3a606215c)
 
   * Clone this repository then cd to it: `git clone https://github.com/ESGF/esgf-test-suite.git ; cd ./esgf-test-suite/esgf-test-suite`
 
@@ -161,8 +161,8 @@ This image is built from the offical docker image of the latest version of LTS U
 
   * Create a Linux virtual machine (procedure available [here](http://singularity.lbl.gov/install-mac))
   * ssh into the virtual machine: `vagrant ssh`
-  * Download the image [here](http://distrib-coffee.ipsl.jussieu.fr/pub/esgf/dist/esgf-test-suite/esgf-test-suite_env.singularity.img) (sha1: 010d031bd258b21d149ad0a0920de71a90b8fc7a)
-    The image that works with Python 2 is still available [here](http://distrib-coffee.ipsl.jussieu.fr/pub/esgf/dist/esgf-test-suite/esgf-test-suite_env.singularity.img.py2) (sha1: 869b98a087a24b08bfcf394ad7028fb3a606215c)
+  * Download the image [here](http://distrib-coffee.ipsl.jussieu.fr/pub/esgf/dist/esgf-test-suite/esgf-test-suite_env.singularity.img) (sha1: 010d031bd258b21d149ad0a0920de71a90b8fc7a).
+    The previous image that works with Python 2 is still available [here](http://distrib-coffee.ipsl.jussieu.fr/pub/esgf/dist/esgf-test-suite/esgf-test-suite_env.singularity.img.py2) (sha1: 869b98a087a24b08bfcf394ad7028fb3a606215c)
   * Clone this repository then cd to it: `git clone https://github.com/ESGF/esgf-test-suite.git ; cd ./esgf-test-suite/esgf-test-suite`
   * Turn on the esgf-test-suite environment image, once per session: `singularity shell esgf-test-suite_env.singularity.img`
 
