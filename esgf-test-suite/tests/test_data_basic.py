@@ -8,8 +8,8 @@ import utils.configuration as config
 @attr ('basic')
 class TestWebFrontEnds(AbstractWebFrontEndTestClass):
   
-  _classic_front_ends = ['thredds', 'esg-orp/home.htm']
-  _docker_front_ends = ['thredds', 'esg-orp/home.htm', 'esgf-auth/home']
+  _classic_front_ends = ['thredds/catalog/catalog.html', 'esg-orp/home.htm']
+  _docker_front_ends = ['thredds/catalog/catalog.html', 'esg-orp/home.htm', 'esgf-auth/home']
   
   def __init__(self):
     
